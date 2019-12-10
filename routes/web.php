@@ -18,3 +18,6 @@ Route::get('/', function () {
 Route::resource('metadata', 'MetadataController');
 Route::resource('rinciankegiatan', 'RinciankegiatanController');
 Route::get('rinciankegiatan/getSubunsurList/{id}','RinciankegiatanController@getSubunsurList');
+Route::resource('rincianangkakredit', 'RincianangkakreditController');
+
+

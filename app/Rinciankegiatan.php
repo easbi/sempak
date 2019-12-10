@@ -10,6 +10,7 @@ class Rinciankegiatan extends Model
     protected $fillable = [
     	'id_unsur_utama',
     	'id_subunsur',
-    	'rincian_kegiatan'
+    	'rincian_kegiatan',
+    	'satuan'
     ];
 }
