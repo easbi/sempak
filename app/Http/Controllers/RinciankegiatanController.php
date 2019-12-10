@@ -34,6 +34,7 @@ class RinciankegiatanController extends Controller
     public function getSubunsurList($id)
     {
         $subunsurs = DB::table("master_subunsurs")->where("id_unsur", $id)->pluck('kegiatan_sub_unsur', 'id_sub_unsur');
+        //dd($subunsurs);
         return json_encode($subunsurs);
     }
 

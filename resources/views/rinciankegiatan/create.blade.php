@@ -24,11 +24,7 @@
                     {{ csrf_field() }}
 
                     <div class="form-group">
-                        <label>Unsur Utama</label><br>
-                            {{-- <select id="unsurutamas" name="unsurutamas" class="form-control">
-                            @foreach ($unsurutamas as $ut)
-                                <option value="{{$ut->id}}">{{$ut->unsur_utama}}</option>
-                                @endforeach --}}
+                        <label>Unsur Utama</label>
                             <select id="unsurutamas" name="unsurutamas" class="form-control">
                                 <option value="" selected disabled>Select</option>
                                 @foreach($unsurutamas as $key => $unsurutama)
@@ -41,14 +37,12 @@
                             <select name="subunsur" id="subunsur" class="form-control">
                                 <option>--Sub Unsur--</option>
                             </select>
-
                         </div>
-                        {{-- <div class="form-group">
-                            <br>
+                        <div class="form-group">
                             <label>Rincian Kegiatan</label>
                             <input type="text" name="rincian" class="form-control">
 
-                        </div> --}}
+                        </div>
                         <br><br>
                         <div class="form-group">
                             <br>

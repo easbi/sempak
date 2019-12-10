@@ -17,4 +17,4 @@ Route::get('/', function () {
 });
 Route::resource('metadata', 'MetadataController');
 Route::resource('rinciankegiatan', 'RinciankegiatanController');
-Route::get('getSubunsurList/{id}','RinciankegiatanController@getSubunsurList');
+Route::get('rinciankegiatan/getSubunsurList/{id}','RinciankegiatanController@getSubunsurList');
