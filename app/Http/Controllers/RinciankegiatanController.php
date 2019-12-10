@@ -16,7 +16,15 @@ class RinciankegiatanController extends Controller
      */
     public function index()
     {
-        $rinciankegiatan = Rinciankegiatan::all();
+        //$rinciankegiatan = Rinciankegiatan::all();
+        $rinciankegiatan = DB::table('master_rincian_kegiatan')
+            ->join('master_subunsurs', 'master_rincian_kegiatan.id_subunsur', '=', 'master_subunsurs.id_sub_unsur')
+            ->join('master_unsur_utama', 'master_rincian_kegiatan.id_unsur_utama', '=', 'master_unsur_utama.id')
+            ->select('master_rincian_kegiatan.*', 'master_unsur_utama.unsur_utama','master_subunsurs.kegiatan_sub_unsur')
+            ->orderby('id_rincian_kegiatan','asc')
+            ->get();
+
+        //dd($rinciankegiatan);
         return view('rinciankegiatan.index', ['rinciankegiatan' => $rinciankegiatan]);
     }
 
@@ -46,7 +54,12 @@ class RinciankegiatanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Rinciankegiatan::create([
+            'id_unsur_utama' => $request->unsurutamas,
+            'id_subunsur' => $request->subunsur,
+            'rincian_kegiatan' => $request->rincian,
+        ]);
+        return redirect('/rinciankegiatan');
     }
 
     /**

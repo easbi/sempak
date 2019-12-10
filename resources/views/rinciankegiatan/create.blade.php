@@ -19,7 +19,7 @@
                 <br/>
                 <br/>
 
-                <form method="post" action="/rinciankegiatan/store">
+                <form method="post" action="{{ route('rinciankegiatan.store') }}">
 
                     {{ csrf_field() }}
 
