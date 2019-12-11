@@ -27,7 +27,9 @@
                             <th>Subunsur</th>          
                             <th>Rincian Kegiatan</th>
                             <th>Tingkatan Widyaiswara</th>
+                            <th>Kode Kegiatan</th>
                             <th>Angka Kredit</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -38,6 +40,7 @@
                             <td>{{ $p->kegiatan_sub_unsur }}</td>
                             <td>{{ $p->rincian_kegiatan }}</td>
                             <td>{{ $p->nama_tingkatan }}</td>
+                            <td>{{ $p->kk }}</td>
                             <td>{{ $p->angka_kredit }}</td>
                         </tr>
                         @endforeach

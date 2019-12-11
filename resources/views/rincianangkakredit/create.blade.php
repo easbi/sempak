@@ -16,7 +16,7 @@
         Data Rincian Angka Kredit - <strong>TAMBAH DATA</strong>
       </div>
       <div class="card-body">
-        <a href="/pegawai" class="btn btn-primary">Kembali</a>
+        <a href="{{ url('/rincianangkakredit')}}" class="btn btn-primary">Kembali</a>
         <br/>
         <br/>
 
@@ -57,6 +57,10 @@
           <div class="form-group">
             <label>Angka Kredit</label>
             <input type="text" name="angka_kredit" class="form-control">
+          </div> 
+          <div class="form-group">
+            <label>Kode Kegiatant</label>
+            <input type="text" name="kk" class="form-control">
           </div> 
           <div class="form-group">
             <br>

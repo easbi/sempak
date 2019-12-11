@@ -15,7 +15,7 @@
         Data Rincian Kegiatan - <strong>TAMBAH DATA</strong>
       </div>
       <div class="card-body">
-        <a href="/pegawai" class="btn btn-primary">Kembali</a>
+        <a href="{{ url('/rinciankegiatan')}}" class="btn btn-primary">Kembali</a>
         <br/>
         <br/>
 
