@@ -16,13 +16,13 @@
                 Data Rincian Angka Kredit
             </div>
             <div class="card-body">
-                <a href="{{ url('/rinciankegiatan/create') }}" class="btn btn-primary">Input Rincian Angka Kredit Baru</a>
+                <a href="{{ url('/rincianangkakredit/create') }}" class="btn btn-primary">Input Rincian Angka Kredit Baru</a>
                 <br/>
                 <br/>
                 <table id="example" class="display">
                     <thead>
                         <tr>
-                            <th>No Rincian Angka Kredit</th>
+                            <th>No</th>
                             <th>Unsur Utama</th>
                             <th>Subunsur</th>          
                             <th>Rincian Kegiatan</th>
@@ -31,7 +31,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+                        @foreach($rincianangkakredits as $p)
+                        <tr>
+                            <td>{{ $p->id_rinci_ak }}</td>
+                            <td>{{ $p->unsur_utama }}</td>
+                            <td>{{ $p->kegiatan_sub_unsur }}</td>
+                            <td>{{ $p->rincian_kegiatan }}</td>
+                            <td>{{ $p->nama_tingkatan }}</td>
+                            <td>{{ $p->angka_kredit }}</td>
+                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
