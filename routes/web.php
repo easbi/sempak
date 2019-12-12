@@ -16,14 +16,13 @@ Route::get('/', function () {
 
 });
 Route::resource('metadata', 'MetadataController');
-
+Route::resource('masteracara', 'MasteracaraController');
 Route::get('rinciankegiatan/getSubunsurList/{id}','RinciankegiatanController@getSubunsurList');
 Route::resource('rinciankegiatan', 'RinciankegiatanController');
-
-
 Route::get('rincianangkakredit/getSubunsurList','RincianangkakreditController@getSubunsurList');
 Route::get('rincianangkakredit/getRinciankegiatanList','RincianangkakreditController@getRinciankegiatanList');
 Route::resource('rincianangkakredit', 'RincianangkakreditController');
+Route::resource('transaksi', 'TransaksiController');
 
 
 
