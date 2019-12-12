@@ -45,13 +45,36 @@
           </div>
           <div class="form-group">
             <label>Tanggal Mulai</label>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
-            <input type="date" data-date="" data-date-format="DD MMMM YYYY" value="2019-12-09">           
+            <input type="date" name="awal_acara" class="form-control">            
           </div>
           <div class="form-group">
             <label>Tanggal Selesai</label>
             <input type="date" name="akhir_acara" class="form-control">            
           </div>
+          <div class="form-group">
+            <label>Nama Acara / Diklat</label>
+            <select id="nama_acara" name="nama_acara" class="form-control">
+              <option value="" selected disabled>Select</option>
+              @foreach($nama_acaras as $key => $nama_acara)
+              <option value="{{$key}}"> {{$nama_acara}}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Keterangan</label>
+            <textarea class="form-control" name="keterangan"></textarea>            
+          </div>
+          <div class="form-group">
+            <label>Angka Kredit</label>
+            <input type="text" name="angka_kredit" class="form-control">
+          </div> 
+          <div class="form-group">
+            <label>Berkas</label>
+            <input type="text" name="berkas" class="form-control">
+          </div>
+          
+
+
           <div class="form-group">
             <br>
             <input type="submit" class="btn btn-success" value="Simpan">

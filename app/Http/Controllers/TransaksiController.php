@@ -25,7 +25,8 @@ class TransaksiController extends Controller
     public function create()
     {
         $unsurutamas = DB::table("master_unsur_utama")->pluck( 'unsur_utama', 'id');
-        return view('transaksi.create', compact('unsurutamas'));
+        $nama_acaras = DB::table("master_acara")->pluck('nama_acara', 'id');
+        return view('transaksi.create', compact('unsurutamas', 'nama_acaras'));
     }
 
     /**
