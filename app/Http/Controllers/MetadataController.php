@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Metadata;
+use DB;
 
 class MetadataController extends Controller
 {
@@ -14,9 +15,8 @@ class MetadataController extends Controller
      */
     public function index()
     {
-        //
-        //$unsurUtama = \App\Metadata::orderBy('created_at', 'desc')->get();
-        return view('metadata.index');
+        $unsurUtama = DB::table('master_unsur_utama')->get();
+        return view('metadata.index', compact('unsurUtama'));
     }
 
     /**

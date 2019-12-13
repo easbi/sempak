@@ -66,13 +66,13 @@
           </div>
           <div class="form-group">
             <label>Angka Kredit</label>
-            <input type="text" name="angka_kredit" class="form-control">
+            <input type="text" name="angka_kredit" placeholder="AUTO FROM JOIN DB" class="form-control">
           </div> 
           <div class="form-group">
             <label>Berkas</label>
-            <input type="text" name="berkas" class="form-control">
+            <input type="file" name="berkas" class="form-control">
           </div>
-          
+
 
 
           <div class="form-group">

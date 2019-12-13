@@ -41,7 +41,7 @@
                             <td>{{ $p->rincian_kegiatan }}</td>
                             <td>{{ $p->nama_tingkatan }}</td>
                             <td>{{ $p->kk }}</td>
-                            <td>{{ $p->angka_kredit }}</td>
+                            <td>{{ str_replace('.', ',', $p->angka_kredit) }}</td>
                         </tr>
                         @endforeach
                     </tbody>

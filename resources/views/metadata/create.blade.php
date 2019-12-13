@@ -1,26 +1,40 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
-	<title>CRUD PHP MySQLi | TUTORIALWEB.NET</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-	
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> 
+  
+  <title>SIMPAK 2019</title>
 </head>
 <body>
-	<form method="post" action="{{url('metadata')}}" enctype="multipart/form-data">
-    {{ csrf_field() }}
-  
-     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Nama Unsur Utama</strong>
-                <input type="text" name="unsur_utama" class="form-control" placeholder="Name">
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
+  <div class="container">
+    <div class="card mt-5">
+      <div class="card-header text-center">
+        Data Unsur Utama - <strong>Tamabah Data</strong>
+      </div>
+      <div class="card-body">
+        <a href="{{ url('/metadata')}}" class="btn btn-primary">Kembali</a>
+        <br/>
+        <br/>
+
+        <form method="post" action="{{ route('metadata.store') }}">
+
+          {{ csrf_field() }}
+
+          <div class="form-group">
+            <label>Unsur Utama</label>
+            <input type="text" name="unsur_utama" class="form-control">
+          </div>
+          <div class="form-group">
+            <input type="submit" class="btn btn-success" value="Simpan">
+          </div>
+
+        </form>
+
+      </div>
     </div>
-   
-</form>
+  </div>
 </body>
 </html>
