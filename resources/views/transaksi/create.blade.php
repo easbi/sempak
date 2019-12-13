@@ -18,7 +18,7 @@
         <br/>
         <br/>
 
-        <form method="post" action="{{ route('transaksi.store') }}">
+        <form method="post" action="{{ route('transaksi.store') }}" enctype="multipart/form-data">
 
           {{ csrf_field() }}
 
@@ -66,7 +66,7 @@
           </div>
           <div class="form-group">
             <label>Angka Kredit</label>
-            <input type="text" name="angka_kredit" id="angka_kredit" class="form-control" disabled="">
+            <input type="text" name="angka_kredit" id="angka_kredit" class="form-control" readonly="true">
           </div> 
           <div class="form-group">
             <label>Berkas</label>

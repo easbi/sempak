@@ -41,10 +41,8 @@ class TransaksiController extends Controller
     public function store(Request $request)
     {
         $file = $request->file('berkas');
-        dd($file);
         $filename = $file->getClientOriginalName();
         $file->move('file_rincian_dupak', $filename);
-
         Transaksi::create([
                 'id_user' => 1,
                 'id_unsur_utama' => $request->unsurutamas,
