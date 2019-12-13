@@ -66,15 +66,14 @@
           </div>
           <div class="form-group">
             <label>Angka Kredit</label>
-            <input type="text" name="angka_kredit" placeholder="AUTO FROM JOIN DB" class="form-control">
+            <select name="angka_kredit" id="angka_kredit" class="form-control">
+              <option>--Rincian Kegiatan--</option>
+            </select>
           </div> 
           <div class="form-group">
             <label>Berkas</label>
             <input type="file" name="berkas" class="form-control">
           </div>
-
-
-
           <div class="form-group">
             <br>
             <input type="submit" class="btn btn-success" value="Simpan">
@@ -130,6 +129,28 @@
      });
       }else{
         $("#rinciankegiatan").empty();
+      }
+    });
+    $('#rinciankegiatan').on('change',function(){
+      var rinciankegiatanID = $(this).val();    
+      if(rinciankegiatanID){
+        $.ajax({
+         type:"GET",
+         url:"{{url('rincianangkakredit/getAngkaKredit')}}?rinciankegiatan_id="+rinciankegiatanID,
+         success:function(res){               
+          if(res){
+            $("#angka_kredit").empty();
+            $.each(res,function(key,value){
+              $("#angka_kredit").append('<option value="'+key+'">'+value+'</option>');
+            });
+
+          }else{
+           $("#angka_kredit").empty();
+         }
+       }
+     });
+      }else{
+        $("#angka_kredit").empty();
       }
 
     });

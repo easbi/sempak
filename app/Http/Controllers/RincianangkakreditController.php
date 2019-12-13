@@ -44,6 +44,11 @@ class RincianangkakreditController extends Controller
         	$rinciankegiatans = DB::table("master_rincian_kegiatan")->where("id_subunsur", $request->subunsur_id)->pluck('rincian_kegiatan', 'id_rincian_kegiatan');
         	return $rinciankegiatans;
         }
+        public function getAngkaKredit(Request $request)
+        {
+            $angka_kredit = DB::table("master_rincian_angka_kredit")->where("id_rincian_kegiatan", $request->rinciankegiatan_id)->pluck('angka_kredit', 'id_rinci_ak');
+            return $angka_kredit;
+        }
 
         public function store(Request $request)
         {
