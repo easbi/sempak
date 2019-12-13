@@ -66,9 +66,7 @@
           </div>
           <div class="form-group">
             <label>Angka Kredit</label>
-            <select name="angka_kredit" id="angka_kredit" class="form-control">
-              <option>--Rincian Kegiatan--</option>
-            </select>
+            <input type="text" name="angka_kredit" id="angka_kredit" class="form-control" disabled="">
           </div> 
           <div class="form-group">
             <label>Berkas</label>
@@ -131,7 +129,7 @@
         $("#rinciankegiatan").empty();
       }
     });
-    $('#rinciankegiatan').on('change',function(){
+    $('#rinciankegiatan').on('click',function(){
       var rinciankegiatanID = $(this).val();    
       if(rinciankegiatanID){
         $.ajax({
@@ -139,11 +137,8 @@
          url:"{{url('rincianangkakredit/getAngkaKredit')}}?rinciankegiatan_id="+rinciankegiatanID,
          success:function(res){               
           if(res){
-            $("#angka_kredit").empty();
-            $.each(res,function(key,value){
-              $("#angka_kredit").append('<option value="'+key+'">'+value+'</option>');
-            });
-
+            console.log(res);
+            $("#angka_kredit").val(res);
           }else{
            $("#angka_kredit").empty();
          }

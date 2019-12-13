@@ -40,6 +40,11 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
+        $file = $request->file('berkas');
+        dd($file);
+        $filename = $file->getClientOriginalName();
+        $file->move('file_rincian_dupak', $filename);
+
         Transaksi::create([
                 'id_user' => 1,
                 'id_unsur_utama' => $request->unsurutamas,
@@ -53,7 +58,7 @@ class TransaksiController extends Controller
                 'angka_kredit_usul' => $request->angka_kredit,
                 'id_rinci_ak' => 1,
                 'kk' => 1,
-                'berkas' => 'sasasa.sas'
+                'berkas' => $filename
             ]);
         return redirect('/transaksi/create');
     }
