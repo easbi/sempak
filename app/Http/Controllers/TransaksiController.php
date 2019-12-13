@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Transaksi;
 use DB;
 
 class TransaksiController extends Controller
@@ -37,7 +38,22 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Transaksi::create([
+                'id_user' => 1,
+                'id_unsur_utama' => $request->unsurutamas,
+                'id_subunsur' => $request->subunsur,
+                'id_rincian_kegiatan' => $request->rinciankegiatan,
+                'id_tingkatan_wi' => 1,
+                'nama_event' => $request->nama_acara,
+                'keterangan' => $request->keterangan,
+                'tgl_mulai' => $request->awal_acara,
+                'tgl_selesai' => $request->akhir_acara,
+                'angka_kredit_usul' => $request->angka_kredit,
+                'id_rinci_ak' => 1,
+                'kk' => 1,
+                'berkas' => 'sasasa.sas'
+            ]);
+        return redirect('/transaksi/create');
     }
 
     /**

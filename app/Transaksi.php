@@ -9,13 +9,16 @@ class Transaksi extends Model
     protected $table = 'transaksi';
     protected $fillable = [
     	'id_user',
-    	'id_rinci_ak',
-        'ak',
+        'id_unsur_utama',
+        'id_subunsur',
+        'id_rincian_kegiatan',
     	'nama_event',
     	'tgl_mulai',
     	'tgl_selesai',
     	'keterangan',
     	'berkas',
+        'id_rinci_ak',
+        'kk',
     	'angka_kredit_usul',
     	'id_penilai1',
     	'id_penilai2',

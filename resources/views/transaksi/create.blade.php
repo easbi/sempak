@@ -44,14 +44,6 @@
             </select>
           </div>
           <div class="form-group">
-            <label>Tanggal Mulai</label>
-            <input type="date" name="awal_acara" class="form-control">            
-          </div>
-          <div class="form-group">
-            <label>Tanggal Selesai</label>
-            <input type="date" name="akhir_acara" class="form-control">            
-          </div>
-          <div class="form-group">
             <label>Nama Acara / Diklat</label>
             <select id="nama_acara" name="nama_acara" class="form-control">
               <option value="" selected disabled>Select</option>
@@ -60,6 +52,14 @@
               @endforeach
             </select>
           </div>
+          <div class="form-group">
+            <label>Tanggal Mulai</label>
+            <input type="date" name="awal_acara" class="form-control">            
+          </div>
+          <div class="form-group">
+            <label>Tanggal Selesai</label>
+            <input type="date" name="akhir_acara" class="form-control">            
+          </div>          
           <div class="form-group">
             <label>Keterangan</label>
             <textarea class="form-control" name="keterangan"></textarea>            
