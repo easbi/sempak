@@ -12,9 +12,6 @@ class RincianangkakreditController extends Controller
 {
 	public function  index()
 	{
-    	/*->join('master_rincian_kegiatan', 'master_rincian_angka_kredit.id_rincian_kegiatan', '=', 'master_rincian_kegiatan.id_rincian_kegiatan')   
-            ->join('master_tingkatan_wi', 'master_rincian_angka_kredit.id_tingkatan_wi', '=', 'master_tingkatan_wi.id_tingkatan_wi') 
-            ->select('master_rincian_angka_kredit.*','master_unsur_utama.unsur_utama','master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_tingkatan_wi.nama_tingkatan')       */ 
             $rincianangkakredits = DB::table('master_rincian_angka_kredit')
             ->join('master_unsur_utama', 'master_rincian_angka_kredit.id_unsur_utama', '=', 'master_unsur_utama.id')
             ->join('master_subunsurs', 'master_rincian_angka_kredit.id_subunsur', '=', 'master_subunsurs.id_sub_unsur')            
@@ -39,7 +36,6 @@ class RincianangkakreditController extends Controller
         public function getSubunsurList(Request $request)
         {
         	$subunsurs = DB::table("master_subunsurs")->where("id_unsur", $request->unsurutamas_id)->pluck('kegiatan_sub_unsur', 'id_sub_unsur');
-        	//dd($subunsurs);
         	return $subunsurs;
         }
 
@@ -47,6 +43,11 @@ class RincianangkakreditController extends Controller
         {
         	$rinciankegiatans = DB::table("master_rincian_kegiatan")->where("id_subunsur", $request->subunsur_id)->pluck('rincian_kegiatan', 'id_rincian_kegiatan');
         	return $rinciankegiatans;
+        }
+        public function getAngkaKredit(Request $request)
+        {
+            $angka_kredit = DB::table("master_rincian_angka_kredit")->where("id_rincian_kegiatan", $request->rinciankegiatan_id)->pluck('angka_kredit', 'id_rinci_ak');
+            return $angka_kredit;
         }
 
         public function store(Request $request)
@@ -56,7 +57,8 @@ class RincianangkakreditController extends Controller
         		'id_subunsur' => $request->subunsur,
         		'id_rincian_kegiatan' => $request->rinciankegiatan,
         		'id_tingkatan_wi' => $request->id_tingkatan_wi,
-        		'angka_kredit' => $request->angka_kredit
+        		'angka_kredit' => $request->angka_kredit,
+        		'kk' => $request->kk
         	]);
         	return redirect('/rincianangkakredit');
         }

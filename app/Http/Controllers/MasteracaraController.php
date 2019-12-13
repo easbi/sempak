@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Metadata;
+use \App\Masteracara;
 use DB;
 
-class MetadataController extends Controller
+class MasteracaraController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class MetadataController extends Controller
      */
     public function index()
     {
-        $unsurUtama = DB::table('master_unsur_utama')->get();
-        return view('metadata.index', compact('unsurUtama'));
+        $acaras = DB::table('master_acara')->get();
+        return view('masteracara.index', compact('acaras'));//ss
     }
 
     /**
@@ -26,7 +26,7 @@ class MetadataController extends Controller
      */
     public function create()
     {
-        return view('metadata.create');
+        return view('masteracara.create');
     }
 
     /**
@@ -37,10 +37,12 @@ class MetadataController extends Controller
      */
     public function store(Request $request)
     {
-        $metadata = new \App\Metadata;
-        $metadata->unsur_utama = $request->get('unsur_utama');
-        $metadata->save();
-        return redirect('metadata')->with('success','Data metadata telah ditambahkan');
+        Masteracara::create([
+                'nama_acara' => $request->nama_acara,
+                'awal_acara' => $request->awal_acara,
+                'akhir_acara' => $request->akhir_acara
+            ]);
+        return redirect('/masteracara');
     }
 
     /**
@@ -60,9 +62,9 @@ class MetadataController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Masteracara $masteracara)
     {
-        //
+        return view('masteracara.edit', compact('masteracara'));
     }
 
     /**
@@ -72,9 +74,10 @@ class MetadataController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Masteracara $masteracara)
     {
-        //
+        $masteracara->update($request->all());
+        return redirect()->route('masteracara.index')->with('success', 'Masteracara udpdated successfully');
     }
 
     /**
@@ -83,8 +86,9 @@ class MetadataController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Masteracara $masteracara)
     {
-        //
+        $masteracara->delete();  
+        return redirect()->route('masteracara.index')->with('success','Acara deleted successfully');
     }
 }

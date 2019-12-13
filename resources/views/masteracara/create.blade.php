@@ -12,22 +12,31 @@
   <div class="container">
     <div class="card mt-5">
       <div class="card-header text-center">
-        Data Unsur Utama - <strong>Tamabah Data</strong>
+        Data Acara / Diklat - <strong>TAMBAH DATA</strong>
       </div>
       <div class="card-body">
-        <a href="{{ url('/metadata')}}" class="btn btn-primary">Kembali</a>
+        <a href="{{ url('/masteracara') }}" class="btn btn-primary">Kembali</a>
         <br/>
         <br/>
 
-        <form method="post" action="{{ route('metadata.store') }}">
+        <form method="post" action="{{ route('masteracara.store') }}">
 
           {{ csrf_field() }}
 
           <div class="form-group">
-            <label>Unsur Utama</label>
-            <input type="text" name="unsur_utama" class="form-control">
+            <label>Nama Acara / Diklat</label>
+            <input type="text" name="nama_acara" class="form-control">
           </div>
           <div class="form-group">
+            <label>Tanggal Mulai Acara</label>
+            <input type="date" name="awal_acara" class="form-control">            
+          </div>
+          <div class="form-group">
+            <label>Tanggal Selesai Acara</label>
+            <input type="date" name="akhir_acara" class="form-control">            
+          </div>
+          <div class="form-group">
+            <br>
             <input type="submit" class="btn btn-success" value="Simpan">
           </div>
 
@@ -36,5 +45,6 @@
       </div>
     </div>
   </div>
+  <!-- dropdown.blade.php -->
 </body>
 </html>

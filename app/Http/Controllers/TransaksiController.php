@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Metadata;
+use App\Transaksi;
 use DB;
 
-class MetadataController extends Controller
+class TransaksiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,7 @@ class MetadataController extends Controller
      */
     public function index()
     {
-        $unsurUtama = DB::table('master_unsur_utama')->get();
-        return view('metadata.index', compact('unsurUtama'));
+        //
     }
 
     /**
@@ -26,8 +25,12 @@ class MetadataController extends Controller
      */
     public function create()
     {
-        return view('metadata.create');
+        $unsurutamas = DB::table("master_unsur_utama")->pluck( 'unsur_utama', 'id');
+        $nama_acaras = DB::table("master_acara")->pluck('nama_acara', 'id');
+        return view('transaksi.create', compact('unsurutamas', 'nama_acaras'));
     }
+
+    
 
     /**
      * Store a newly created resource in storage.
@@ -37,10 +40,22 @@ class MetadataController extends Controller
      */
     public function store(Request $request)
     {
-        $metadata = new \App\Metadata;
-        $metadata->unsur_utama = $request->get('unsur_utama');
-        $metadata->save();
-        return redirect('metadata')->with('success','Data metadata telah ditambahkan');
+        Transaksi::create([
+                'id_user' => 1,
+                'id_unsur_utama' => $request->unsurutamas,
+                'id_subunsur' => $request->subunsur,
+                'id_rincian_kegiatan' => $request->rinciankegiatan,
+                'id_tingkatan_wi' => 1,
+                'nama_event' => $request->nama_acara,
+                'keterangan' => $request->keterangan,
+                'tgl_mulai' => $request->awal_acara,
+                'tgl_selesai' => $request->akhir_acara,
+                'angka_kredit_usul' => $request->angka_kredit,
+                'id_rinci_ak' => 1,
+                'kk' => 1,
+                'berkas' => 'sasasa.sas'
+            ]);
+        return redirect('/transaksi/create');
     }
 
     /**

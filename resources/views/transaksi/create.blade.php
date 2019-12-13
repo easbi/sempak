@@ -5,22 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> 
-
-
   <title>SIMPAK 2019</title>
 </head>
 <body>
   <div class="container">
     <div class="card mt-5">
       <div class="card-header text-center">
-        Data Rincian Angka Kredit - <strong>TAMBAH DATA</strong>
+        Usulan DUPAK - <strong>TAMBAH DATA</strong>
       </div>
       <div class="card-body">
-        <a href="{{ url('/rincianangkakredit')}}" class="btn btn-primary">Kembali</a>
+        <a href="{{ url('/transaksi') }}" class="btn btn-primary">Kembali</a>
         <br/>
         <br/>
 
-        <form method="post" action="{{ route('rincianangkakredit.store') }}">
+        <form method="post" action="{{ route('transaksi.store') }}">
 
           {{ csrf_field() }}
 
@@ -46,22 +44,36 @@
             </select>
           </div>
           <div class="form-group">
-            <label>Tingkatan Widyaiswara</label>
-            <select id="id_tingkatan_wi" name="id_tingkatan_wi" class="form-control">
+            <label>Nama Acara / Diklat</label>
+            <select id="nama_acara" name="nama_acara" class="form-control">
               <option value="" selected disabled>Select</option>
-              @foreach($tingkatanwi as $key => $tw)
-              <option value="{{$key}}"> {{$tw}}</option>
+              @foreach($nama_acaras as $key => $nama_acara)
+              <option value="{{$key}}"> {{$nama_acara}}</option>
               @endforeach
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Tanggal Mulai</label>
+            <input type="date" name="awal_acara" class="form-control">            
+          </div>
+          <div class="form-group">
+            <label>Tanggal Selesai</label>
+            <input type="date" name="akhir_acara" class="form-control">            
+          </div>          
+          <div class="form-group">
+            <label>Keterangan</label>
+            <textarea class="form-control" name="keterangan"></textarea>            
+          </div>
+          <div class="form-group">
+            <label>Angka Kredit</label>
+            <select name="angka_kredit" id="angka_kredit" class="form-control">
+              <option>--Rincian Kegiatan--</option>
             </select>
           </div> 
           <div class="form-group">
-            <label>Angka Kredit</label>
-            <input type="text" name="angka_kredit" class="form-control">
-          </div> 
-          <div class="form-group">
-            <label>Kode Kegiatant</label>
-            <input type="text" name="kk" class="form-control">
-          </div> 
+            <label>Berkas</label>
+            <input type="file" name="berkas" class="form-control">
+          </div>
           <div class="form-group">
             <br>
             <input type="submit" class="btn btn-success" value="Simpan">
@@ -73,7 +85,6 @@
     </div>
   </div>
   <!-- dropdown.blade.php -->
-
   <script type="text/javascript">
     $('#unsurutamas').change(function(){
       var unsurutamasID = $(this).val();    
@@ -90,9 +101,9 @@
             });
           }else{
             $("#subunsur").empty();
-         }
-       }
-     });
+          }
+        }
+      });
       }else{
         $("#subunsur").empty();
         $("#rinciankegiatan").empty();
@@ -118,6 +129,28 @@
      });
       }else{
         $("#rinciankegiatan").empty();
+      }
+    });
+    $('#rinciankegiatan').on('change',function(){
+      var rinciankegiatanID = $(this).val();    
+      if(rinciankegiatanID){
+        $.ajax({
+         type:"GET",
+         url:"{{url('rincianangkakredit/getAngkaKredit')}}?rinciankegiatan_id="+rinciankegiatanID,
+         success:function(res){               
+          if(res){
+            $("#angka_kredit").empty();
+            $.each(res,function(key,value){
+              $("#angka_kredit").append('<option value="'+key+'">'+value+'</option>');
+            });
+
+          }else{
+           $("#angka_kredit").empty();
+         }
+       }
+     });
+      }else{
+        $("#angka_kredit").empty();
       }
 
     });

@@ -12,6 +12,7 @@ class Rincianangkakredit extends Model
     	'id_subunsur',
     	'id_rincian_kegiatan',
     	'id_tingkatan_wi',
-    	'angka_kredit'
+    	'angka_kredit',
+    	'kk'
     ];
 }

@@ -16,32 +16,35 @@
                 Data Rincian Angka Kredit
             </div>
             <div class="card-body">
-                <a href="{{ url('/rincianangkakredit/create') }}" class="btn btn-primary">Input Rincian Angka Kredit Baru</a>
+                <a href="{{ url('/masteracara/create') }}" class="btn btn-primary">Input Acara Baru</a>
                 <br/>
                 <br/>
                 <table id="example" class="display">
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Unsur Utama</th>
-                            <th>Subunsur</th>          
-                            <th>Rincian Kegiatan</th>
-                            <th>Tingkatan Widyaiswara</th>
-                            <th>Kode Kegiatan</th>
-                            <th>Angka Kredit</th>
+                            <th>Nama Acara</th>
+                            <th>Tanggal Mulai</th>          
+                            <th>Tanggal Selesai</th>
+                            <th>Aksi</th>
 
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($rincianangkakredits as $p)
+                        @foreach($acaras as $a)
                         <tr>
-                            <td>{{ $p->id_rinci_ak }}</td>
-                            <td>{{ $p->unsur_utama }}</td>
-                            <td>{{ $p->kegiatan_sub_unsur }}</td>
-                            <td>{{ $p->rincian_kegiatan }}</td>
-                            <td>{{ $p->nama_tingkatan }}</td>
-                            <td>{{ $p->kk }}</td>
-                            <td>{{ str_replace('.', ',', $p->angka_kredit) }}</td>
+                            <td>{{ $a->id }}</td>
+                            <td>{{ $a->nama_acara }}</td>
+                            <td>{{ $a->awal_acara }}</td>
+                            <td>{{ $a->akhir_acara }}</td>
+                            <td>
+                                <form action="{{ route('masteracara.destroy',$a->id) }}" method="POST">
+                                    <a class="btn btn-warning" href="{{ route('masteracara.edit',$a->id) }}">Edit</a>
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
