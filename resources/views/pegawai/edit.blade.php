@@ -16,7 +16,7 @@
                     <br/>
                     <br/>
                     
-                    <form method="post" action="/pegawai/update/{{ $pegawai->id }}">
+                    <form method="post" action="{{ url('pegawai/update/'.$pegawai->id) }}">
 
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
@@ -133,7 +133,7 @@
 
                         <div class="form-group">
                             <label>TMT Pangkat/Golongan</label>
-                            <input type="date" name="tmt_pangkat_golongan" class="form-control" placeholder="TMT pangkat/golongan .." value="{{ $p->tmt_pangkat_golongan }}>
+                            <input type="date" name="tmt_pangkat_golongan" class="form-control" placeholder="TMT pangkat/golongan .." value="{{ $pegawai->tmt_pangkat_golongan }}">
 
                             @if($errors->has('tmt_pangkat_golongan'))
                                 <div class="text-danger">
@@ -162,7 +162,7 @@
 
                         <div class="form-group">
                             <label>TMT Jabatan</label>
-                            <input type="date" name="tmt_jabatan" class="form-control" placeholder="TMT jabatan .." value="{{ $p->tmt_jabatan }}>
+                            <input type="date" name="tmt_jabatan" class="form-control" placeholder="TMT jabatan .." value="{{ $pegawai->tmt_jabatan }}">
 
                             @if($errors->has('tmt_jabatan'))
                                 <div class="text-danger">

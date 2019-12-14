@@ -94,7 +94,6 @@ class PegawaiController extends Controller
             $pegawai = Pegawai::find($id);
             $pegawai->nama = $request->nama;
             $pegawai->nip = $request->nip;
-            $pegawai->nama = $request->subunsur;
             $pegawai->no_seri_karpeg = $request->no_seri_karpeg;
             $pegawai->tempat_lahir = $request->tempat_lahir;
             $pegawai->tanggal_lahir = $request->tanggal_lahir;
