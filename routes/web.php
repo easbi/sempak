@@ -29,5 +29,7 @@ Route::resource('rincianangkakredit', 'RincianangkakreditController');
 Route::get('rincianangkakredit/getAngkaKredit','RincianangkakreditController@getAngkaKredit');
 Route::resource('transaksi', 'TransaksiController');
 
+Route::resource('penilai', 'PenilaiController');
+
 
 

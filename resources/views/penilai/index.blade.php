@@ -13,10 +13,10 @@
     <div class="container">
         <div class="card mt-5">
             <div class="card-header text-center">
-                Data Rincian Yang Telah Diinpur 
+                Data Rincian Yang Telah Diinput Pengusul 
             </div>
             <div class="card-body">
-                <a href="{{ url('/transaksi/create') }}" class="btn btn-primary">Input Rincian Angka Kredit Baru</a>
+                <a href="#" class="btn btn-primary">Kembali Ke Beranda</a>
                 <br/>
                 <br/>
                 <table id="example" class="display">
@@ -30,9 +30,9 @@
                             <th>Tanggal Mulai</th>  
                             <th>Tanggal Selesai</th>                          
                             <th>Berkas</th>
-                            <th>Angka Kredit</th>
+                            <th>Angka Kredit Yang Diusulkan</th>
                             <th>Satuan</th>
-
+                            <th>Aksi</th>                         
                         </tr>
                     </thead>
                     <tbody>
@@ -48,6 +48,9 @@
                             <td>{{ $tr->berkas }}</td>
                             <td>{{ str_replace('.', ',', $tr->angka_kredit_usul) }}</td>
                             <td>{{ $tr->satuan }}</td>
+                            <td>
+                                <a class="btn btn-warning" href="{{ action('PenilaiController@edit',$tr->id_transaksi) }}">Edit</a>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Transaksi;
 use DB;
 
-class TransaksiController extends Controller
+
+class PenilaiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,7 +24,7 @@ class TransaksiController extends Controller
             ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'master_acara.nama_acara')   
             ->orderby('id_transaksi','asc')
             ->get();
-        return view('transaksi.index', compact('transaksis'));
+        return view('penilai.index', compact('transaksis'));
     }
 
     /**
@@ -33,12 +34,8 @@ class TransaksiController extends Controller
      */
     public function create()
     {
-        $unsurutamas = DB::table("master_unsur_utama")->pluck( 'unsur_utama', 'id');
-        $nama_acaras = DB::table("master_acara")->pluck('nama_acara', 'id');
-        return view('transaksi.create', compact('unsurutamas', 'nama_acaras'));
+        //
     }
-
-    
 
     /**
      * Store a newly created resource in storage.
@@ -48,25 +45,7 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
-        $file = $request->file('berkas');
-        $filename = $file->getClientOriginalName();
-        $file->move('file_rincian_dupak', $filename);
-        Transaksi::create([
-                'id_user' => 1,
-                'id_unsur_utama' => $request->unsurutamas,
-                'id_subunsur' => $request->subunsur,
-                'id_rincian_kegiatan' => $request->rinciankegiatan,
-                'id_tingkatan_wi' => 1,
-                'nama_event' => $request->nama_acara,
-                'keterangan' => $request->keterangan,
-                'tgl_mulai' => $request->awal_acara,
-                'tgl_selesai' => $request->akhir_acara,
-                'angka_kredit_usul' => $request->angka_kredit,
-                'id_rinci_ak' => 1,
-                'kk' => 1,
-                'berkas' => $filename
-            ]);
-        return redirect('/transaksi/create');
+        //
     }
 
     /**
@@ -77,7 +56,7 @@ class TransaksiController extends Controller
      */
     public function show($id)
     {
-        return view('transaksi.edit');
+        //
     }
 
     /**
@@ -86,9 +65,17 @@ class TransaksiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id_transaksi)
     {
-        //
+        $transaksi = DB::table('transaksi')->where('id_transaksi',$id_transaksi)
+        ->join('master_unsur_utama', 'transaksi.id_unsur_utama', '=', 'master_unsur_utama.id')
+        ->join('master_subunsurs', 'transaksi.id_subunsur', '=', 'master_subunsurs.id_sub_unsur')            
+        ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=', 'master_rincian_kegiatan.id_rincian_kegiatan')   
+        ->join('master_acara', 'transaksi.nama_event', '=', 'master_acara.id')      
+        ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'master_acara.nama_acara') 
+        ->get();
+        //dd($transaksi);
+        return view('penilai.edit', compact('transaksi'));
     }
 
     /**
