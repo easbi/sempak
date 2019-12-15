@@ -10,6 +10,16 @@ use DB;
 
 class RincianangkakreditController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
 	public function  index()
 	{
             $rincianangkakredits = DB::table('master_rincian_angka_kredit')

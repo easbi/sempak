@@ -10,6 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,7 +30,7 @@ Route::get('rincianangkakredit/getAngkaKredit','RincianangkakreditController@get
 Route::resource('transaksi', 'TransaksiController');
 Route::resource('rincianangkakredit', 'RincianangkakreditController');
 
-Route::get('pegawai', 'PegawaiController@index');
+Route::get('pegawai', 'PegawaiController@index')->name('pegawai');
 Route::get('pegawai/tambah', 'PegawaiController@tambah');
 Route::post('pegawai/store', 'PegawaiController@store');
 Route::get('pegawai/edit/{id}', 'PegawaiController@edit');
