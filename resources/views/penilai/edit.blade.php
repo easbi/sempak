@@ -19,7 +19,7 @@
         <br/>
         <br/>
         @foreach($transaksi as $transaksi)
-        <form method="post" action="#">
+        <form method="post" action="{{route('penilai.update', $transaksi->id_transaksi)}}">
 
           @csrf
           @method('PUT')
@@ -51,15 +51,15 @@
           </div>          
           <div class="form-group">
             <label>Keterangan</label>
-            <textarea class="form-control" name="keterangan">{{ $transaksi->keterangan }}"</textarea>            
+            <textarea class="form-control" name="keterangan" readonly="true">{{ $transaksi->keterangan }}</textarea>            
           </div>
           <div class="form-group">
             <label>Angka Kredit</label>
             <input type="text" name="angka_kredit" id="angka_kredit" class="form-control" readonly="true" value="{{ $transaksi->angka_kredit_usul }}">
           </div> 
           <div class="form-group">
-            <label>Berkas</label>
-            <a href='{{  url('file_rincian_dupak', $transaksi->berkas) }} type="application/pdf" width="98%" height="80%'></a>
+            <label>Berkas</label><br>
+            <a href='{{  url('file_rincian_dupak', $transaksi->berkas) }}' class="btn btn-warning" target="_blank">Berkas</a>
           </div>
           <div class="form-group">
             <label>Angka kredit hasil penilaian</label>
@@ -72,6 +72,10 @@
               <option value="2">Setuju</option>
               <option value="3">Tolak</option>
             </select>
+          </div>
+          <div class="form-group">
+            <label>Keterangan Hasil Penilaian</label>
+            <textarea class="form-control" name="keterangan1">{{ $transaksi->ket_status1 }}</textarea>            
           </div>
           
           <div class="form-group">
