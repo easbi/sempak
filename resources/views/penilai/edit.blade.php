@@ -33,9 +33,8 @@
             <input type="text" name="subunsur" id="subunsur" class="form-control" value="{{ $transaksi->kegiatan_sub_unsur }}" readonly="true">
           </div>
           <div class="form-group">
-            <label>Sub Unsur</label>
-            <label>Tanggal Selesai</label>
-            <input type="text" name="subunsur" id="subunsur" class="form-control" value="{{ $transaksi->id_rincian_kegiatan }}" readonly="true">
+            <label>Rincian Kegiatan</label>
+            <input type="text" name="rincian_kegiatan" id="rincian_kegiatan" class="form-control" value="{{ $transaksi->rincian_kegiatan }}" readonly="true">
           </div>
           <div class="form-group">
             <label>Nama Acara / Diklat</label>
@@ -68,9 +67,9 @@
           <div class="form-group">
             <label>Status</label>
             <select id="status1" name="status1"class="form-control">
-              <option value="1">Proses</option>
-              <option value="2">Setuju</option>
-              <option value="3">Tolak</option>
+              <option value="1" @if ($transaksi->status1) === 1) selected="selected" @endif>Proses</option>
+              <option value="2" @if ($transaksi->status1) === 2) selected="selected" @endif>Setuju</option>
+              <option value="3" @if ($transaksi->status1) === 3) selected="selected" @endif>Tolak</option>
             </select>
           </div>
           <div class="form-group">
