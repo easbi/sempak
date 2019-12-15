@@ -31,5 +31,8 @@ Route::resource('transaksi', 'TransaksiController');
 
 Route::resource('penilai', 'PenilaiController');
 
+Route::get('admin', function () {
+    return view('adminlte');
+});
 
 

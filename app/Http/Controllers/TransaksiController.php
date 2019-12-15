@@ -24,6 +24,7 @@ class TransaksiController extends Controller
             ->orderby('id_transaksi','asc')
             ->get();
         return view('transaksi.index', compact('transaksis'));
+
     }
 
     /**
