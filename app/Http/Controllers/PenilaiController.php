@@ -85,9 +85,18 @@ class PenilaiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_transaksi)
     {
-        //
+        //$transaksi = DB::table('transaksi')->where('id_transaksi',$id_transaksi)->first();
+        $transaksi = \App\Transaksi::find($id_transaksi);
+        if($transaksi) {
+            $transaksi->status1 = $request->status1;
+            $transaksi->angka_kredit1 = $request->angka_kredit1;
+            $transaksi->ket_status1 = $request->keterangan1;
+
+            $transaksi->save();
+        }
+        return redirect()->route('penilai.index')->with('success', 'Hasil Penilaian udpdated successfully');
     }
 
     /**

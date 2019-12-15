@@ -37,3 +37,9 @@ Route::get('pegawai/edit/{id}', 'PegawaiController@edit');
 Route::put('pegawai/update/{id}', 'PegawaiController@update');
 Route::get('pegawai/hapus/{id}', 'PegawaiController@delete');
 Route::resource('penilai', 'PenilaiController');
+
+Route::get('admin', function () {
+    return view('adminlte');
+});
+
+
