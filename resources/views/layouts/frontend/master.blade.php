@@ -3,7 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Sempak | Dashboard</title>
+  <!-- CSRF Token -->
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
+  <title>{{ config('app.name', 'Laravel') }}</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -37,32 +40,14 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Beranda</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Kontak Bantuan</a>
-      </li>
     </ul>
-
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </div>
-    </form>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="fas fa-user-cog"></i>
+          <i class="fas fa-user-cog"></i>  {{ Auth::user()->name }}
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <div class="dropdown-divider"></div>
@@ -70,9 +55,6 @@
             <i class="far fa-address-book"></i>   Ubah Profil
           </a>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-key"></i>   Ubah Kata Sandi
-          </a>
           <a href="#" class="dropdown-item">
             <i class="fas fa-power-off"></i>   Logout
           </a>
@@ -88,20 +70,11 @@
     <a href="index3.html" class="brand-link">
       <img src="{{asset('admin_lte/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">Sempak</span>
+      <span class="brand-text font-weight-light">{{ config('app.name', 'Laravel') }}</span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="{{asset('admin_lte/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">Easbi Ikhsan</a>
-        </div>
-      </div>
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -135,7 +108,7 @@
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fab fa-buffer"></i>
-              <p>laporan<i class="right fas fa-angle-left"></i>
+              <p>Laporan<i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
@@ -184,6 +157,12 @@
               <p>Rincian Angka Kredit</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ url('/pegawai') }}" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>Pegawai</p>
+            </a>
+          </li>
           <li class="nav-header">Bantuan</li>
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -199,30 +178,7 @@
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Beranda</a></li>
-              <li class="breadcrumb-item active">Dashboard</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-    <!-- Main content -->
-    <section class="content">
-      @yield('content')
-    </section>
-    <!-- /.content -->
-  </div>
+  @yield('content')
 
   <!-- /.content-wrapper -->
   <footer class="main-footer">

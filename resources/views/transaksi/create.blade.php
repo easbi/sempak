@@ -1,79 +1,92 @@
 @extends('layouts.frontend.master')
 @section('content')
-<div class="container">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> 
-  <div class="card mt-5">
-    <div class="card-header text-center">
-      Usulan DUPAK - <strong>TAMBAH DATA</strong>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Usulan DUPAK - <strong>TAMBAH DATA</strong></h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <a href="{{ url('/transaksi') }}" class="btn btn-primary float-sm-right">Kembali</a>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
     </div>
-    <div class="card-body">
-      <a href="{{ url('/transaksi') }}" class="btn btn-primary">Kembali</a>
-      <br/>
-      <br/>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+    <div class="container">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> 
+    <div class="card">
+      <div class="card-body">
+        <form method="post" action="{{ route('transaksi.store') }}" enctype="multipart/form-data">
 
-      <form method="post" action="{{ route('transaksi.store') }}" enctype="multipart/form-data">
+          {{ csrf_field() }}
 
-        {{ csrf_field() }}
+          <div class="form-group">
+            <label>Unsur Utama</label>
+            <select id="unsurutamas" name="unsurutamas" class="form-control">
+              <option value="" selected disabled>Select</option>
+              @foreach($unsurutamas as $key => $unsurutama)
+              <option value="{{$key}}"> {{$unsurutama}}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Sub Unsur</label>
+            <select name="subunsur" id="subunsur" class="form-control">
+              <option>--Sub Unsur--</option>
+            </select>
+          </div>                      
+          <div class="form-group">
+            <label>Rincian Kegiatan</label>
+            <select name="rinciankegiatan" id="rinciankegiatan" class="form-control">
+              <option>--Rincian Kegiatan--</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Nama Acara / Diklat</label>
+            <select id="nama_acara" name="nama_acara" class="form-control">
+              <option value="" selected disabled>Select</option>
+              @foreach($nama_acaras as $key => $nama_acara)
+              <option value="{{$key}}"> {{$nama_acara}}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Tanggal Mulai</label>
+            <input type="date" name="awal_acara" class="form-control">            
+          </div>
+          <div class="form-group">
+            <label>Tanggal Selesai</label>
+            <input type="date" name="akhir_acara" class="form-control">            
+          </div>          
+          <div class="form-group">
+            <label>Keterangan</label>
+            <textarea class="form-control" name="keterangan"></textarea>            
+          </div>
+          <div class="form-group">
+            <label>Angka Kredit</label>
+            <input type="text" name="angka_kredit" id="angka_kredit" class="form-control" readonly="true">
+          </div> 
+          <div class="form-group">
+            <label>Berkas</label>
+            <input type="file" name="berkas" class="form-control">
+          </div>
+          <div class="form-group">
+            <br>
+            <input type="submit" class="btn btn-success" value="Simpan">
+          </div>
 
-        <div class="form-group">
-          <label>Unsur Utama</label>
-          <select id="unsurutamas" name="unsurutamas" class="form-control">
-            <option value="" selected disabled>Select</option>
-            @foreach($unsurutamas as $key => $unsurutama)
-            <option value="{{$key}}"> {{$unsurutama}}</option>
-            @endforeach
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Sub Unsur</label>
-          <select name="subunsur" id="subunsur" class="form-control">
-            <option>--Sub Unsur--</option>
-          </select>
-        </div>                      
-        <div class="form-group">
-          <label>Rincian Kegiatan</label>
-          <select name="rinciankegiatan" id="rinciankegiatan" class="form-control">
-            <option>--Rincian Kegiatan--</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Nama Acara / Diklat</label>
-          <select id="nama_acara" name="nama_acara" class="form-control">
-            <option value="" selected disabled>Select</option>
-            @foreach($nama_acaras as $key => $nama_acara)
-            <option value="{{$key}}"> {{$nama_acara}}</option>
-            @endforeach
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Tanggal Mulai</label>
-          <input type="date" name="awal_acara" class="form-control">            
-        </div>
-        <div class="form-group">
-          <label>Tanggal Selesai</label>
-          <input type="date" name="akhir_acara" class="form-control">            
-        </div>          
-        <div class="form-group">
-          <label>Keterangan</label>
-          <textarea class="form-control" name="keterangan"></textarea>            
-        </div>
-        <div class="form-group">
-          <label>Angka Kredit</label>
-          <input type="text" name="angka_kredit" id="angka_kredit" class="form-control" readonly="true">
-        </div> 
-        <div class="form-group">
-          <label>Berkas</label>
-          <input type="file" name="berkas" class="form-control">
-        </div>
-        <div class="form-group">
-          <br>
-          <input type="submit" class="btn btn-success" value="Simpan">
-        </div>
+        </form>
 
-      </form>
-
+      </div>
     </div>
   </div>
+    </section>
+    <!-- /.content -->
 </div>
 <!-- dropdown.blade.php -->
 <script type="text/javascript">
