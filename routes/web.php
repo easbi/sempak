@@ -12,12 +12,9 @@
 */
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'TransaksiController@index')->name('home');
+Route::get('/', 'TransaksiController@index')->name('home');
 
-Route::get('/', function () {
-    return view('welcome');
-
-});
 Route::resource('metadata', 'MetadataController');
 Route::resource('masteracara', 'MasteracaraController');
 
