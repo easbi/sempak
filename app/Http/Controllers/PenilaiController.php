@@ -99,6 +99,16 @@ class PenilaiController extends Controller
         return redirect()->route('penilai.index')->with('success', 'Hasil Penilaian udpdated successfully');
     }
 
+    public function dashboardPenilai()
+    {
+        // dd('halo easbi');
+        $proses_11 = DB::table ('transaksi')->select('status1')->where('status1', 1)->count();
+        $proses_12 = DB::table ('transaksi')->select('status1')->where('status1', 2)->count();        
+        $proses_13 = DB::table ('transaksi')->select('status1')->where('status1', 3)->count();
+        //dd($proses_11);
+        return view('penilai.dashboard');
+    }
+
     /**
      * Remove the specified resource from storage.
      *
