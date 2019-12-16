@@ -53,8 +53,18 @@
               @foreach($nama_acaras as $key => $nama_acara)
               <option value="{{$key}}"> {{$nama_acara}}</option>
               @endforeach
+              <option value="1000">-- <i>Tambahkan Acara, Jika Opsi Acara /Diklat tidak ada di sini</i> --</option><i></i>
             </select>
           </div>
+          <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+          <script type="text/javascript">
+            jQuery('#nama_acara').on('change', function(){
+              if(jQuery(this).val() == 1000){
+                window.location.href = '{{ url('/masteracara')}}'
+              }
+            })
+          </script>
           <div class="form-group">
             <label>Tanggal Mulai</label>
             <input type="date" name="awal_acara" class="form-control">            
