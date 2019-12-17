@@ -125,5 +125,11 @@ class PegawaiController extends Controller
             $pegawai->delete();
             return redirect('/pegawai');
         }
+
+        public function comingsoon()
+        {
+            //dd('test123');
+            return view('pegawai.comingsoon');
+        }
 }
 

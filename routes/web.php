@@ -40,6 +40,14 @@ Route::get('pegawai/edit/{id}', 'PegawaiController@edit');
 Route::put('pegawai/update/{id}', 'PegawaiController@update');
 Route::get('pegawai/hapus/{id}', 'PegawaiController@delete');
 
+Route::get('pegawai/comingsoon', 'PegawaiController@comingsoon');
+
 Route::resource('penilai', 'PenilaiController');
+Route::get('penilai/dashboard', 'PenilaiController@dashboardPenilai');
+
+
+Route::get('admin', function () {
+    return view('adminlte');
+});
 
 
