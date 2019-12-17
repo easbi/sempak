@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="{{asset('admin_lte/plugins/summernote/summernote-bs4.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link rel="shortcut icon" type="image/x-icon" href="icon.jpg">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -51,11 +52,11 @@
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
+          <a href="{{ url('/pegawai/comingsoon')}}" class="dropdown-item">
             <i class="far fa-address-book"></i>   Ubah Profil
           </a>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
+          <a href="{{ url('/pegawai/comingsoon')}}" class="dropdown-item">
             <i class="fas fa-power-off"></i>   Logout
           </a>
         </div>
@@ -89,7 +90,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ url('/pegawai/comingsoon')}}" class="nav-link">
               <i class="nav-icon fas fa-child"></i>
               <p>Atasan</p>
             </a>
@@ -102,7 +103,7 @@
           </li>
           <li class="nav-item">
             <a href="{{ url('/penilai') }}" class="nav-link">
-              <i class="nav-icon fas fa-archive"></i>
+              <i class="nav-icon fas fa-clipboard-check"></i>
               <p>Evaluasi Rincian Dupak</p>
             </a>
           </li>
@@ -114,19 +115,19 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ url('/pegawai/comingsoon')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Form Rekap DUPAK</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ url('/pegawai/comingsoon')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>SPMK</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ url('/pegawai/comingsoon')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Surat Tugas</p>
                 </a>
@@ -166,7 +167,7 @@
           </li>
           <li class="nav-header">Bantuan</li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ url('/pegawai/comingsoon')}}" class="nav-link">
               <i class="nav-icon fas fa-question-circle"></i>
               <p>Laporkan</p>
             </a>
