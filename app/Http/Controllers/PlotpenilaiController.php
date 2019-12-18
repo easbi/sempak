@@ -15,7 +15,8 @@ class PlotpenilaiController extends Controller
      */
     public function index()
     {
-        $plotpenilais = DB::table('plot_penilai_dupak')->get(); 
+        $plotpenilais = DB::table('plot_penilai_dupak')
+        ->get(); 
         return view('plotpenilai.index', compact('plotpenilais'));
     }
 

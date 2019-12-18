@@ -160,6 +160,12 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="{{ url('/plotpenilai') }}" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>Plot Penilai</p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="{{ url('/pegawai') }}" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>Pegawai</p>

@@ -13,7 +13,7 @@
           <h1 class="m-0 text-dark">Daftar Acara</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
-          <a href="{{ url('/masteracara/create') }}" class="btn btn-primary float-sm-right">Input Acara Baru</a>
+          <a href="{{ url('/plotpenilai/create') }}" class="btn btn-primary float-sm-right">Input Plot Penilai Baru</a>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
