@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 use App\Transaksi;
 use DB;
+use Auth;
 
 class TransaksiController extends Controller
 {
@@ -123,5 +126,43 @@ class TransaksiController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function dupak()
+    {
+        return view('transaksi.dupak');
+    }
+
+    public function generateDupak(Request $request)
+    {
+        $periode_awal = $request->periode_awal;
+        $periode_akhir = $request->periode_akhir;
+
+        $pegawai = DB::table('master_pegawai')
+                    ->join('master_pendidikan', 'master_pegawai.pendidikan', '=', 'master_pendidikan.id')
+                    ->join('master_pangkat_golongan', 'master_pegawai.pangkat_golongan', '=', 'master_pangkat_golongan.id')            
+                    ->join('master_jabatan', 'master_pegawai.jabatan', '=', 'master_jabatan.id')    
+                    ->join('master_unit_kerja', 'master_pegawai.unit_kerja', '=', 'master_unit_kerja.id')            
+                    ->select('master_pegawai.*','master_pendidikan.nama_pendidikan', 'master_pangkat_golongan.pangkat','master_pangkat_golongan.golongan', 'master_jabatan.nama_jabatan', 'master_unit_kerja.nama_unit_kerja')   
+                    ->where('master_pegawai.id', Auth::id())
+                    ->get()->first();
+
+        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::load(storage_path('format_dupak.xlsx'));
+        $worksheet = $reader->getActiveSheet();
+        $worksheet->setCellValue('B10', 'Masa Penilaian Tanggal: '.tglIndo($periode_awal).' s/d '.tglIndo($periode_akhir).'');
+        $worksheet->setCellValue('K13', $pegawai->nama);
+        $worksheet->setCellValueExplicit('K14', $pegawai->nip, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+        $worksheet->setCellValue('K15', $pegawai->no_seri_karpeg);
+        $worksheet->setCellValue('K16', $pegawai->tempat_lahir.", ".tglIndo($pegawai->tanggal_lahir));
+        if($pegawai->jenis_kelamin == "L"){$worksheet->setCellValue('K17', "Laki-laki");}
+        else{$worksheet->setCellValue('K17', "Perempuan");}
+        $worksheet->setCellValue('K18', $pegawai->nama_pendidikan);
+        $worksheet->setCellValue('K19', $pegawai->pangkat." - ".$pegawai->golongan."/ ".tglIndo($pegawai->tanggal_lahir));
+        $worksheet->setCellValue('K20', $pegawai->nama_jabatan."/ ".tglIndo($pegawai->tanggal_lahir));
+
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($reader);
+        $writer->save(storage_path('dupak.xlsx'));
+
+        return response()->download(storage_path('dupak.xlsx'));
     }
 }
