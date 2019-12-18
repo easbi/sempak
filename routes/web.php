@@ -40,6 +40,7 @@ Route::get('pegawai/comingsoon', 'PegawaiController@comingsoon');
 Route::get('penilai/dashboard', 'PenilaiController@dashboardPenilai');
 Route::resource('penilai', 'PenilaiController');
 
+Route::resource('plotpenilai', 'PlotpenilaiController');
 
 Route::get('admin', function () {
     return view('adminlte');
