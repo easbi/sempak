@@ -16,40 +16,53 @@
   </div>
   <!-- /.content-header -->
   <!-- Main content -->
-  <section class="content">
-    
+  <section class="content">    
+    <div class="container">
+      <div class="card">
+        <div class="card-body">
+
+          <form method="post" action="{{ route('plotpenilai.update', '$plotpenilai->id)') }}">
+
+            {{ csrf_field() }}
+
+            <div class="form-group">
+              <label>Widyaiswara yang dinilai</label>
+              <select id="user_dinilai" name="user_dinilai" class="form-control">
+                <option value="" selected disabled></option>
+                @foreach($namas as $key => $nama)
+                <option value="{{$key}}"> {{$nama}}</option>
+                @endforeach
+              </select>     
+            </div>
+            <div class="form-group">
+              <label>Penilai Pertama</label> 
+              <select id="user_penilai_1" name="user_penilai_1" class="form-control">
+                <option value="" selected disabled></option>
+                @foreach($namas as $key => $nama)
+                <option value="{{$key}}"> {{$nama}}</option>
+                @endforeach
+              </select>          
+            </div>
+            <div class="form-group">
+              <label>Penilai Kedua</label>
+              <select id="user_penilai_2" name="user_penilai_2" class="form-control">
+                <option value="" selected disabled></option>
+                @foreach($namas as $key => $nama)
+                <option value="{{$key}}"> {{$nama}}</option>
+                @endforeach
+              </select>               
+            </div>
+            <div class="form-group">
+              <br>
+              <input type="submit" class="btn btn-success" value="Simpan">
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
   </section>
   <!-- /.content -->
 </div>
-  <div class="container">
-    <div class="card">
-      <div class="card-body">
-
-        <form method="post" action="{{route('masteracara.update', $masteracara->id)}}">
-
-          @csrf
-          @method('PUT')
-
-          <div class="form-group">
-            <label>Nama Acara / DIKLAT</label>
-            <input type="text" name="nama_acara" class="form-control" value="{{ $masteracara->nama_acara }}">            
-          </div>
-          <div class="form-group">
-            <label>Tanggal Mulai Acara</label>
-            <input type="date" name="awal_acara" class="form-control" value="{{ $masteracara->awal_acara }}">            
-          </div>
-          <div class="form-group">
-            <label>Tanggal Selesai Acara</label>
-            <input type="date" name="akhir_acara" class="form-control" value="{{ $masteracara->akhir_acara }}">            
-          </div>
-          <div class="form-group">
-            <br>
-            <input type="submit" class="btn btn-success" value="Simpan">
-          </div>
-
-        </form>
-
-      </div>
-    </div>
-  </div>
 @endsection

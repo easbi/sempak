@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Plotpenilai extends Model
 {
     protected $table = "plot_penilai_dupak";
-    public $primaryKey = 'id_transaksi';
+    public $primaryKey = 'id';
     protected $fillable = [
     	'id_user_dinilai',
     	'id_user_penilai_1',

@@ -71,7 +71,13 @@ class PlotpenilaiController extends Controller
      */
     public function edit(Plotpenilai $plotpenilai)
     {
-        //
+        $plotpenilai = DB::table('plot_penilai_dupak')->where('id',$id)
+        ->leftjoin('master_pegawai AS A', 'A.id', 'plot_penilai_dupak.id_user_dinilai')
+        ->leftjoin('master_pegawai AS B', 'B.id', 'plot_penilai_dupak.id_user_penilai_1')
+        ->leftjoin('master_pegawai AS C', 'C.id', 'plot_penilai_dupak.id_user_penilai_2')
+        ->select('plot_penilai_dupak.*', 'A.nama as user_dinilai', 'B.nama as penilai1', 'C.nama as penilai2')
+        ->get();
+        return view('plotpenilai.edit', compact('plotpenilai'));
     }
 
     /**
@@ -94,6 +100,7 @@ class PlotpenilaiController extends Controller
      */
     public function destroy(Plotpenilai $plotpenilai)
     {
-        //
+        $plotpenilai->delete();  
+        return redirect()->route('plotpenilai.index')->with('success','Acara deleted successfully');
     }
 }
