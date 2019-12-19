@@ -15,19 +15,14 @@ class PlotpenilaiController extends Controller
      */
     public function index()
     {
-        $dinilai = DB::table('plot_penilai_dupak')
-        ->join('master_pegawai', 'plot_penilai_dupak.id_user_dinilai', 'master_pegawai.id')
-        ->select('plot_penilai_dupak.*', 'master_pegawai.nama')
+        $plotpenilais = DB::table('plot_penilai_dupak')
+        ->leftjoin('master_pegawai AS A', 'A.id', 'plot_penilai_dupak.id_user_dinilai')
+        ->leftjoin('master_pegawai AS B', 'B.id', 'plot_penilai_dupak.id_user_penilai_1')
+        ->leftjoin('master_pegawai AS C', 'C.id', 'plot_penilai_dupak.id_user_penilai_2')
+        ->select('plot_penilai_dupak.*', 'A.nama as user_dinilai', 'B.nama as penilai1', 'C.nama as penilai2')
         ->get();
-        $penilai1 = DB::table('plot_penilai_dupak')
-        ->join('master_pegawai', 'plot_penilai_dupak.id_user_penilai_1', 'master_pegawai.id')
-        ->select('plot_penilai_dupak.*', 'master_pegawai.nama')
-        ->get();
-        $penilai2 = DB::table('plot_penilai_dupak')
-        ->join('master_pegawai', 'plot_penilai_dupak.id_user_penilai_2', 'master_pegawai.id')
-        ->select('plot_penilai_dupak.*', 'master_pegawai.nama')
-        ->get();
-        return view('plotpenilai.index', compact('dinilai', 'penilai1', 'penilai2'));
+
+        return view('plotpenilai.index', compact('plotpenilais'));
     }
 
     /**

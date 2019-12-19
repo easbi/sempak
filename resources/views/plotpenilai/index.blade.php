@@ -40,9 +40,9 @@
                     @foreach($plotpenilais as $p)
                     <tr>
                         <td>{{ $p->id }}</td>
-                        <td>{{ $p->id_user_dinilai }}</td>
-                        <td>{{ $p->id_user_penilai_1 }}</td>
-                        <td>{{ $p->id_user_penilai_2 }}</td>
+                        <td>{{ $p->user_dinilai }}</td>
+                        <td>{{ $p->penilai1 }}</td>
+                        <td>{{ $p->penilai2 }}</td>
                         <td>
                             <form action="{{ route('plotpenilai.destroy',$p->id) }}" method="POST">
                                 <a class="btn btn-warning" href="{{ route('plotpenilai.edit',$p->id) }}">Edit</a>
