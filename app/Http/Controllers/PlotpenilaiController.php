@@ -15,9 +15,19 @@ class PlotpenilaiController extends Controller
      */
     public function index()
     {
-        $plotpenilais = DB::table('plot_penilai_dupak')
-        ->get(); 
-        return view('plotpenilai.index', compact('plotpenilais'));
+        $dinilai = DB::table('plot_penilai_dupak')
+        ->join('master_pegawai', 'plot_penilai_dupak.id_user_dinilai', 'master_pegawai.id')
+        ->select('plot_penilai_dupak.*', 'master_pegawai.nama')
+        ->get();
+        $penilai1 = DB::table('plot_penilai_dupak')
+        ->join('master_pegawai', 'plot_penilai_dupak.id_user_penilai_1', 'master_pegawai.id')
+        ->select('plot_penilai_dupak.*', 'master_pegawai.nama')
+        ->get();
+        $penilai2 = DB::table('plot_penilai_dupak')
+        ->join('master_pegawai', 'plot_penilai_dupak.id_user_penilai_2', 'master_pegawai.id')
+        ->select('plot_penilai_dupak.*', 'master_pegawai.nama')
+        ->get();
+        return view('plotpenilai.index', compact('dinilai', 'penilai1', 'penilai2'));
     }
 
     /**
