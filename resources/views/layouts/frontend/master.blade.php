@@ -76,7 +76,7 @@
       <img src="{{asset('admin_lte/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       {{-- <span class="brand-text font-weight-light">{{ config('app.name', 'Laravel') }}</span> --}}
-      <span class="brand-text font-weight-light">Simpak</span>
+      <span class="brand-text font-weight-light">{{ config('app.name', 'Laravel') }}</span>
     </a>
 
     <!-- Sidebar -->
@@ -100,7 +100,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('/transaksi/create') }}" class="nav-link">
+            <a href="{{ url('/transaksi') }}" class="nav-link">
               <i class="nav-icon fas fa-archive"></i>
               <p>Input Rincian Dupak</p>
             </a>
