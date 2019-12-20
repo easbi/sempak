@@ -34,6 +34,7 @@ class TransaksiController extends Controller
             ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=', 'master_rincian_kegiatan.id_rincian_kegiatan')   
             ->join('master_acara', 'transaksi.nama_event', '=', 'master_acara.id')      
             ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'master_acara.nama_acara')   
+            ->where('id_user', Auth::user()->id)
             ->orderby('id_transaksi','asc')
             ->get();
         return view('transaksi.index', compact('transaksis'));
@@ -66,7 +67,7 @@ class TransaksiController extends Controller
         $filename = $file->getClientOriginalName();
         $file->move('file_rincian_dupak', $filename);
         Transaksi::create([
-                'id_user' => 1,
+                'id_user' => Auth::user()->id,
                 'id_unsur_utama' => $request->unsurutamas,
                 'id_subunsur' => $request->subunsur,
                 'id_rincian_kegiatan' => $request->rinciankegiatan,

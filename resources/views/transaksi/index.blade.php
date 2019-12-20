@@ -37,6 +37,7 @@
                                 <th>Berkas</th>
                                 <th>Angka Kredit</th>
                                 <th>Satuan</th>
+                                <th></th>
 
                             </tr>
                         </thead>
@@ -53,6 +54,10 @@
                                 <td>{{ $tr->berkas }}</td>
                                 <td>{{ str_replace('.', ',', $tr->angka_kredit_usul) }}</td>
                                 <td>{{ $tr->satuan }}</td>
+                                <td>
+                                    <a href="{{ url('transaksi/edit/'.$tr->id_transaksi) }}" class="btn btn-warning">Edit</a>
+                                    <a href="{{ url('transaksi/hapus/'.$tr->id_transaksi) }}" class="btn btn-danger">Hapus</a>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

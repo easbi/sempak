@@ -23,11 +23,7 @@
   <!-- Main content -->
   <section class="content">
     <div class="container">
-        <div class="card">    
-            <div class="card-header card-header-primary">
-                <h4 class="card-title ">Daftar Pegawai</h4>
-                <!-- <p class="card-category"> Here is a daftar pegawai Pusdiklat BPS</p> -->
-            </div>
+        <div class="card">
             <div class="card-body">
                 <div class="table-responsive">    
                     <table class="table">
