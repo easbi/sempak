@@ -93,23 +93,26 @@
               <p>Dashboard</p>
             </a>
           </li>
+          <li class="nav-header">Dupak Untuk Diinput</li>
           <li class="nav-item">
-            <a href="{{ url('/pegawai/comingsoon')}}" class="nav-link">
-              <i class="nav-icon fas fa-child"></i>
-              <p>Atasan</p>
+            <a href="{{ url('/transaksi') }}" class="nav-link">
+              <i class="nav-icon fas fa-clipboard-list"></i>
+              <p>Daftar Dupak Terinput</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('/transaksi') }}" class="nav-link">
+            <a href="{{ url('/transaksi/create') }}" class="nav-link">
               <i class="nav-icon fas fa-archive"></i>
               <p>Input Rincian Dupak</p>
             </a>
           </li>
+          <li class="nav-header">Dupak Untuk Dinilai</li>
           <li class="nav-item">
             <a href="{{ url('/penilai') }}" class="nav-link">
               <i class="nav-icon fas fa-clipboard-check"></i>
               <p>Evaluasi Rincian Dupak</p>
             </a>
+          <li class="nav-header">Tampilkan Laporan</li>
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
@@ -177,7 +180,7 @@
           </li>
           <li class="nav-header">Bantuan</li>
           <li class="nav-item">
-            <a href="{{ url('/pegawai/comingsoon')}}" class="nav-link">
+            <a href="{{ url('http://wa.me/6285265513571')}}" class="nav-link">
               <i class="nav-icon fas fa-question-circle"></i>
               <p>Laporkan</p>
             </a>

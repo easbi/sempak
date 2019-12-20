@@ -33,8 +33,7 @@
                             <th>Rincian Kegiatan</th>
                             <th>Nama Kegiatan</th>
                             <th>Tanggal Mulai</th>  
-                            <th>Tanggal Selesai</th>                          
-                            <th>Berkas</th>
+                            <th>Tanggal Selesai</th>
                             <th>Angka Kredit Yang Diusulkan</th>
                             <th>Satuan</th>
                             <th>Aksi</th>                         
@@ -50,11 +49,10 @@
                             <td>{{ $tr->nama_acara }}</td>
                             <td>{{ $tr->tgl_mulai }}</td>
                             <td>{{ $tr->tgl_selesai }}</td>
-                            <td>{{ $tr->berkas }}</td>
                             <td>{{ str_replace('.', ',', $tr->angka_kredit_usul) }}</td>
                             <td>{{ $tr->satuan }}</td>
                             <td>
-                                <a class="btn btn-warning" href="{{ action('PenilaiController@edit',$tr->id_transaksi) }}">Edit</a>
+                                <a class="btn btn-warning" href="{{ action('PenilaiController@edit',$tr->id_transaksi) }}">Evaluasi</a>
                             </td>
                         </tr>
                         @endforeach

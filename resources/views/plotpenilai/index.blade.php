@@ -64,9 +64,9 @@
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('#example').DataTable();
-    } );
+    $(document).ready(function() ({
+            "scrollX": true
+        });
 </script>
 
 @endsection
