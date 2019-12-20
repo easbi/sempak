@@ -33,11 +33,10 @@
                                 <th>Rincian Kegiatan</th>
                                 <th>Nama Kegiatan</th>
                                 <th>Tanggal Mulai</th>  
-                                <th>Tanggal Selesai</th>                          
-                                <th>Berkas</th>
+                                <th>Tanggal Selesai</th>
                                 <th>Angka Kredit</th>
                                 <th>Satuan</th>
-                                <th></th>
+                                <th>Aksi</th>
 
                             </tr>
                         </thead>
@@ -51,7 +50,6 @@
                                 <td>{{ $tr->nama_acara }}</td>
                                 <td>{{ $tr->tgl_mulai }}</td>
                                 <td>{{ $tr->tgl_selesai }}</td>
-                                <td>{{ $tr->berkas }}</td>
                                 <td>{{ str_replace('.', ',', $tr->angka_kredit_usul) }}</td>
                                 <td>{{ $tr->satuan }}</td>
                                 <td>
@@ -71,7 +69,10 @@
   
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#example').DataTable();
+        $('#example').DataTable({
+            "scrollX": true
+        });
     } );
 </script>
 @endsection
+

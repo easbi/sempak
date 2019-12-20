@@ -5,10 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Transaksi;
 use DB;
+use Auth;
 
 
 class PenilaiController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,12 +27,14 @@ class PenilaiController extends Controller
      */
     public function index()
     {
+        $user = Auth::user()->id;
         $transaksis = DB::table('transaksi')
             ->join('master_unsur_utama', 'transaksi.id_unsur_utama', '=', 'master_unsur_utama.id')
             ->join('master_subunsurs', 'transaksi.id_subunsur', '=', 'master_subunsurs.id_sub_unsur')            
             ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=', 'master_rincian_kegiatan.id_rincian_kegiatan')   
             ->join('master_acara', 'transaksi.nama_event', '=', 'master_acara.id')      
             ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'master_acara.nama_acara')   
+            ->where('id_user', Auth::user()->id)
             ->orderby('id_transaksi','asc')
             ->get();
         return view('penilai.index', compact('transaksis'));
@@ -101,10 +114,10 @@ class PenilaiController extends Controller
 
     public function dashboardPenilai()
     {
-        $proses_total = DB::table ('transaksi')->select('status1')->where('status1', NULL)->count();
-        $proses_11 = DB::table ('transaksi')->select('status1')->where('status1', 1)->count();
-        $proses_12 = DB::table ('transaksi')->select('status1')->where('status1', 2)->count();        
-        $proses_13 = DB::table ('transaksi')->select('status1')->where('status1', 3)->count();
+        $proses_total = DB::table ('transaksi')->select('status1')->where('status1', NULL)->where('id_user', Auth::user()->id)->count();
+        $proses_11 = DB::table ('transaksi')->select('status1')->where('status1', 1)->where('id_user', Auth::user()->id)->count();
+        $proses_12 = DB::table ('transaksi')->select('status1')->where('status1', 2)->where('id_user', Auth::user()->id)->count();        
+        $proses_13 = DB::table ('transaksi')->select('status1')->where('status1', 3)->where('id_user', Auth::user()->id)->count();
         //dd($proses_11);
         return view('penilai.dashboard', compact('proses_11', 'proses_12', 'proses_13', 'proses_total'));
     }

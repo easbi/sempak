@@ -10,39 +10,37 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Daftar Acara</h1>
+          <h1 class="m-0 text-dark">Data Plot Penilai</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
-          <a href="{{ url('/plotpenilai/create') }}" class="btn btn-primary float-sm-right">Input Plot Penilai Baru</a>
+          <a href="{{ url('/')}}" class="btn btn-primary float-sm-right">Kembali</a>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
   </div>
   <!-- /.content-header -->
   <!-- Main content -->
-  <section class="content">    
-    <div class="container-fluid">
-    <!-- Main row -->
-    <div class="row">
-        <div class="card-body">
-            <table id="example" class="display">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Peserta </th>
-                        <th>Penilai 1</th>          
-                        <th>Penilai 2</th>
-                        <th>Aksi</th>
-
-                    </tr>
-                </thead>
-                <tbody>
+  <section class="content">
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <table id="example" class="display">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Peserta </th>
+                            <th>Penilai 1</th>          
+                            <th>Penilai 2</th>
+                            <th>Aksi</th>                       
+                        </tr>
+                    </thead>
+                    <tbody>
                     @foreach($plotpenilais as $p)
                     <tr>
-                        <td>{{ $p->id }}</td>
-                        <td>{{ $p->user_dinilai }}</td>
-                        <td>{{ $p->penilai1 }}</td>
-                        <td>{{ $p->penilai2 }}</td>
+                        <td>{{$p->id}}</td>
+                        <td>{{$p->user_dinilai}}</td>
+                        <td>{{$p->penilai1}}</td>
+                        <td>{{$p->penilai2}}</td>
                         <td>
                             <form action="{{ route('plotpenilai.destroy',$p->id) }}" method="POST">
                                 <a class="btn btn-warning" href="{{ route('plotpenilai.edit',$p->id) }}">Edit</a>
@@ -54,18 +52,18 @@
                     </tr>
                     @endforeach
                 </tbody>
-            </table>
+                </table>
             </div>
         </div>
-    <!-- /.row (main row) -->
     </div>
   </section>
   <!-- /.content -->
 </div>
-
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#example').DataTable();
+        $('#example').DataTable({
+            "scrollX": true
+        });
     } );
 </script>
 
