@@ -56,9 +56,13 @@
             <i class="far fa-address-book"></i>   Ubah Profil
           </a>
           <div class="dropdown-divider"></div>
-          <a href="{{ url('/pegawai/comingsoon')}}" class="dropdown-item">
-            <i class="fas fa-power-off"></i>   Logout
+          <a class="dropdown-item"  href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <i class="fas fa-power-off"></i> Logout
           </a>
+          
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+              @csrf
+          </form>
         </div>
       </li>
     </ul>
