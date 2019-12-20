@@ -10,10 +10,10 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Data Plot Penilai</h1>
+          <h1 class="m-0 text-dark">Data Master Unsur Utama</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
-          <a href="{{ url('/')}}" class="btn btn-primary float-sm-right">Kembali</a>
+          <a href="{{ url('/metadata/create') }}" class="btn btn-primary float-sm-right">Input Unsur Utama Baru</a>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -27,16 +27,16 @@
                 <table id="example" class="display">
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Peserta </th>
-                            <th>Penilai 1</th>          
+                            <th>Id</th>
+                            <th>Pengusul</th>
+                            <th>Penilai 1</th>
                             <th>Penilai 2</th>
-                            <th>Aksi</th>                       
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach($plotpenilais as $p)
-                    <tr>
+                      @foreach($plotpenilais as $p)
+                      <tr>
                         <td>{{$p->id}}</td>
                         <td>{{$p->user_dinilai}}</td>
                         <td>{{$p->penilai1}}</td>
@@ -49,9 +49,9 @@
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
                         </td>
-                    </tr>
-                    @endforeach
-                </tbody>
+                      </tr>
+                      @endforeach
+                    </tbody>
                 </table>
             </div>
         </div>
