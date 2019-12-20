@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Pegawai;
 use DB;
+use Auth;
 
 
 class PegawaiController extends Controller

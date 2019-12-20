@@ -138,6 +138,8 @@
               </li>
             </ul>
           </li>
+
+          @if(Auth::user()->role == 1) 
           <li class="nav-header">Metadata Dupak</li>
           <li class="nav-item">
             <a href="{{ url('/metadata') }}" class="nav-link">
@@ -175,6 +177,7 @@
               <p>Pegawai</p>
             </a>
           </li>
+          @endif
           <li class="nav-header">Bantuan</li>
           <li class="nav-item">
             <a href="{{ url('/pegawai/comingsoon')}}" class="nav-link">
