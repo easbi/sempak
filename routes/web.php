@@ -12,7 +12,7 @@
 */
 Auth::routes();
 
-Route::get('/home', 'TransaksiController@index')->name('home');
+Route::get('/home', 'PenilaiController@dashboardPenilai')->name('home');
 Route::get('/', 'PenilaiController@dashboardPenilai');
 
 //Route master data pegawai as login item
