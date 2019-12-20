@@ -101,7 +101,7 @@ class PenilaiController extends Controller
 
     public function dashboardPenilai()
     {
-        $proses_total = DB::table ('transaksi')->select('status1')->count();
+        $proses_total = DB::table ('transaksi')->select('status1')->where('status1', NULL)->count();
         $proses_11 = DB::table ('transaksi')->select('status1')->where('status1', 1)->count();
         $proses_12 = DB::table ('transaksi')->select('status1')->where('status1', 2)->count();        
         $proses_13 = DB::table ('transaksi')->select('status1')->where('status1', 3)->count();

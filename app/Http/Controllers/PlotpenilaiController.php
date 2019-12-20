@@ -69,7 +69,7 @@ class PlotpenilaiController extends Controller
      * @param  \App\Plotpenilai  $plotpenilai
      * @return \Illuminate\Http\Response
      */
-    public function edit(Plotpenilai $plotpenilai)
+    public function edit($id)
     {
         $plotpenilai = DB::table('plot_penilai_dupak')->where('id',$id)
         ->leftjoin('master_pegawai AS A', 'A.id', 'plot_penilai_dupak.id_user_dinilai')
