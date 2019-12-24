@@ -1,6 +1,5 @@
 @extends('layouts.frontend.master')
 @section('content')
-
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
@@ -10,10 +9,10 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Data Master Unsur Utama</h1>
+          <h1 class="m-0 text-dark">Data Rincian Kegiatan</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
-          <a href="{{ url('/metadata/create') }}" class="btn btn-primary float-sm-right">Input Unsur Utama Baru</a>
+          <a href="{{ url('/plotpenilai/create') }}" class="btn btn-primary float-sm-right">Input Rincian Kegiatan Baru</a>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -27,30 +26,30 @@
                 <table id="example" class="display">
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Pengusul</th>
-                            <th>Penilai 1</th>
+                            <th>No Plot</th>
+                            <th>Pengusul yang di Nilai</th>
+                            <th>Penilai 1</th>                  
                             <th>Penilai 2</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                      @foreach($plotpenilais as $p)
-                      <tr>
-                        <td>{{$p->id}}</td>
-                        <td>{{$p->user_dinilai}}</td>
-                        <td>{{$p->penilai1}}</td>
-                        <td>{{$p->penilai2}}</td>
-                        <td>
-                            <form action="{{ route('plotpenilai.destroy',$p->id) }}" method="POST">
+                        @foreach($plotpenilais as $p)
+                        <tr>
+                            <td>{{ $p->id }}</td>
+                            <td>{{ $p->user_dinilai }}</td>
+                            <td>{{ $p->penilai1 }}</td>
+                            <td>{{ $p->penilai2 }}</td>
+                            <td>
+                              <form action="{{ route('plotpenilai.destroy',$p->id) }}" method="POST">
                                 <a class="btn btn-warning" href="{{ route('plotpenilai.edit',$p->id) }}">Edit</a>
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
-                        </td>
-                      </tr>
-                      @endforeach
+                              </form>
+                            </td>
+                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -61,10 +60,7 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#example').DataTable({
-            "scrollX": true
-        });
+        $('#example').DataTable();
     } );
 </script>
-
 @endsection
