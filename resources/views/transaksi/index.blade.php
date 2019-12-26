@@ -53,8 +53,12 @@
                                 <td>{{ str_replace('.', ',', $tr->angka_kredit_usul) }}</td>
                                 <td>{{ $tr->satuan }}</td>
                                 <td>
-                                    <a href="{{ url('transaksi/edit/'.$tr->id_transaksi) }}" class="btn btn-warning">Edit</a>
-                                    <a href="{{ url('transaksi/hapus/'.$tr->id_transaksi) }}" class="btn btn-danger">Hapus</a>
+                                    <form action="{{ route('transaksi.destroy',$tr->id_transaksi) }}" method="POST">
+                                        <a class="btn btn-warning" href="{{ route('transaksi.edit',$tr->id_transaksi) }}">Edit</a>
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
