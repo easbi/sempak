@@ -36,9 +36,10 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php $no = 1; ?>
                     @foreach($acaras as $a)
                     <tr>
-                        <td>{{ $a->id }}</td>
+                        <td>{{ $no++ }}</td>
                         <td>{{ $a->nama_acara }}</td>
                         <td>{{ $a->awal_acara }}</td>
                         <td>{{ $a->akhir_acara }}</td>

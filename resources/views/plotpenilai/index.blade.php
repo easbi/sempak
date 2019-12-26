@@ -34,9 +34,10 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $no = 1; ?>
                         @foreach($plotpenilais as $p)
                         <tr>
-                            <td>{{ $p->id }}</td>
+                            <td>{{ $no++ }}</td>
                             <td>{{ $p->user_dinilai }}</td>
                             <td>{{ $p->penilai1 }}</td>
                             <td>{{ $p->penilai2 }}</td>
