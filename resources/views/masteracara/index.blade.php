@@ -10,21 +10,20 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Daftar Acara</h1>
+          <h1 class="m-0 text-dark">Data Master Acara </h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <a href="{{ url('/masteracara/create') }}" class="btn btn-primary float-sm-right">Input Acara Baru</a>
-        </div><!-- /.col -->
+        </div>
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
   </div>
   <!-- /.content-header -->
   <!-- Main content -->
-  <section class="content">    
-    <div class="container-fluid">
-    <!-- Main row -->
-    <div class="row">
-        <div class="card-body">
+  <section class="content">
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
             <table id="example" class="display">
                 <thead>
                     <tr>
@@ -55,17 +54,18 @@
                     @endforeach
                 </tbody>
             </table>
+              
             </div>
         </div>
-    <!-- /.row (main row) -->
     </div>
   </section>
   <!-- /.content -->
 </div>
-
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#example').DataTable();
+        $('#example').DataTable({
+            "scrollX": true
+        });
     } );
 </script>
 

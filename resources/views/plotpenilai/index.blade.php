@@ -12,7 +12,7 @@
           <h1 class="m-0 text-dark">Data Rincian Kegiatan</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
-          <a href="{{ url('/plotpenilai/create') }}" class="btn btn-primary float-sm-right">Input Rincian Kegiatan Baru</a>
+          <a href="{{ url('/plotpenilai/create') }}" class="btn btn-primary float-sm-right">Input Plot Penilai Baru</a>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
