@@ -110,7 +110,7 @@ class TransaksiController extends Controller
         ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=', 'master_rincian_kegiatan.id_rincian_kegiatan')   
         ->join('master_acara', 'transaksi.nama_event', '=', 'master_acara.id')      
         ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'master_acara.nama_acara') 
-        ->get();
+        ->first();
         //dd($transaksi);
         $unsurutamas = DB::table("master_unsur_utama")->pluck( 'unsur_utama', 'id');
         $nama_acaras = DB::table("master_acara")->pluck('nama_acara', 'id');
@@ -131,7 +131,6 @@ class TransaksiController extends Controller
             $transaksi->keterangan = $request->keterangan;
             $transaksi->tgl_mulai = $request->awal_acara;
             $transaksi->tgl_selesai = $request->akhir_acara;
-            dd($request);
             if($request->file('berkas')) {
                 $file = $request->file('berkas');
                 $filename = $file->getClientOriginalName();
@@ -140,12 +139,9 @@ class TransaksiController extends Controller
                 
             } else {
                $transaksi->berkas = $transaksi->berkas;
-               dd("sini");
             }
             $transaksi->save();
         }
-
-        
         return redirect()->route('transaksi.index')->with('success', 'Hasil Penilaian udpdated successfully');
     }
 
