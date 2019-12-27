@@ -28,7 +28,6 @@
           <div class="form-group">
             <label>Unsur Utama</label>
             <select id="unsurutamas" name="unsurutamas" class="form-control">
-              <option value="" selected disabled>Select</option>
               @foreach($unsurutamas as $key => $unsurutama)
               <option value="{{$key}}"> {{$unsurutama}}</option>
               @endforeach

@@ -63,6 +63,7 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
+        ini_set('memory_limit','50M');
         $file = $request->file('berkas');
         $filename = $file->getClientOriginalName();
         $file->move('file_rincian_dupak', $filename);
@@ -111,7 +112,9 @@ class TransaksiController extends Controller
         ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'master_acara.nama_acara') 
         ->get();
         //dd($transaksi);
-        return view('transaksi.edit', compact('transaksi'));
+        $unsurutamas = DB::table("master_unsur_utama")->pluck( 'unsur_utama', 'id');
+        $nama_acaras = DB::table("master_acara")->pluck('nama_acara', 'id');
+        return view('transaksi.edit', compact('transaksi', 'unsurutamas', 'nama_acaras'));
     }
 
     /**
