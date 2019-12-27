@@ -38,6 +38,7 @@
                                 <th>Satuan</th>
                                 <th>Berkas</th>
                                 <th>Aksi</th>
+                                <th></th>
 
                             </tr>
                         </thead>
@@ -58,8 +59,10 @@
                                     <a href='{{  url('file_rincian_dupak', $tr->berkas) }}' class="btn btn-info" target="_blank">Berkas</a>
                                 </td>
                                 <td>
-                                    <form action="{{ route('transaksi.destroy',$tr->id_transaksi) }}" method="POST">
-                                        <a class="btn btn-warning" href="{{ action('TransaksiController@edit',$tr->id_transaksi) }}">Edit</a>
+                                    <a class="btn btn-warning" href="{{ action('TransaksiController@edit',$tr->id_transaksi) }}">Edit</a>
+                                </td>
+                                <td>
+                                    <form action="{{ route('transaksi.destroy',$tr->id_transaksi) }}" method="POST">                                       
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">Delete</button>
