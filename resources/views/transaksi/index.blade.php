@@ -36,6 +36,7 @@
                                 <th>Tanggal Selesai</th>
                                 <th>Angka Kredit</th>
                                 <th>Satuan</th>
+                                <th>Berkas</th>
                                 <th>Aksi</th>
 
                             </tr>
@@ -53,6 +54,9 @@
                                 <td>{{ $tr->tgl_selesai }}</td>
                                 <td>{{ str_replace('.', ',', $tr->angka_kredit_usul) }}</td>
                                 <td>{{ $tr->satuan }}</td>
+                                <td>
+                                    <a href='{{  url('file_rincian_dupak', $tr->berkas) }}' class="btn btn-info" target="_blank">Berkas</a>
+                                </td>
                                 <td>
                                     <form action="{{ route('transaksi.destroy',$tr->id_transaksi) }}" method="POST">
                                         <a class="btn btn-warning" href="{{ action('TransaksiController@edit',$tr->id_transaksi) }}">Edit</a>
