@@ -92,7 +92,7 @@ class TransaksiController extends Controller
      */
     public function show($id)
     {
-        return view('transaksi.edit');
+        //return view('transaksi.edit');
     }
 
     /**
@@ -101,9 +101,17 @@ class TransaksiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id_transaksi)
     {
-        //
+        $transaksi = DB::table('transaksi')->where('id_transaksi',$id_transaksi)
+        ->join('master_unsur_utama', 'transaksi.id_unsur_utama', '=', 'master_unsur_utama.id')
+        ->join('master_subunsurs', 'transaksi.id_subunsur', '=', 'master_subunsurs.id_sub_unsur')            
+        ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=', 'master_rincian_kegiatan.id_rincian_kegiatan')   
+        ->join('master_acara', 'transaksi.nama_event', '=', 'master_acara.id')      
+        ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'master_acara.nama_acara') 
+        ->get();
+        //dd($transaksi);
+        return view('transaksi.edit', compact('transaksi'));
     }
 
     /**
@@ -115,7 +123,15 @@ class TransaksiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $transaksi = DB::table('transaksi')->where('id_transaksi',$id_transaksi)
+        ->join('master_unsur_utama', 'transaksi.id_unsur_utama', '=', 'master_unsur_utama.id')
+        ->join('master_subunsurs', 'transaksi.id_subunsur', '=', 'master_subunsurs.id_sub_unsur')            
+        ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=', 'master_rincian_kegiatan.id_rincian_kegiatan')   
+        ->join('master_acara', 'transaksi.nama_event', '=', 'master_acara.id')      
+        ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'master_acara.nama_acara') 
+        ->get();
+        //dd($transaksi);
+        return view('transaksi.edit', compact('transaksi'));
     }
 
     /**
@@ -124,9 +140,10 @@ class TransaksiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id_transaksi)
     {
-        //
+        Transaksi::destroy($id_transaksi);
+        return redirect()->route('transaksi.index')->with('success','Acara deleted successfully');
     }
 
     public function dupak()

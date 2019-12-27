@@ -50,6 +50,12 @@ Route::resource('penilai', 'PenilaiController');
 //Route untuk Pengeplot DUPAK di TU
 Route::resource('plotpenilai', 'PlotpenilaiController');
 
+// Route::get('plotpenilai/edit2/{id}', 'PlotpenilaiController@edit')->name('plotpenilai.edit2');
+
+
+//edit yg mana bi?
+
+
 //Soon be deleted
 Route::get('admin', function () {
     return view('adminlte');

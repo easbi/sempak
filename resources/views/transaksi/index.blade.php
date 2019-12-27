@@ -41,9 +41,10 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php $no = 1; ?>
                             @foreach($transaksis as $tr)
                             <tr>
-                                <td>{{ $tr->id_transaksi }}</td>
+                                <td>{{ $no++ }}</td>
                                 <td>{{ $tr->unsur_utama }}</td>
                                 <td>{{ $tr->kegiatan_sub_unsur }}</td>
                                 <td>{{ $tr->rincian_kegiatan }}</td>
@@ -53,8 +54,12 @@
                                 <td>{{ str_replace('.', ',', $tr->angka_kredit_usul) }}</td>
                                 <td>{{ $tr->satuan }}</td>
                                 <td>
-                                    <a href="{{ url('transaksi/edit/'.$tr->id_transaksi) }}" class="btn btn-warning">Edit</a>
-                                    <a href="{{ url('transaksi/hapus/'.$tr->id_transaksi) }}" class="btn btn-danger">Hapus</a>
+                                    <form action="{{ route('transaksi.destroy',$tr->id_transaksi) }}" method="POST">
+                                        <a class="btn btn-warning" href="{{ action('TransaksiController@edit',$tr->id_transaksi) }}">Edit</a>
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach

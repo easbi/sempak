@@ -26,7 +26,7 @@
                     <div class="small-box bg-info">
                         <div class="inner">
                             <h3>{{ $proses_total }}</h3>
-                            <p>Kegiatan Baru Diinput</p>
+                            <p>Total Kegiatan Diinput</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-soup-can"></i>
@@ -90,7 +90,7 @@
                     <div class="small-box bg-info">
                         <div class="inner">
                             <h3>{{ $proses_total }}</h3>
-                            <p>Kegiatan Baru Diinput</p>
+                            <p>Total Kegiatan Diinput</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-soup-can"></i>
@@ -102,7 +102,7 @@
                     <div class="small-box bg-success">
                         <div class="inner">
                             <h3>{{ $proses_11 }}</h3>
-                            <p>Kegiatan Baru Diinput</p>
+                            <p>Kegiatan Sedang diproses Evaluasi</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-bag"></i>

@@ -69,15 +69,20 @@ class PlotpenilaiController extends Controller
      * @param  \App\Plotpenilai  $plotpenilai
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit( $id)
     {
-        $plotpenilai = DB::table('plot_penilai_dupak')->where('id',$id)
+        //$plotpenilai = \App\Plotpenilai::find($id);
+        $plotpenilais = DB::table('plot_penilai_dupak')
         ->leftjoin('master_pegawai AS A', 'A.id', 'plot_penilai_dupak.id_user_dinilai')
         ->leftjoin('master_pegawai AS B', 'B.id', 'plot_penilai_dupak.id_user_penilai_1')
         ->leftjoin('master_pegawai AS C', 'C.id', 'plot_penilai_dupak.id_user_penilai_2')
         ->select('plot_penilai_dupak.*', 'A.nama as user_dinilai', 'B.nama as penilai1', 'C.nama as penilai2')
-        ->get();
-        return view('plotpenilai.edit', compact('plotpenilai'));
+        ->where('plot_penilai_dupak.id', $id)
+        ->first();
+        //dd($plotpenilais);
+        $id_n = $id;
+        $namas = DB::table("master_pegawai")->pluck( 'nama', 'id');
+        return view('plotpenilai.edit', compact('namas', 'id_n', 'plotpenilais'));
     }
 
     /**
@@ -87,9 +92,17 @@ class PlotpenilaiController extends Controller
      * @param  \App\Plotpenilai  $plotpenilai
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Plotpenilai $plotpenilai)
+    public function update(Request $request, $id)
     {
-        //
+        $plotpenilai = \App\Plotpenilai::find($id);
+        if($plotpenilai) {
+            $plotpenilai->id_user_dinilai = $request->user_dinilai;
+            $plotpenilai->id_user_penilai_1 = $request->user_penilai_1;
+            $plotpenilai->id_user_penilai_2 = $request->user_penilai_2;
+
+            $plotpenilai->save();
+        }
+        return redirect()->route('plotpenilai.index')->with('success', 'Hasil Plot Penilai udpdated successfully');
     }
 
     /**

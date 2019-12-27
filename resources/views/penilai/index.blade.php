@@ -40,9 +40,10 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $no = 1; ?>
                         @foreach($transaksis as $tr)
                         <tr>
-                            <td>{{ $tr->id_transaksi }}</td>
+                            <td>{{ $no++ }}</td>
                             <td>{{ $tr->unsur_utama }}</td>
                             <td>{{ $tr->kegiatan_sub_unsur }}</td>
                             <td>{{ $tr->rincian_kegiatan }}</td>
