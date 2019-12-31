@@ -60,7 +60,7 @@
                 </div> 
                 <div class="form-group">
                   <label>Berkas Sebelumnya</label><br>
-                  <a href='{{  url('file_rincian_dupak', $transaksi->berkas) }}' class="btn btn-warning" target="_blank"><i class="fas fa-book"></i></a>
+                  <a href='{{  url('public/file_rincian_dupak', $transaksi->berkas) }}' class="btn btn-warning" target="_blank"><i class="fas fa-book"></i></a>
                 </div>  
                 <div class="form-group">
                   <label>Ganti Berkas *</label><br>
