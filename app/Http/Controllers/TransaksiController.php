@@ -66,7 +66,7 @@ class TransaksiController extends Controller
         ini_set('memory_limit','50M');
         $file = $request->file('berkas');
         $filename = $file->getClientOriginalName();
-        $file->move('file_rincian_dupak', $filename);
+        $file->move('public/file_rincian_dupak', $filename);
         Transaksi::create([
                 'id_user' => Auth::user()->id,
                 'id_unsur_utama' => $request->unsurutamas,

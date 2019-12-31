@@ -114,11 +114,17 @@ class PenilaiController extends Controller
 
     public function dashboardPenilai()
     {
+        #status dupak user
         $proses_total = DB::table ('transaksi')->where('id_user', Auth::user()->id)->count();
         $proses_11 = DB::table ('transaksi')->select('status1')->where('status1', 1)->where('id_user', Auth::user()->id)->count();
         $proses_12 = DB::table ('transaksi')->select('status1')->where('status1', 2)->where('id_user', Auth::user()->id)->count();        
         $proses_13 = DB::table ('transaksi')->select('status1')->where('status1', 3)->where('id_user', Auth::user()->id)->count();
-        //dd($proses_11);
+
+        #status dupak user
+        $userp1 = DB::table('plot_penilai_dupak')->select('id_user_dinilai')->where('id_user_penilai_1', Auth::user()->id)->get();
+        $userp2 = DB::table('plot_penilai_dupak')->select('id_user_dinilai')->where('id_user_penilai_2', Auth::user()->id)->count();
+        //$penilai_total = DB::table('transaksi')->whereIn('id_user_penilai_1', $userp1)->get();
+        //dd(get_object_vars($userp1));
         return view('penilai.dashboard', compact('proses_11', 'proses_12', 'proses_13', 'proses_total'));
     }
 
