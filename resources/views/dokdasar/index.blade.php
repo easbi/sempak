@@ -10,11 +10,11 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Data Dokumen Dasar </h1>
+          <h1 class="m-0 text-dark">Berkas Administrasi Pokok </h1>
           @if(!empty($dokdasar->sk_pangkat_pns))
-             <a href='{{  url('dokdasar/edit') }}' class="btn btn-primary float-sm-right" target="_blank">Edit Berkas</a>
+             <a href='{{ route('dokdasar.edit', $dokdasar->id_user) }}' class="btn btn-primary float-sm-right">Edit Berkas</a>
           @else
-             <a href='{{  url('dokdasar/create') }}' class="btn btn-primary float-sm-right" target="_blank">Isi Berkas</a>
+             <a href='{{  url('dokdasar/create') }}' class="btn btn-primary float-sm-right">Isi Berkas</a>
           @endif
 
         </div><!-- /.col -->

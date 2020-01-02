@@ -10,7 +10,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Daftar Acara</h1>
+          <h1 class="m-0 text-dark">Berkas Administrasi Pokok</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <a href="{{ url('/dokdasar') }}" class="btn btn-primary float-sm-right">Dokumen Dasar</a>
@@ -25,7 +25,7 @@
       <!-- Main row -->
       <div class="row">
         <div class="card-body">
-          <form method="post" action="{{ route('dokdasar.edit', ['id_user' => Auth::id()]) }}">
+          <form method="post" action="{{route('dokdasar.update', $dokdasar->id_user)}}" enctype="multipart/form-data">
 
             @csrf
             @method('PUT')

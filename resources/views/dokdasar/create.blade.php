@@ -6,10 +6,10 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Data Unsur Utama - <strong>Tambah Data</strong></h1>
+          <h1 class="m-0 text-dark">Berkas Administrasi Pokok - <strong>Isi Data</strong></h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
-          <a href="{{ url('/metadata')}}" class="btn btn-primary float-sm-right">Kembali</a>
+          <a href="{{ url('/dokdasar')}}" class="btn btn-primary float-sm-right">Kembali</a>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
