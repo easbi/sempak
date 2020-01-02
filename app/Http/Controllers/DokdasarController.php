@@ -29,8 +29,9 @@ class DokdasarController extends Controller
     public function index()
     {
         $dokdasar = DB::table('master_dok_wi')->where('id_user', Auth::user()->id)->first();
+        $cc = Auth::user()->id; 
         //dd($dokdasar);
-        return view('dokdasar.index', compact('dokdasar'));
+        return view('dokdasar.index', compact('dokdasar', 'cc'));
     }
 
     /**
@@ -79,13 +80,13 @@ class DokdasarController extends Controller
         $id_user = Auth::user()->id;
         
         Dokdasar::create([
-                'id_user' => $id_user,
-                'sk_pangkat_pns' => $sk_pangkat_pns,
-                'sk_jab_wi' => $sk_jab_wi,
-                'pak' => $pak,
-                'karpeg' => $karpeg,
-                'dp3' => $dp3
-            ]);
+            'id_user' => $id_user,
+            'sk_pangkat_pns' => $sk_pangkat_pns,
+            'sk_jab_wi' => $sk_jab_wi,
+            'pak' => $pak,
+            'karpeg' => $karpeg,
+            'dp3' => $dp3
+        ]);
         return redirect('/dokdasar/create');
     }
 
@@ -106,9 +107,10 @@ class DokdasarController extends Controller
      * @param  \App\Dokdasar  $dokdasar
      * @return \Illuminate\Http\Response
      */
-    public function edit(Dokdasar $dokdasar)
+    public function edit($id_user)
     {
-        //
+        $dokdasar = DB::table('master_dok_wi')->where('id_user',$id_user);
+        return view('dokdasar.edit');
     }
 
     /**
@@ -120,7 +122,57 @@ class DokdasarController extends Controller
      */
     public function update(Request $request, Dokdasar $dokdasar)
     {
-        //
+        $dokdasar = \App\Dokdasar::find($id_user);
+        if($dokdasar) {
+            
+            if($request->file('sk_pangkat_pns')) {
+                $file = $request->file('sk_pangkat_pns');
+                $filename = $file->getClientOriginalName();
+                $file->move('public/dok_dasar_dupak/sk_pangkat_pns', $filename);
+                $dokdasar->sk_pangkat_pns = $filename;                
+            } else {
+               $dokdasar->sk_pangkat_pns = $dokdasar->sk_pangkat_pns;
+            }
+
+            if($request->file('sk_jab_wi')) {
+                $file = $request->file('sk_jab_wi');
+                $filename = $file->getClientOriginalName();
+                $file->move('public/dok_dasar_dupak/sk_jab_wi', $filename);
+                $dokdasar->sk_jab_wi = $filename;                
+            } else {
+               $dokdasar->sk_jab_wi = $dokdasar->sk_jab_wi;
+            }
+
+            if($request->file('sk_jab_wi')) {
+                $file = $request->file('sk_jab_wi');
+                $filename = $file->getClientOriginalName();
+                $file->move('public/dok_dasar_dupak/sk_jab_wi', $filename);
+                $dokdasar->sk_jab_wi = $filename;                
+            } else {
+               $dokdasar->sk_jab_wi = $dokdasar->sk_jab_wi;
+            }
+
+            if($request->file('pak')) {
+                $file = $request->file('pak');
+                $filename = $file->getClientOriginalName();
+                $file->move('public/dok_dasar_dupak/pak', $filename);
+                $dokdasar->pak = $filename;                
+            } else {
+               $dokdasar->pak = $dokdasar->pak;
+            }
+
+            if($request->file('dp3')) {
+                $file = $request->file('dp3');
+                $filename = $file->getClientOriginalName();
+                $file->move('public/dok_dasar_dupak/dp3', $filename);
+                $dokdasar->dp3 = $filename;                
+            } else {
+               $dokdasar->dp3 = $dokdasar->berkas;
+            }
+
+            $dokdasar->save();
+        }
+        return redirect()->route('dokdasar.index')->with('success', 'Berkas Terupdate Dengan Benar');
     }
 
     /**

@@ -13,7 +13,7 @@
           <h1 class="m-0 text-dark">Daftar Acara</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
-          <a href="{{ url('/dokdasar/create') }}" class="btn btn-primary float-sm-right">Input Acara Baru</a>
+          <a href="{{ url('/dokdasar') }}" class="btn btn-primary float-sm-right">Dokumen Dasar</a>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -25,7 +25,7 @@
       <!-- Main row -->
       <div class="row">
         <div class="card-body">
-          <form method="post" action="{{route('dokdasar.update', $masteracara->id)}}">
+          <form method="post" action="{{ route('dokdasar.edit', ['id_user' => Auth::id()]) }}">
 
             @csrf
             @method('PUT')
