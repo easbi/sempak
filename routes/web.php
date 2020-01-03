@@ -52,8 +52,8 @@ Route::resource('plotpenilai', 'PlotpenilaiController');
 
 // Route::get('plotpenilai/edit2/{id}', 'PlotpenilaiController@edit')->name('plotpenilai.edit2');
 
-
-//edit yg mana bi?
+//Route::get('dokdasar/edit/{id}', 'DokdasarController@edit')->name('dokdasar.edit');
+Route::resource('dokdasar', 'DokdasarController');
 
 
 //Soon be deleted
