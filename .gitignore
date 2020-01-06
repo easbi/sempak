@@ -1,4 +1,6 @@
 /node_modules
+/public/dok_dasar_dupak
+/public/file_rincian_dupak
 /public/hot
 /public/storage
 /storage/*.key
