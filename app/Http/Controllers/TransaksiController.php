@@ -54,7 +54,6 @@ class TransaksiController extends Controller
     }
 
     
-
     /**
      * Store a newly created resource in storage.
      *
@@ -81,6 +80,7 @@ class TransaksiController extends Controller
                 'tgl_mulai' => $request->awal_acara,
                 'tgl_selesai' => $request->akhir_acara,
                 'angka_kredit_usul' => $request->angka_kredit,
+                'kuantitas' => $request->kuantitas,
                 'id_rinci_ak' => $id_rinci_ak,
                 'kk' => $kk,
                 'berkas' => $filename

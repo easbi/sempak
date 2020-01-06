@@ -34,6 +34,7 @@ Route::get('rinciankegiatan/getSubunsurList/{id}','RinciankegiatanController@get
 Route::get('rincianangkakredit/getSubunsurList','RincianangkakreditController@getSubunsurList');
 Route::get('rincianangkakredit/getRinciankegiatanList','RincianangkakreditController@getRinciankegiatanList');
 Route::get('rincianangkakredit/getAngkaKredit','RincianangkakreditController@getAngkaKredit');
+Route::get('rincianangkakredit/edit/{id}', 'RincianangkakreditController@edit')->name('rincianangkakredit.edit');
 Route::resource('rincianangkakredit', 'RincianangkakreditController');
 
 //Route untuk Transaksi pengisian DUPAK

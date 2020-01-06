@@ -77,7 +77,11 @@
             <textarea class="form-control" name="keterangan"></textarea>            
           </div>
           <div class="form-group">
-            <label>Angka Kredit</label>
+            <label>Kuantitas</label>
+            <input type="number" name="kuantitas" id="kuantitas" class="form-control" value="1">
+          </div> 
+          <div class="form-group">
+            <label>Angka Kredit Per Satuan</label>
             <input type="text" name="angka_kredit" id="angka_kredit" class="form-control" readonly="true">
           </div> 
           <div class="form-group">
