@@ -82,7 +82,7 @@
           </div> 
           <div class="form-group">
             <label>Angka Kredit Per Satuan</label>
-            <input type="text" name="angka_kredit" id="angka_kredit" class="form-control" readonly="true">
+            <input type="text" name="angka_kredit_per_satuan" id="angka_kredit" class="form-control" readonly="true">
           </div> 
           <div class="form-group">
             <label>Berkas</label>
