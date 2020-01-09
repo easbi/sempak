@@ -53,50 +53,72 @@
                             <td>{{ str_replace('.', ',', $tr->angka_kredit_usul) }}</td>
                             <td>{{ $tr->satuan }}</td>
                             <td>
-                                <button class="btn btn-warning btn-detail open_modal" value="1">Edit</button>
+                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal">Evaluasi<i class="fa fa-edit"></i></button>
                                 {{-- <a class="btn btn-warning" href="{{ action('PenilaiController@edit',$tr->id_transaksi) }}">Evaluasi</a> --}}
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
-
-
-                {{--  ### --}}
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Tour</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form id="frmProducts" name="frmProducts" class="form-horizontal" novalidate="">
-                                    <div class="form-group error">
-                                     <label for="inputName" class="col-sm-3 control-label">Name</label>
-                                       <div class="col-sm-9">
-                                        <input type="text" class="form-control has-error" id="name" name="name" placeholder="Product Name" value="">
-                                       </div>
-                                       </div>
-                                     <div class="form-group">
-                                     <label for="inputDetail" class="col-sm-3 control-label">Details</label>
-                                        <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="details" name="details" placeholder="details" value="">
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" id="btn-save" value="add">Save changes</button>
-                                <input type="hidden" id="product_id" name="tour_id" value="0">
-                            </div>
-                        </div>
-                      </div>
-                  </div>
-                </div>
-                {{-- ### --}}
             </div>
         </div>
+
+        {{-- adadada --}}
+
+        <div class="modal fade" id="edit-modal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" align="center"><b>Penilaian</b></h4>
+              </div>
+              <div class="modal-body">
+                <form role="form" action="/edit_user">
+                  <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                  <div class="box-body">
+                    <div class="form-group">
+                      <label>Berkas</label> <br>
+                      <a href='{{  url('file_rincian_dupak', $tr->berkas) }}' class="btn btn-warning" target="_blank">Berkas</a>
+                    </div>
+                    <div class="form-group">
+                      <label>Angka kredit yang diusulkan</label> 
+                      <input type="text" class="form-control" name="angka_kredit1" readonly="true" value="{{ $tr->angka_kredit_usul }}">
+                    </div>
+                    <div class="form-group">
+                      <label>Keterangan mengenai rincian</label> 
+                      <textarea class="form-control" name="keterangan" readonly>{{ $tr->keterangan }}</textarea>
+                    </div>
+                    <div class="form-group">
+                      <label>Angka kredit hasil penilaian</label> 
+                      <input type="text" class="form-control" name="angka_kredit1">
+                    </div>
+                    <div class="form-group">
+                      <label>Status</label> 
+                      <select id="status1" name="status1"class="form-control">
+                        <option value="1">Proses</option>
+                        <option value="2">Setuju</option>
+                        <option value="3">Tolak</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Keterangan</label> 
+                      <textarea class="form-control" name="ket_status1"></textarea>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        {{-- dadad --}}
     </div>
   </section>
   <!-- /.content -->
@@ -108,21 +130,4 @@
         });
     } );
 </script>
-
-<script type="text/javascript">
-    $(document).on('click','.open_modal',function(){
-    var url = "/edit";
-    var tour_id= $(this).val();
-    $.get(url + '/' + tour_id, function (data) {
-            //success data
-            console.log(data);
-            $('#tour_id').val(data.id);
-            $('#name').val(data.name);
-            $('#details').val(data.details);
-            $('#btn-save').val("update");
-            $('#myModal').modal('show');
-        }) 
-});
-</script>
-
 @endsection

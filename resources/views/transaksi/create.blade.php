@@ -73,7 +73,7 @@
             <input type="date" name="akhir_acara" class="form-control">            
           </div>          
           <div class="form-group">
-            <label>Keterangan / Mata Diklat</label>
+            <label>Mata Diklat / Keterangan Lainnya </label>
             <textarea class="form-control" name="keterangan"></textarea>            
           </div>
           <div class="form-group">
