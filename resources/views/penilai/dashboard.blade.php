@@ -39,7 +39,7 @@
                     <div class="small-box bg-success">
                         <div class="inner">
                             <h3>{{ $proses_11 }}</h3>
-                            <p>Kegiatan Sedang diproses Evaluasi</p>
+                            <p>Kegiatan Sedang diproses</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-bag"></i>
@@ -141,7 +141,7 @@
                     <div class="small-box bg-success">
                         <div class="inner">
                             <h3>{{ $proses_11 }}</h3>
-                            <p>Kegiatan Sedang diproses Evaluasi</p>
+                            <p>Kegiatan Sedang diproses</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-bag"></i>

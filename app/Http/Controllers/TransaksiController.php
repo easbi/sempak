@@ -135,22 +135,28 @@ class TransaksiController extends Controller
     public function store(Request $request)
     {
         ini_set('memory_limit','50M');
+
+        $id_rinci_ak = DB::table("master_rincian_angka_kredit")->where('id_unsur_utama', $request->unsurutamas)->where('id_subunsur', $request->subunsur)->where('id_rincian_kegiatan', $request->rinciankegiatan)->where("id_tingkatan_wi", Auth::user()->jabatan)->first()->id_rinci_ak;
+        $kk = DB::table('master_rincian_angka_kredit')->where('id_rinci_ak', $id_rinci_ak)->first()->kk;
+        $ak_usul = $request->angka_kredit_per_satuan * $request->kuantitas;
+        //dd($request->angka_kredit_per_satuan);
         $file = $request->file('berkas');
         $filename = $file->getClientOriginalName();
-        $file->move('file_rincian_dupak', $filename);
+        $file->move('public/file_rincian_dupak', $filename);
         Transaksi::create([
                 'id_user' => Auth::user()->id,
                 'id_unsur_utama' => $request->unsurutamas,
                 'id_subunsur' => $request->subunsur,
                 'id_rincian_kegiatan' => $request->rinciankegiatan,
-                'id_tingkatan_wi' => 1,
                 'nama_event' => $request->nama_acara,
                 'keterangan' => $request->keterangan,
                 'tgl_mulai' => $request->awal_acara,
                 'tgl_selesai' => $request->akhir_acara,
-                'angka_kredit_usul' => $request->angka_kredit,
-                'id_rinci_ak' => 1,
-                'kk' => 1,
+                'kuantitas' => $request->kuantitas,
+                'ak_per_satuan' => $request->angka_kredit_per_satuan,
+                'angka_kredit_usul' => $ak_usul,
+                'id_rinci_ak' => $id_rinci_ak,
+                'kk' => $kk,
                 'berkas' => $filename
             ]);
         return redirect('/transaksi/create');

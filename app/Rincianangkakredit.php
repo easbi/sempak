@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Rincianangkakredit extends Model
 {
     protected $table = "master_rincian_angka_kredit";
+    public $primaryKey = 'id_rinci_ak';
     protected $fillable = [
     	'id_unsur_utama',
     	'id_subunsur',

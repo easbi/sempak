@@ -52,6 +52,9 @@
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <div class="dropdown-divider"></div>
+          <a href="{{ url('dokdasar') }}" class="dropdown-item">
+            <i class="fas fa-file-signature"></i>  Berkas Administrasi DUPAK
+          </a>
           <a href="{{ route('pegawai.edit', ['id' => Auth::id()]) }}" class="dropdown-item">
             <i class="far fa-address-book"></i>   Ubah Profil
           </a>

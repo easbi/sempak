@@ -34,6 +34,7 @@
                             <th>Tingkatan Widyaiswara</th>
                             <th>Kode Kegiatan</th>
                             <th>Angka Kredit</th>
+                            <th>Aksi</th>
 
                         </tr>
                     </thead>
@@ -47,6 +48,7 @@
                             <td>{{ $p->nama_tingkatan }}</td>
                             <td>{{ $p->kk }}</td>
                             <td>{{ str_replace('.', ',', $p->angka_kredit) }}</td>
+                            <td><a class="btn btn-warning" href="{{ action('RincianangkakreditController@edit',$p->id_rinci_ak) }}">Edit</a></td>
                         </tr>
                         @endforeach
                     </tbody>

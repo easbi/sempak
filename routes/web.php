@@ -34,6 +34,7 @@ Route::get('rinciankegiatan/getSubunsurList/{id}','RinciankegiatanController@get
 Route::get('rincianangkakredit/getSubunsurList','RincianangkakreditController@getSubunsurList');
 Route::get('rincianangkakredit/getRinciankegiatanList','RincianangkakreditController@getRinciankegiatanList');
 Route::get('rincianangkakredit/getAngkaKredit','RincianangkakreditController@getAngkaKredit');
+Route::get('rincianangkakredit/edit/{id}', 'RincianangkakreditController@edit')->name('rincianangkakredit.edit');
 Route::resource('rincianangkakredit', 'RincianangkakreditController');
 
 //Route untuk Transaksi pengisian DUPAK
@@ -55,8 +56,8 @@ Route::resource('plotpenilai', 'PlotpenilaiController');
 
 // Route::get('plotpenilai/edit2/{id}', 'PlotpenilaiController@edit')->name('plotpenilai.edit2');
 
-
-//edit yg mana bi?
+//Route::get('dokdasar/edit/{id}', 'DokdasarController@edit')->name('dokdasar.edit');
+Route::resource('dokdasar', 'DokdasarController');
 
 
 //Soon be deleted

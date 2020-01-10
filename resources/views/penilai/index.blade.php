@@ -53,7 +53,8 @@
                             <td>{{ str_replace('.', ',', $tr->angka_kredit_usul) }}</td>
                             <td>{{ $tr->satuan }}</td>
                             <td>
-                                <a class="btn btn-warning" href="{{ action('PenilaiController@edit',$tr->id_transaksi) }}">Evaluasi</a>
+                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal">Evaluasi<i class="fa fa-edit"></i></button>
+                                {{-- <a class="btn btn-warning" href="{{ action('PenilaiController@edit',$tr->id_transaksi) }}">Evaluasi</a> --}}
                             </td>
                         </tr>
                         @endforeach
@@ -61,6 +62,63 @@
                 </table>
             </div>
         </div>
+
+        {{-- adadada --}}
+
+        <div class="modal fade" id="edit-modal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" align="center"><b>Penilaian</b></h4>
+              </div>
+              <div class="modal-body">
+                <form role="form" action="/edit_user">
+                  <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                  <div class="box-body">
+                    <div class="form-group">
+                      <label>Berkas</label> <br>
+                      <a href='{{  url('file_rincian_dupak', $tr->berkas) }}' class="btn btn-warning" target="_blank">Berkas</a>
+                    </div>
+                    <div class="form-group">
+                      <label>Angka kredit yang diusulkan</label> 
+                      <input type="text" class="form-control" name="angka_kredit1" readonly="true" value="{{ $tr->angka_kredit_usul }}">
+                    </div>
+                    <div class="form-group">
+                      <label>Keterangan mengenai rincian</label> 
+                      <textarea class="form-control" name="keterangan" readonly>{{ $tr->keterangan }}</textarea>
+                    </div>
+                    <div class="form-group">
+                      <label>Angka kredit hasil penilaian</label> 
+                      <input type="text" class="form-control" name="angka_kredit1">
+                    </div>
+                    <div class="form-group">
+                      <label>Status</label> 
+                      <select id="status1" name="status1"class="form-control">
+                        <option value="1">Proses</option>
+                        <option value="2">Setuju</option>
+                        <option value="3">Tolak</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Keterangan</label> 
+                      <textarea class="form-control" name="ket_status1"></textarea>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        {{-- dadad --}}
     </div>
   </section>
   <!-- /.content -->
@@ -72,5 +130,4 @@
         });
     } );
 </script>
-
 @endsection

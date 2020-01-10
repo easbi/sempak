@@ -20,6 +20,8 @@ class Transaksi extends Model
     	'berkas',
         'id_rinci_ak',
         'kk',
+        'kuantitas',
+        'ak_per_satuan',
     	'angka_kredit_usul',
     	'id_penilai1',
     	'id_penilai2',
