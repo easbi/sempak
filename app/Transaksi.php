@@ -29,6 +29,34 @@ class Transaksi extends Model
     	'status2',
     	'ket_status1',
     	'ket_status2',
-    ];
+	];
+
+	public function scopeGetPeriode($query,$y,$m)
+	{
+		if($m<7){
+			
+		} else {
+
+		}
+	}
+	
+	public function scopePeriode($query,$y,$m)
+    {	
+        if($m<7){
+            $result = array(
+                "awal" => date_create($y."-01-01"),
+                "akhir" => date_create($y."-06-30"),
+                "judul" => "Semester I ".$y
+            );
+        } else {
+            $result = array(
+                "awal" => date_create($y."-07-01"),
+                "akhir" => date_create($y."-12-31"),
+                "judul" => "Semester II ".$y
+            );
+		}
+		
+		return $result;
+    }
 
 }

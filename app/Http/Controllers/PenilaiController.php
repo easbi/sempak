@@ -119,6 +119,11 @@ class PenilaiController extends Controller
         $proses_12 = DB::table ('transaksi')->select('status1')->where('status1', 2)->where('id_user', Auth::user()->id)->count();        
         $proses_13 = DB::table ('transaksi')->select('status1')->where('status1', 3)->where('id_user', Auth::user()->id)->count();
         //dd($proses_11);
+
+        $pl1 = DB::table ('plot_penilai_dupak')->where('id_user_penilai_1',  Auth::user()->id)->pluck('id_user_dinilai');
+        $pl2 = DB::table ('plot_penilai_dupak')->where('id_user_penilai_2',  Auth::user()->id)->pluck('id_user_dinilai');
+        $keg1 = DB::table ('transaksi')->select('status1')->where('status1', 1)->whereIn('id_user', $pl1)->count();
+        
         return view('penilai.dashboard', compact('proses_11', 'proses_12', 'proses_13', 'proses_total'));
     }
 

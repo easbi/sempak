@@ -9,7 +9,7 @@
             <h1 class="m-0 text-dark">Usulan DUPAK - <strong>TAMBAH DATA</strong></h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
-            <a href="{{ url('/transaksi') }}" class="btn btn-primary float-sm-right">Kembali</a>
+            <!-- <a href="{{ url('/transaksi') }}" class="btn btn-primary float-sm-right">Kembali</a> -->
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->

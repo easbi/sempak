@@ -12,8 +12,8 @@
 */
 Auth::routes();
 
-Route::get('/home', 'PenilaiController@dashboardPenilai')->name('home');
-Route::get('/', 'PenilaiController@dashboardPenilai');
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index');
 
 //Route master data pegawai as login item
 Route::get('pegawai', 'PegawaiController@index')->name('pegawai');
@@ -38,6 +38,9 @@ Route::resource('rincianangkakredit', 'RincianangkakreditController');
 
 //Route untuk Transaksi pengisian DUPAK
 Route::resource('transaksi', 'TransaksiController');
+Route::get('periode/{y}/{m}', 'TransaksiController@byPeriode');
+Route::get('usulan/{y}/{m}/{kk}', 'TransaksiController@byKk');
+Route::get('transaksi/{y}/{m}/{kk}', 'TransaksiController@createByKk');
 Route::post('generatedupak','TransaksiController@generateDupak');
 Route::get('dupak','TransaksiController@dupak');
 

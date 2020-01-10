@@ -41,6 +41,63 @@ class TransaksiController extends Controller
 
     }
 
+    public function byPeriode($y,$m)
+    {
+        $periode = Transaksi::Periode($y,$m);
+        $awal = date_format($periode['awal'],'y-m-d');
+        $akhir = date_format($periode['akhir'],'y-m-d');
+        $result = array();
+
+        $unsurutamas = DB::table('master_unsur_utama')->select('id','unsur_utama')->get();
+        foreach($unsurutamas as $uu) {
+            $subunsurs = DB::table('master_subunsurs')->select('id_sub_unsur','kegiatan_sub_unsur')->where('id_unsur',$uu->id)->get();
+            $temp_su = array();
+            foreach($subunsurs as $su) {
+                $kegiatans = DB::table('master_rincian_kegiatan')
+                ->leftJoin('transaksi','master_rincian_kegiatan.id_rincian_kegiatan','=',DB::raw('transaksi.id_rincian_kegiatan AND transaksi.id_user='.Auth::user()->id.' AND transaksi.tgl_selesai BETWEEN "'.$awal.'" AND "'.$akhir.'"'))
+                ->join('master_rincian_angka_kredit','master_rincian_kegiatan.id_rincian_kegiatan','=',DB::raw('master_rincian_angka_kredit.id_rincian_kegiatan AND master_rincian_angka_kredit.id_tingkatan_wi='.Auth::user()->jabatan))
+                ->select('master_rincian_angka_kredit.kk','rincian_kegiatan',DB::raw('COUNT(transaksi.id_transaksi) as jumlah_kegiatan'),DB::raw('SUM(transaksi.angka_kredit_usul) as angka_kredit'))
+                ->where('master_rincian_kegiatan.id_subunsur',$su->id_sub_unsur)
+                ->groupBy('master_rincian_kegiatan.rincian_kegiatan')
+                ->groupBy('master_rincian_angka_kredit.kk')
+                ->orderBy('master_rincian_angka_kredit.kk','asc')
+                ->get();
+                $temp_keg = array('id_su' => $su->id_sub_unsur, 'su' => $su->kegiatan_sub_unsur, 'kegiatans' => json_decode(json_encode($kegiatans), true));
+                array_push($temp_su, $temp_keg);
+            }
+            $temp_uu = array('id_uu' => $uu->id, 'unsur' => $uu->unsur_utama, 'sub_unsurs' => $temp_su);
+            array_push($result, $temp_uu);
+        }
+        
+        return view('transaksi.kegiatan', compact('result','y','m','periode'));
+    }
+    
+    public function byKk($y,$m,$kk)
+    {
+        if($m==1){
+            $awal = date_create($y.'-1-1');
+            $akhir = date_create($y.'-6-30');
+        } else {
+            $awal = date_create($y.'-7-1');
+            $akhir = date_create($y.'-12-31');
+        }
+
+        $transaksis = DB::table('transaksi')
+            ->join('master_unsur_utama', 'transaksi.id_unsur_utama', '=', 'master_unsur_utama.id')
+            ->join('master_subunsurs', 'transaksi.id_subunsur', '=', 'master_subunsurs.id_sub_unsur')            
+            ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=', 'master_rincian_kegiatan.id_rincian_kegiatan')   
+            ->join('master_acara', 'transaksi.nama_event', '=', 'master_acara.id')
+            ->join('master_rincian_angka_kredit','master_rincian_kegiatan.id_rincian_kegiatan','=',DB::raw('master_rincian_angka_kredit.id_rincian_kegiatan AND master_rincian_angka_kredit.id_tingkatan_wi='.Auth::user()->jabatan))    
+            ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'master_acara.nama_acara')   
+            ->where('id_user', Auth::user()->id)
+            ->whereBetween('transaksi.tgl_selesai', [$awal, $akhir])
+            ->where('master_rincian_angka_kredit.kk', $kk)
+            ->orderby('id_transaksi','asc')
+            ->get();
+        
+        return view('transaksi.index', compact('transaksis'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -53,7 +110,21 @@ class TransaksiController extends Controller
         return view('transaksi.create', compact('unsurutamas', 'nama_acaras'));
     }
 
-    
+    public function createByKk($y,$m,$kk)
+    {
+        $periode = Transaksi::Periode($y,$m);
+
+        $kegiatan = DB::table("master_rincian_kegiatan")
+            ->join('master_unsur_utama', 'master_rincian_kegiatan.id_unsur_utama', '=', 'master_unsur_utama.id')
+            ->join('master_subunsurs', 'master_rincian_kegiatan.id_subunsur', '=', 'master_subunsurs.id_sub_unsur')
+            ->join('master_rincian_angka_kredit','master_rincian_kegiatan.id_rincian_kegiatan','=',DB::raw('master_rincian_angka_kredit.id_rincian_kegiatan AND master_rincian_angka_kredit.id_tingkatan_wi='.Auth::user()->jabatan))
+            ->select('master_unsur_utama.unsur_utama','master_unsur_utama.id','master_subunsurs.kegiatan_sub_unsur','master_subunsurs.id_sub_unsur','master_rincian_kegiatan.id_rincian_kegiatan','master_rincian_kegiatan.rincian_kegiatan')
+            ->where('master_rincian_angka_kredit.kk',$kk)
+            ->first();
+        $nama_acaras = DB::table("master_acara")->pluck('nama_acara', 'id');
+        
+        return view('transaksi.createbykk', compact('kegiatan', 'nama_acaras', 'periode', 'kk'));
+    }
 
     /**
      * Store a newly created resource in storage.
