@@ -141,16 +141,6 @@ class DokdasarController extends Controller
             $dokdasar->sk_jab_wi = $dokdasar->sk_jab_wi;
         }
 
-        if($request->file('sk_jab_wi')) {
-            $file = $request->file('sk_jab_wi');
-            $filename = $file->getClientOriginalName();
-            $file->move('public/dok_dasar_dupak/sk_jab_wi', $filename);
-            $dokdasar->sk_jab_wi = $filename;                
-        } else {
-            $dokdasar->sk_jab_wi = $dokdasar->sk_jab_wi;
-        }
-
-
         if($request->file('pak')) {
             $file = $request->file('pak');
             $filename = $file->getClientOriginalName();
@@ -158,6 +148,15 @@ class DokdasarController extends Controller
             $dokdasar->pak = $filename;                
         } else {
             $dokdasar->pak = $dokdasar->pak;
+        }
+
+        if($request->file('karpeg')) {
+            $file = $request->file('karpeg');
+            $filename = $file->getClientOriginalName();
+            $file->move('public/dok_dasar_dupak/karpeg', $filename);
+            $dokdasar->karpeg = $filename;                
+        } else {
+            $dokdasar->karpeg = $dokdasar->karpeg;
         }
 
         if($request->file('dp3')) {

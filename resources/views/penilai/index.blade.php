@@ -36,6 +36,7 @@
                             <th>Tanggal Selesai</th>
                             <th>Angka Kredit Yang Diusulkan</th>
                             <th>Satuan</th>
+                            <th>Dokumen</th>
                             <th>Aksi</th>                         
                         </tr>
                     </thead>
@@ -52,6 +53,7 @@
                             <td>{{ $tr->tgl_selesai }}</td>
                             <td>{{ str_replace('.', ',', $tr->angka_kredit_usul) }}</td>
                             <td>{{ $tr->satuan }}</td>
+                            <td><a href='{{  url('file_rincian_dupak', $tr->berkas) }}' class="btn btn-warning" target="_blank">Berkas</a></td>
                             <td>
                                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal">Evaluasi<i class="fa fa-edit"></i></button>
                                 {{-- <a class="btn btn-warning" href="{{ action('PenilaiController@edit',$tr->id_transaksi) }}">Evaluasi</a> --}}
@@ -79,8 +81,8 @@
                   <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                   <div class="box-body">
                     <div class="form-group">
-                      <label>Berkas</label> <br>
-                      <a href='{{  url('file_rincian_dupak', $tr->berkas) }}' class="btn btn-warning" target="_blank">Berkas</a>
+                      <label>Kuantitas</label> 
+                      <input type="text" class="form-control" name="kuantitas" readonly="true" value="{{ $tr->kuantitas }}">
                     </div>
                     <div class="form-group">
                       <label>Angka kredit yang diusulkan</label> 
