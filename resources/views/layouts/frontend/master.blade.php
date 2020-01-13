@@ -95,12 +95,14 @@
               <p>Pengajuan Dupak</p>
             </a>
           </li>
+          @if(Auth::user()->role == 1)
           <li class="nav-item">
             <a href="{{ url('/penilai/dashboard') }}" class="nav-link">
               <i class="nav-icon fas fa-clipboard-check"></i>
               <p>Penilaian Dupak</p>
             </a>
           </li>
+          @endif
           <li class="nav-header">Tampilkan Laporan</li>
           </li>
           <li class="nav-item has-treeview">

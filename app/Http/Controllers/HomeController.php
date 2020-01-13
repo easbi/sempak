@@ -42,10 +42,10 @@ class HomeController extends Controller
                 Transaksi::Periode($y,$m),
                 Transaksi::Periode($y,($m+6)),
             );
-		}
+        }
 
         foreach($arr_periode as $periode){
-            $proses_total = DB::table ('transaksi')->where('id_user', Auth::user()->id)->whereBetween('created_at', [$periode['awal'], [$periode['akhir']]])->count();
+            $proses_total = DB::table ('transaksi')->where('id_user', Auth::user()->id)->whereBetween('tgl_selesai', [$periode['awal'], [$periode['akhir']]])->count();
             $proses_11 = DB::table ('transaksi')->select('status1')->where('status1', 1)->where('id_user', Auth::user()->id)->whereBetween('tgl_selesai', [$periode['awal'], [$periode['akhir']]])->count();
             $proses_12 = DB::table ('transaksi')->select('status1')->where('status1', 2)->where('id_user', Auth::user()->id)->whereBetween('tgl_selesai', [$periode['awal'], [$periode['akhir']]])->count();        
             $proses_13 = DB::table ('transaksi')->select('status1')->where('status1', 3)->where('id_user', Auth::user()->id)->whereBetween('tgl_selesai', [$periode['awal'], [$periode['akhir']]])->count();

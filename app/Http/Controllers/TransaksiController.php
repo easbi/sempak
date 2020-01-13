@@ -118,7 +118,7 @@ class TransaksiController extends Controller
             ->join('master_unsur_utama', 'master_rincian_kegiatan.id_unsur_utama', '=', 'master_unsur_utama.id')
             ->join('master_subunsurs', 'master_rincian_kegiatan.id_subunsur', '=', 'master_subunsurs.id_sub_unsur')
             ->join('master_rincian_angka_kredit','master_rincian_kegiatan.id_rincian_kegiatan','=',DB::raw('master_rincian_angka_kredit.id_rincian_kegiatan AND master_rincian_angka_kredit.id_tingkatan_wi='.Auth::user()->jabatan))
-            ->select('master_unsur_utama.unsur_utama','master_unsur_utama.id','master_subunsurs.kegiatan_sub_unsur','master_subunsurs.id_sub_unsur','master_rincian_kegiatan.id_rincian_kegiatan','master_rincian_kegiatan.rincian_kegiatan')
+            ->select('master_unsur_utama.unsur_utama','master_unsur_utama.id','master_subunsurs.kegiatan_sub_unsur','master_subunsurs.id_sub_unsur','master_rincian_kegiatan.id_rincian_kegiatan','master_rincian_kegiatan.rincian_kegiatan','master_rincian_angka_kredit.angka_kredit')
             ->where('master_rincian_angka_kredit.kk',$kk)
             ->first();
         $nama_acaras = DB::table("master_acara")->pluck('nama_acara', 'id');
@@ -136,14 +136,15 @@ class TransaksiController extends Controller
     {
         ini_set('memory_limit','50M');
 
-        $id_rinci_ak = DB::table("master_rincian_angka_kredit")->where('id_unsur_utama', $request->unsurutamas)->where('id_subunsur', $request->subunsur)->where('id_rincian_kegiatan', $request->rinciankegiatan)->where("id_tingkatan_wi", Auth::user()->jabatan)->first()->id_rinci_ak;
-        $kk = DB::table('master_rincian_angka_kredit')->where('id_rinci_ak', $id_rinci_ak)->first()->kk;
-        $ak_usul = $request->angka_kredit_per_satuan * $request->kuantitas;
+        $id_rinci_ak = DB::table("master_rincian_angka_kredit")->where('kk', $request->kk)->where("id_tingkatan_wi", Auth::user()->jabatan)->first()->id_rinci_ak;
+        // $id_rinci_ak = DB::table("master_rincian_angka_kredit")->where('id_unsur_utama', $request->unsurutamas)->where('id_subunsur', $request->subunsur)->where('id_rincian_kegiatan', $request->rinciankegiatan)->where("id_tingkatan_wi", Auth::user()->jabatan)->first();
+        // $kk = DB::table('master_rincian_angka_kredit')->where('id_rinci_ak', $id_rinci_ak)->first()->kk;
+        // $ak_usul = $request->angka_kredit_per_satuan * $request->kuantitas;
         //dd($request->angka_kredit_per_satuan);
         $file = $request->file('berkas');
         $filename = $file->getClientOriginalName();
         $file->move('public/file_rincian_dupak', $filename);
-        Transaksi::create([
+        $result = Transaksi::create([
                 'id_user' => Auth::user()->id,
                 'id_unsur_utama' => $request->unsurutamas,
                 'id_subunsur' => $request->subunsur,
@@ -154,12 +155,13 @@ class TransaksiController extends Controller
                 'tgl_selesai' => $request->akhir_acara,
                 'kuantitas' => $request->kuantitas,
                 'ak_per_satuan' => $request->angka_kredit_per_satuan,
-                'angka_kredit_usul' => $ak_usul,
+                'angka_kredit_usul' => $request->ak_usul,
                 'id_rinci_ak' => $id_rinci_ak,
-                'kk' => $kk,
+                'kk' => $request->kk,
                 'berkas' => $filename
             ]);
-        return redirect('/transaksi/create');
+
+        return redirect('/');
     }
 
     /**

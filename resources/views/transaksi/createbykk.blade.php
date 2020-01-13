@@ -27,21 +27,18 @@
               {{ csrf_field() }}
               <div class="form-group">
                 <label>Unsur Utama</label>
-                <select id="unsurutamas" name="unsurutamas" class="form-control" disabled>
-                  <option value="{{$kegiatan->id}}"> {{$kegiatan->unsur_utama}}</option>
-                </select>
+                <input type="text" name="unsurutamas" style="display:none;" value="{{$kegiatan->id}}">
+                <input type="text" class="form-control" readonly="true" value="{{$kegiatan->unsur_utama}}">
               </div>
               <div class="form-group">
                 <label>Sub Unsur</label>
-                <select name="subunsur" id="subunsur" class="form-control" disabled>
-                <option value="{{$kegiatan->id_sub_unsur}}"> {{$kegiatan->kegiatan_sub_unsur}}</option>
-                </select>
+                <input type="text" name="subunsur" style="display:none;" value="{{$kegiatan->id_sub_unsur}}">
+                <input type="text" class="form-control" readonly="true" value="{{$kegiatan->kegiatan_sub_unsur}}">
               </div>                      
               <div class="form-group">
                 <label>Rincian Kegiatan</label>
-                <select name="rinciankegiatan" id="rinciankegiatan" class="form-control" disabled>
-                <option value="{{$kegiatan->id_rincian_kegiatan}}"> {{$kegiatan->rincian_kegiatan}}</option>
-                </select>
+                <input type="text" name="rinciankegiatan" style="display:none;" value="{{$kegiatan->id_rincian_kegiatan}}">
+                <input type="text" class="form-control" readonly="true" value="{{$kegiatan->rincian_kegiatan}}">
               </div>
               <div class="form-group">
                 <label>Nama Acara / Diklat</label>
@@ -62,16 +59,22 @@
                 <input type="date" name="akhir_acara" class="form-control" min="{{date_format($periode['awal'],'Y-m-d')}}" max="{{date_format($periode['akhir'],'Y-m-d')}}">            
               </div>          
               <div class="form-group">
-                <label>Keterangan</label>
+                <label>Mata Diklat / Keterangan Lainnya </label>
                 <textarea class="form-control" name="keterangan"></textarea>            
               </div>
               <div class="form-group">
-                <label>Angka Kredit</label>
-                <input type="text" name="angka_kredit" id="angka_kredit" class="form-control" readonly="true">
+                <label>Kuantitas</label>
+                <input type="number" name="kuantitas" id="kuantitas" class="form-control" value="1">
               </div> 
               <div class="form-group">
+                <label>Angka Kredit Usulan</label>
+                <input type="text" name="kk" style="display:none;" value="{{$kk}}">
+                <input type="text" name="ak_usul" id="ak_usul" class="form-control" readonly="true" value="{{$kegiatan->angka_kredit}}">
+              </div>
+              <br>
+              <div class="form-group">
                 <label>Berkas</label>
-                <input type="file" name="berkas" class="form-control">
+                <input type="file" name="berkas">
               </div>
               <div class="form-group">
                 <br>
@@ -92,72 +95,10 @@
       window.location.href = '{{ url('/masteracara')}}'
     }
   })
-</script>
-<script type="text/javascript">
-  $('#unsurutamas').change(function(){
-    var unsurutamasID = $(this).val();    
-    if(unsurutamasID){
-      $.ajax({
-       type:"GET",
-       url:"{{url('rincianangkakredit/getSubunsurList')}}?unsurutamas_id="+unsurutamasID,
-       success:function(res){               
-        if(res){
-          $("#subunsur").empty();
-          $("#subunsur").append('<option>Select</option>');
-          $.each(res,function(key,value){
-            $("#subunsur").append('<option value="'+key+'">'+value+'</option>');
-          });
-        }else{
-          $("#subunsur").empty();
-        }
-      }
-    });
-    }else{
-      $("#subunsur").empty();
-      $("#rinciankegiatan").empty();
-    }      
-  });
-  $('#subunsur').on('change',function(){
-    var subunsurID = $(this).val();    
-    if(subunsurID){
-      $.ajax({
-       type:"GET",
-       url:"{{url('rincianangkakredit/getRinciankegiatanList')}}?subunsur_id="+subunsurID,
-       success:function(res){               
-        if(res){
-          $("#rinciankegiatan").empty();
-          $.each(res,function(key,value){
-            $("#rinciankegiatan").append('<option value="'+key+'">'+value+'</option>');
-          });
-
-        }else{
-         $("#rinciankegiatan").empty();
-       }
-     }
-   });
-    }else{
-      $("#rinciankegiatan").empty();
-    }
-  });
-  $('#rinciankegiatan').on('click',function(){
-    var rinciankegiatanID = $(this).val();    
-    if(rinciankegiatanID){
-      $.ajax({
-       type:"GET",
-       url:"{{url('rincianangkakredit/getAngkaKredit')}}?rinciankegiatan_id="+rinciankegiatanID,
-       success:function(res){               
-        if(res){
-          console.log(res);
-          $("#angka_kredit").val(res);
-        }else{
-         $("#angka_kredit").empty();
-       }
-     }
-   });
-    }else{
-      $("#angka_kredit").empty();
-    }
-
+  
+  $('#kuantitas').on('change',function(){
+    var kuantitas = $(this).val();
+    $("#angka_kredit").val(kuantitas*{{$kegiatan->angka_kredit}});    
   });
 </script>
 @endsection
