@@ -44,6 +44,7 @@ Route::get('usulan/{y}/{m}/{kk}', 'TransaksiController@byKk');
 Route::get('transaksi/{y}/{m}/{kk}', 'TransaksiController@createByKk');
 Route::post('generatedupak','TransaksiController@generateDupak');
 Route::get('dupak','TransaksiController@dupak');
+Route::post('/transaksi/getAcara/','TransaksiController@getAcara')->name('transaksi.getAcara');
 
 
 //Route untuk Tim Evaluasi penilaian dupak

@@ -29,7 +29,9 @@
   <link rel="stylesheet" href="{{asset('admin_lte/plugins/summernote/summernote-bs4.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  <link rel="shortcut icon" type="image/x-icon" href="icon.jpg">
+  <!-- Datatable CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+  {{-- <link rel="shortcut icon" type="image/x-icon" href="icon.jpg"> --}}
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -205,8 +207,11 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-  <!-- jQuery UI 1.11.4 -->
+  <script src="{{asset('admin_lte/plugins/jquery/jquery.min.js')}}"></script>
+  {{-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script> --}}
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   <script src="{{asset('admin_lte/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+  <script src="{{asset('select2/dist/js/select2.min.js')}}" type="text/javascript"></script>
   <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
   <script>
     $.widget.bridge('uibutton', $.ui.button)
@@ -230,9 +235,9 @@
   <script src="{{asset('admin_lte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
   <!-- AdminLTE App -->
   <script src="{{asset('admin_lte/dist/js/adminlte.js')}}"></script>
-  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-  <script src="{{asset('admin_lte/dist/js/pages/dashboard.js')}}"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="{{asset('admin_lte/dist/js/demo.js')}}"></script>
+
+  @stack('scripts')
 </body>
 </html>

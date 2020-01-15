@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 use App\Transaksi;
+use App\Masteracara;
 use DB;
 use Auth;
 
@@ -39,6 +40,24 @@ class TransaksiController extends Controller
             ->get();
         return view('transaksi.index', compact('transaksis'));
 
+    }
+
+    public function getAcara(Request $request){
+      $search = $request->search;
+      if($search == ''){
+         $acaras = Masteracara::orderby('nama_acara','asc')->select('id','nama_acara')->limit(5)->get();
+      }else{
+         $acaras = Masteracara::orderby('nama_acara','asc')->select('id','nama_acara')->where('nama_acara', 'like', '%' .$search . '%')->limit(5)->get();
+      }
+
+      $response = array();
+      foreach($acaras as $acara){
+         $response[] = array(
+              "id"=>$acara->id,
+              "text"=>$acara->nama_acara
+         );
+      }
+      echo json_encode($response);
     }
 
     public function byPeriode($y,$m)
@@ -105,9 +124,12 @@ class TransaksiController extends Controller
      */
     public function create()
     {
-        $unsurutamas = DB::table("master_unsur_utama")->pluck( 'unsur_utama', 'id');
-        $nama_acaras = DB::table("master_acara")->pluck('nama_acara', 'id');
-        return view('transaksi.create', compact('unsurutamas', 'nama_acaras'));
+
+        // $unsurutamas = DB::table("master_unsur_utama")->pluck( 'unsur_utama', 'id');
+        // $nama_acaras = DB::table("master_acara")->pluck('nama_acara', 'id');
+        // return view('transaksi.create', compact('unsurutamas', 'nama_acaras'));
+
+        return redirect('/');
     }
 
     public function createByKk($y,$m,$kk)
