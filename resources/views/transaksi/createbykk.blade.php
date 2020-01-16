@@ -54,14 +54,14 @@
               </select>
             </div>
 
-            <link rel="stylesheet" type="text/css" href="{{asset('select2/dist/css/select2.min.css')}}">
+            {{-- <link rel="stylesheet" type="text/css" href="{{asset('select2/dist/css/select2.min.css')}}">
             <div class="form-group">
               <label>Nama Acara / Diklat</label>
               <select id="selUser" name="nama_acara" class="form-control">
                 <option value='0'>-- Select user --</option>
                 <option value="1000">-- <i>Tambahkan Acara, Jika Opsi Acara /Diklat tidak ada di sini</i> --</option><i></i>
               </select>
-            </div>
+            </div> --}}
 
             <div class="form-group">
               <label>Tanggal Mulai</label>
