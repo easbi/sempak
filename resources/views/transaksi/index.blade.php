@@ -6,10 +6,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Data Rincian Yang Telah Masuk</h1>
-        </div><!-- /.col -->
-        <div class="col-sm-6">
-          <a href="{{ url('/transaksi/create') }}" class="btn btn-primary float-sm-right">Input Usulan Angka Kredit Baru</a>
+          <h1 class="m-0 text-dark">Data Rincian yang Telah Masuk </h1>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
