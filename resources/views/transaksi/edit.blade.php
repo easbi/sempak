@@ -59,6 +59,10 @@
                   <input type="text" name="angka_kredit" id="angka_kredit" class="form-control" value="{{ $transaksi->angka_kredit_usul }}">
                 </div> 
                 <div class="form-group">
+                  <label>Kuantitas</label>
+                  <input type="number" name="kuantitas" id="kuantitas" class="form-control" value="{{ $transaksi->kuantitas }}">
+                </div> 
+                <div class="form-group">
                   <label>Berkas Sebelumnya</label><br>
                   <a href='{{  url('public/file_rincian_dupak', $transaksi->berkas) }}' class="btn btn-warning" target="_blank"><i class="fas fa-book"></i></a>
                 </div>  
