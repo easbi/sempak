@@ -31,6 +31,7 @@ class Transaksi extends Model
     	'status2',
     	'ket_status1',
     	'ket_status2',
+        'flag_submited',
 	];
 
 	public function scopeGetPeriode($query,$y,$m)

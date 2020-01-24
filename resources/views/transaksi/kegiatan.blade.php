@@ -86,7 +86,13 @@
                             @endforeach
                             </tbody>
                         </table>
-                    </div>
+                        <br>
+                        <br>
+                        <div class="col-sm-6">
+                            <a href="{{ url('/test')}}" class="btn btn-primary float-sm-right">Submit Dupak</a>
+                        </div>
+                    </div>                        
+                    
                 </div>
                 </div>
             </div>

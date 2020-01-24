@@ -52,11 +52,12 @@
                 </div>          
                 <div class="form-group">
                   <label>Keterangan</label>
-                  <textarea class="form-control" name="keterangan">{{ $transaksi->keterangan }}</textarea>            
+                  <textarea class="form-control" name="keterangan">{{$transaksi->keterangan}}</textarea>            
                 </div>
                 <div class="form-group">
                   <label>Angka Kredit</label>
-                  <input type="text" name="angka_kredit" id="angka_kredit" class="form-control" value="{{ $transaksi->angka_kredit_usul }}">
+                  <input type="text" name="ak_per_satuan" id="ak_per_satuan" style="display:none;" value="{{$transaksi->angka_kredit}}">
+                  <input type="text" name="ak_usul" id="ak_usul" class="form-control" readonly="true" value="{{$transaksi->angka_kredit_usul}}">
                 </div> 
                 <div class="form-group">
                   <label>Kuantitas</label>
@@ -82,3 +83,18 @@
   <!-- /.content -->
 </div>
 @endsection
+
+@push('scripts')
+    <script type="text/javascript">
+      jQuery('#nama_acara').on('change', function(){
+        if(jQuery(this).val() == 1000){
+          window.location.href = '{{ url('/masteracara')}}'
+        }
+      })
+
+      $('#kuantitas').on('change',function(){
+        var kuantitas = $(this).val();
+        $("#ak_usul").val(kuantitas*{{$transaksi->angka_kredit}});    
+      });
+    </script>
+@endpush
