@@ -69,16 +69,16 @@
               <label>Status Angka Kredit oleh penilai {{ $x == 1 ? 2 : 1 }}</label>
               @if ($x == 1)
                 <select class="form-control" disabled>
-                  <option value="1" {{ $transaksi->status1 == 1?'selected':'' }}>Proses</option>
-                  <option value="2" {{ $transaksi->status1 == 2?'selected':'' }}>Setuju</option>
-                  <option value="3" {{ $transaksi->status1 == 3?'selected':'' }}>Tolak</option>
+                  <option value="1" {{ $transaksi->status2 == 1?'selected':'' }}>Proses</option>
+                  <option value="2" {{ $transaksi->status2 == 2?'selected':'' }}>Setuju</option>
+                  <option value="3" {{ $transaksi->status2 == 3?'selected':'' }}>Tolak</option>
                 </select>
               @endif
               @if ($x == 2)
                 <select class="form-control" disabled>
-                  <option value="1" {{ $transaksi->status2 == 1?'selected':'' }}>Proses</option>
-                  <option value="2" {{ $transaksi->status2 == 2?'selected':'' }}>Setuju</option>
-                  <option value="3" {{ $transaksi->status2 == 3?'selected':'' }}>Tolak</option>
+                  <option value="1" {{ $transaksi->status1 == 1?'selected':'' }}>Proses</option>
+                  <option value="2" {{ $transaksi->status1 == 2?'selected':'' }}>Setuju</option>
+                  <option value="3" {{ $transaksi->status1 == 3?'selected':'' }}>Tolak</option>
                 </select>
               @endif
             </div> 
