@@ -9,7 +9,7 @@
           <h1 class="m-0 text-dark">Rincian Kegiatan - <strong>UBAH DATA</strong></h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
-          <a href="{{ url('/penilai')}}" class="btn btn-primary float-sm-right">Kembali</a>
+          <a href="{{ url()->previous() }}" class="btn btn-primary float-sm-right">Kembali</a>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -60,39 +60,63 @@
             </div> 
             <br>
             <br>
-            <div class="form-group">
-              <label>Angka Kredit oleh penilai 1</label>
-              <input type="text" class="form-control" readonly="true" value="{{ $transaksi->angka_kredit1 }}">
+
+            <div class="form-group"> 
+              <label>Angka Kredit oleh penilai {{ $x == 1 ? 2 : 1 }}</label>
+              <input type="text" class="form-control" readonly="true" value="{{ $x == 1 ? $transaksi->angka_kredit2 : $transaksi->angka_kredit1 }}">
             </div> 
             <div class="form-group">
-              <label>Status Angka Kredit oleh penilai 1</label>
-              <input type="text" class="form-control" readonly="true" value="{{ $transaksi->status1 }}">
+              <label>Status Angka Kredit oleh penilai {{ $x == 1 ? 2 : 1 }}</label>
+              <input type="text" class="form-control" readonly="true" value="{{ $x == 1 ? $transaksi->status2 : $transaksi->status1 }}">
             </div> 
             <div class="form-group">
-              <label>Keterangan Angka Kredit oleh penilai 1</label>
-              <textarea class="form-control" name="keterangan" readonly="true">{{ $transaksi->ket_status1 }}</textarea>
+              <label>Keterangan Angka Kredit oleh penilai {{ $x == 1 ? 2 : 1 }}</label>
+              <textarea class="form-control" name="keterangan" readonly="true">{{ $x == 1 ? $transaksi->ket_status2 : $transaksi->ket_status1 }}</textarea>
             </div> 
             <div class="form-group">
               <label>Berkas</label><br>
               <a href='{{  url('file_rincian_dupak', $transaksi->berkas) }}' class="btn btn-warning" target="_blank">Berkas</a>
             </div>
+
             <br>
             <br>
             <div class="form-group">
+              <label>Silahkan Isi Penilaian DUPAK Anda di Bawah Ini !</label>
+            </div>
+            <div class="form-group">
               <label>Angka kredit hasil penilaian</label>
+              @if ($x == 1)
               <input type="text" name="angka_kredit1" class="form-control" value="{{ $transaksi->angka_kredit_usul }}">
+              @endif
+              @if ($x == 2)
+              <input type="text" name="angka_kredit2" class="form-control" value="{{ $transaksi->angka_kredit_usul }}">
+              @endif
             </div>
             <div class="form-group">
               <label>Status</label>
-              <select id="status1" name="status1"class="form-control">
-                <option value="1" {{ $transaksi->status1 == 1?'selected':'' }}>Proses</option>
-                <option value="2" {{ $transaksi->status1 == 2?'selected':'' }}>Setuju</option>
-                <option value="3" {{ $transaksi->status1 == 3?'selected':'' }}>Tolak</option>
-              </select>
+              @if ($x == 1)
+                <select id="status1" name="status1"class="form-control">
+                  <option value="1" {{ $transaksi->status1 == 1?'selected':'' }}>Proses</option>
+                  <option value="2" {{ $transaksi->status1 == 2?'selected':'' }}>Setuju</option>
+                  <option value="3" {{ $transaksi->status1 == 3?'selected':'' }}>Tolak</option>
+                </select>
+              @endif
+              @if ($x == 2)
+                <select id="status1" name="status2"class="form-control">
+                  <option value="1" {{ $transaksi->status2 == 1?'selected':'' }}>Proses</option>
+                  <option value="2" {{ $transaksi->status2 == 2?'selected':'' }}>Setuju</option>
+                  <option value="3" {{ $transaksi->status2 == 3?'selected':'' }}>Tolak</option>
+                </select>
+              @endif
             </div>
             <div class="form-group">
-              <label>Keterangan Hasil Penilaian</label>
-              <textarea class="form-control" name="keterangan1">{{ $transaksi->ket_status1 }}</textarea>            
+              <label>Keterangan Hasil Penilaian</label>  
+              @if ($x == 1)
+              <textarea class="form-control" name="keterangan1">{{ $transaksi->ket_status1 }}</textarea>  
+              @endif
+              @if ($x == 2)
+              <textarea class="form-control" name="keterangan2">{{ $transaksi->ket_status2 }}</textarea>  
+              @endif        
             </div>
             
             <div class="form-group">

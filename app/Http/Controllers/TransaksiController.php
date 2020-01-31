@@ -265,8 +265,9 @@ class TransaksiController extends Controller
         return view('transaksi.dupak');
     }
 
-    public function submit_flag()
+    public function submit_flag($awal,$akhir)
     {
+        dd($awal."-".$akhir);
         print("OK");
         // $from = $y;
         // $to = $m;

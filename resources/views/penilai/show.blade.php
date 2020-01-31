@@ -25,13 +25,12 @@
             <thead>
               <tr>
                 <th>No</th>
+                <th>Status Pemeriksaan</th>ths>
                 <th>Unsur Utama</th>
                 <th>Subunsur</th>          
                 <th>Rincian Kegiatan</th>
                 <th>Nama Kegiatan</th>
-                <th>Tanggal Mulai</th>  
-                <th>Tanggal Selesai</th>
-                <th>Angka Kredit Yang Diusulkan</th>
+                <th>Angka Kredit Diusulkan</th>
                 <th>Satuan</th>
                 <th>Dokumen</th>
                 <th>Aksi</th>                         
@@ -42,12 +41,21 @@
               @foreach($transaksis as $tr)
               <tr>
                 <td>{{ $no++ }}</td>
+                <td>
+                  @if ($x == 1 AND ($tr->status1 == NULL OR $tr->status1 == 1))
+                    <span class="badge bg-danger">Belum Diperiksa</span>
+                  @elseif ($x == 1 AND ($tr->status1 == 2 OR $tr->status1 == 3 )) 
+                    <span class="badge bg-info">Sudah Diperiksa</span>
+                  @elseif ($x == 2 AND ($tr->status2 == NULL OR $tr->status2 == 1 )) 
+                    <span class="badge bg-danger">Sudah Diperiksa</span>
+                  @elseif ($x == 2 AND ($tr->status2 == 2 OR $tr->status2 == 3 )) 
+                    <span class="badge bg-info">Sudah Diperiksa</span>
+                  @endif
+                </td>
                 <td>{{ $tr->unsur_utama }}</td>
                 <td>{{ $tr->kegiatan_sub_unsur }}</td>
                 <td>{{ $tr->rincian_kegiatan }}</td>
                 <td>{{ $tr->nama_acara }}</td>
-                <td>{{ $tr->tgl_mulai }}</td>
-                <td>{{ $tr->tgl_selesai }}</td>
                 <td>{{ str_replace('.', ',', $tr->angka_kredit_usul) }}</td>
                 <td>{{ $tr->satuan }}</td>
                 <td><a href='{{  url('public/file_rincian_dupak', $tr->berkas) }}' class="btn btn-warning" target="_blank">Berkas</a></td>

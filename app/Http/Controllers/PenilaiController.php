@@ -78,8 +78,22 @@ class PenilaiController extends Controller
         ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'master_acara.nama_acara') 
         ->get();
         $nama_dinilai = DB::table('master_pegawai')->where('id', $id_user)->select('nama')->first();
-        //dd($nama_dinilai);
-        return view('penilai.show', compact('transaksis', 'nama_dinilai'));
+        
+        //Cek Posisi Penilai
+        $ternilai = $id_user;
+        $pp1 = DB::table('plot_penilai_dupak')->where('id_user_dinilai',  $id_user)->where('id_user_penilai_1', Auth::user()->id)->get();
+        $pp2 = DB::table('plot_penilai_dupak')->where('id_user_dinilai',  $id_user)->where('id_user_penilai_2', Auth::user()->id)->get();
+        
+        $x = 0;
+        if( count($pp1) == 1 AND count($pp2) == 0)
+        {
+            $x = 1;
+        }
+        if( count($pp1) == 0 AND count($pp2) == 1)
+        {
+            $x = 2;
+        }
+        return view('penilai.show', compact('transaksis', 'nama_dinilai', 'x'));
     }
 
     /**
@@ -97,10 +111,21 @@ class PenilaiController extends Controller
         ->join('master_acara', 'transaksi.nama_event', '=', 'master_acara.id')      
         ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'master_acara.nama_acara') 
         ->get();
+
+        //Cek Posisi Penilai
         $ternilai =  DB::table('transaksi')->where('id_transaksi',$id_transaksi)->select('id_user')->first();
-        //$pp1 = DB::table('plot_penilai')->
-        //dd($ternilai);
-        return view('penilai.edit', compact('transaksi'));
+        $pp1 = DB::table('plot_penilai_dupak')->where('id_user_dinilai', $ternilai->id_user)->where('id_user_penilai_1', Auth::user()->id)->get();
+        $pp2 = DB::table('plot_penilai_dupak')->where('id_user_dinilai', $ternilai->id_user)->where('id_user_penilai_2', Auth::user()->id)->get();
+        $x = 0;
+        if( count($pp1) == 1 AND count($pp2) == 0)
+        {
+            $x = 1;
+        }
+        if( count($pp1) == 0 AND count($pp2) == 1)
+        {
+            $x = 2;
+        }
+        return view('penilai.edit', compact('transaksi', 'x'));
     }
 
     /**
@@ -113,15 +138,42 @@ class PenilaiController extends Controller
     public function update(Request $request, $id_transaksi)
     {
         $nama = DB::table('transaksi')->where('id_transaksi',$id_transaksi)->select('id_user')->first();
-        // print($nama->id_user);
-        $transaksi = \App\Transaksi::find($id_transaksi);
-        if($transaksi) {
-            $transaksi->id_penilai1 = Auth::user()->id;
-            $transaksi->status1 = $request->status1;
-            $transaksi->angka_kredit1 = $request->angka_kredit1;
-            $transaksi->ket_status1 = $request->keterangan1;
-            $transaksi->save();
+        
+        //Cek Posisi Penilai
+        $ternilai = $nama;
+        $pp1 = DB::table('plot_penilai_dupak')->where('id_user_dinilai', $ternilai->id_user)->where('id_user_penilai_1', Auth::user()->id)->get();
+        $pp2 = DB::table('plot_penilai_dupak')->where('id_user_dinilai',  $ternilai->id_user)->where('id_user_penilai_2', Auth::user()->id)->get();
+        
+        $x = 0;
+        if( count($pp1) == 1 AND count($pp2) == 0)
+        {
+            $x = 1;
         }
+        if( count($pp1) == 0 AND count($pp2) == 1)
+        {
+            $x = 2;
+        }
+
+        $transaksi = \App\Transaksi::find($id_transaksi);
+        if($x == 1){
+            if($transaksi){
+                $transaksi->id_penilai1 = Auth::user()->id;
+                $transaksi->status1 = $request->status1;
+                $transaksi->angka_kredit1 = $request->angka_kredit1;
+                $transaksi->ket_status1 = $request->keterangan1;
+                $transaksi->save();
+            }
+        } 
+        if($x == 2) {
+            if($transaksi){
+                $transaksi->id_penilai2 = Auth::user()->id;
+                $transaksi->status2 = $request->status2;
+                $transaksi->angka_kredit2 = $request->angka_kredit2;
+                $transaksi->ket_status2 = $request->keterangan2;
+                $transaksi->save();
+            }
+        }
+        
         return redirect()->route('penilai.show', $nama->id_user)->with('success', 'Hasil Penilaian udpdated successfully');
     }
 

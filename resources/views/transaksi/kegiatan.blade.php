@@ -89,7 +89,7 @@
                         <br>
                         <br>
                         <div class="col-sm-6">
-                            <a href="{{ url('/test')}}" class="btn btn-primary float-sm-right">Submit Dupak</a>
+                            <a href="{{ url('/test/'.date_format($periode['awal'], "d M Y").'/'.date_format($periode['akhir'], "d M Y"))}}" class="btn btn-primary float-sm-right">Submit Dupak</a>
                         </div>
                     </div>                        
                     

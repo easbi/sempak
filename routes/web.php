@@ -42,7 +42,7 @@ Route::resource('transaksi', 'TransaksiController');
 Route::get('periode/{y}/{m}', 'TransaksiController@byPeriode');
 Route::get('usulan/{y}/{m}/{kk}', 'TransaksiController@byKk');
 Route::get('transaksi/{y}/{m}/{kk}', 'TransaksiController@createByKk');
-Route::get('/test', 'TransaksiController@submit_flag');
+Route::get('/test/{awal}/{akhir}', 'TransaksiController@submit_flag');
 Route::post('generatedupak','TransaksiController@generateDupak');
 Route::get('dupak','TransaksiController@dupak');
 Route::post('/transaksi/getAcara/','TransaksiController@getAcara')->name('transaksi.getAcara');

@@ -45,7 +45,7 @@
                         <span class="info-box-icon bg-info"><i class="fas fa-user-circle"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">{{Illuminate\Support\Str::limit($p->nama, 17) }}</span>
-                            <a href="http://www.example.com"><span class="info-box-number">{{ $p->total_kegiatan }} Kegiatan</span></a>
+                            <a href="{{ action('PenilaiController@show',$p->id_user) }}"><span class="info-box-number">{{ $p->total_kegiatan }} Kegiatan</span>
                         </div>
                     </div>
                 </div>
