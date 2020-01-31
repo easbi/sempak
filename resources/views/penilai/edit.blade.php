@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Rincian Kegiatan - <strong>UBAH DATA</strong></h1>
+          <h1 class="m-0 text-dark">Rincian Kegiatan - <strong>Evaluasi</strong></h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <a href="{{ url()->previous() }}" class="btn btn-primary float-sm-right">Kembali</a>
