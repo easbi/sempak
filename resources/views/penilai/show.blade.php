@@ -47,7 +47,7 @@
                   @elseif ($x == 1 AND ($tr->status1 == 2 OR $tr->status1 == 3 )) 
                     <span class="badge bg-info">Sudah Diperiksa</span>
                   @elseif ($x == 2 AND ($tr->status2 == NULL OR $tr->status2 == 1 )) 
-                    <span class="badge bg-danger">Sudah Diperiksa</span>
+                    <span class="badge bg-danger">Belum Diperiksa</span>
                   @elseif ($x == 2 AND ($tr->status2 == 2 OR $tr->status2 == 3 )) 
                     <span class="badge bg-info">Sudah Diperiksa</span>
                   @endif
