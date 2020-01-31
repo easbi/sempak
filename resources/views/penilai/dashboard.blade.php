@@ -10,7 +10,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Status Penilaian DUPAK</h1>
+                    <h1 class="m-0 text-dark">DUPAK Yang Diperiksa</h1>
                 </div>
             </div>
         </div>
@@ -21,164 +21,42 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <h4>Semester I 2019</h4>
+                    <h4>Penilai pertama dari</h4>
                 </div>
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3>{{ $proses_total }}</h3>
-                            <p>Total Kegiatan Diinput</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-soup-can"></i>
+                @foreach($pen1 as $p)
+                    <div class="col-md-3 col-sm-6 col-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-info"><i class="fas fa-user-circle"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">{{Illuminate\Support\Str::limit($p->nama, 17) }}</span>
+                            <a href="{{ action('PenilaiController@show',$p->id_user) }}"><span class="info-box-number">{{ $p->total_kegiatan }} Kegiatan</span></a>
                         </div>
                     </div>
                 </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            <h3>{{ $proses_11 }}</h3>
-                            <p>Kegiatan Sedang diproses</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-bag"></i>
-                        </div>
-                    </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-warning">
-                        <div class="inner">
-                            <h3>{{ $proses_12 }}</h3>
-                            <p>Kegiatan Yang Disetujui</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-thumbsup"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-danger">
-                        <div class="inner">
-                            <h3>{{ $proses_13 }}</h3>
-                            <p>Kegiatan Yang Ditolak</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion ion-thumbsdown"></i>
-                        </div>
-                    </div>
-                </div>
+                @endforeach                      
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <h4>Semester II 2019</h4>
+                    <h4>Penilai kedua dari</h4>
                 </div>
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3>{{ $proses_total }}</h3>
-                            <p>Total Kegiatan Diinput</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-soup-can"></i>
+                @foreach($pen2 as $p)
+                    <div class="col-md-3 col-sm-6 col-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-info"><i class="fas fa-user-circle"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">{{Illuminate\Support\Str::limit($p->nama, 17) }}</span>
+                            <a href="http://www.example.com"><span class="info-box-number">{{ $p->total_kegiatan }} Kegiatan</span></a>
                         </div>
                     </div>
                 </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            <h3>{{ $proses_11 }}</h3>
-                            <p>Kegiatan Sedang diproses Evaluasi</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-bag"></i>
-                        </div>
-                    </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-warning">
-                        <div class="inner">
-                            <h3>{{ $proses_12 }}</h3>
-                            <p>Kegiatan Yang Disetujui</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-thumbsup"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-danger">
-                        <div class="inner">
-                            <h3>{{ $proses_13 }}</h3>
-                            <p>Kegiatan Yang Ditolak</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion ion-thumbsdown"></i>
-                        </div>
-                    </div>
-                </div>
+                @endforeach 
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <h4>Semester I 2020</h4>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3>{{ $proses_total }}</h3>
-                            <p>Total Kegiatan Diinput</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-soup-can"></i>
-                        </div>
-                    </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            <h3>{{ $proses_11 }}</h3>
-                            <p>Kegiatan Sedang diproses</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-bag"></i>
-                        </div>
-                    </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-warning">
-                        <div class="inner">
-                            <h3>{{ $proses_12 }}</h3>
-                            <p>Kegiatan Yang Disetujui</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-thumbsup"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-danger">
-                        <div class="inner">
-                            <h3>{{ $proses_13 }}</h3>
-                            <p>Kegiatan Yang Ditolak</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion ion-thumbsdown"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </section>
 </div>
 
 <script type="text/javascript">
-$(document).ready(function() {
-    $('#example').DataTable();
-});
+    $(document).ready(function() {
+        $('#example').DataTable();
+    });
 </script>
 @endsection

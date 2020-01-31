@@ -38,6 +38,7 @@ class TransaksiController extends Controller
             ->where('id_user', Auth::user()->id)
             ->orderby('id_transaksi','asc')
             ->get();
+        //dd($transaksis);
         return view('transaksi.index', compact('transaksis'));
 
     }

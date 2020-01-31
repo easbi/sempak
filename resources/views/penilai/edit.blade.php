@@ -58,10 +58,26 @@
               <label>Angka Kredit</label>
               <input type="text" name="angka_kredit" id="angka_kredit" class="form-control" readonly="true" value="{{ $transaksi->angka_kredit_usul }}">
             </div> 
+            <br>
+            <br>
+            <div class="form-group">
+              <label>Angka Kredit oleh penilai 1</label>
+              <input type="text" class="form-control" readonly="true" value="{{ $transaksi->angka_kredit1 }}">
+            </div> 
+            <div class="form-group">
+              <label>Status Angka Kredit oleh penilai 1</label>
+              <input type="text" class="form-control" readonly="true" value="{{ $transaksi->status1 }}">
+            </div> 
+            <div class="form-group">
+              <label>Keterangan Angka Kredit oleh penilai 1</label>
+              <textarea class="form-control" name="keterangan" readonly="true">{{ $transaksi->ket_status1 }}</textarea>
+            </div> 
             <div class="form-group">
               <label>Berkas</label><br>
               <a href='{{  url('file_rincian_dupak', $transaksi->berkas) }}' class="btn btn-warning" target="_blank">Berkas</a>
             </div>
+            <br>
+            <br>
             <div class="form-group">
               <label>Angka kredit hasil penilaian</label>
               <input type="text" name="angka_kredit1" class="form-control" value="{{ $transaksi->angka_kredit_usul }}">

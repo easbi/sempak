@@ -6,10 +6,10 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Data Rincian Yang Telah Diinput Pengusul </h1>
+          <h1 class="m-0 text-dark">Data Rincian Yang Diinput {{ $nama_dinilai->nama }} </h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
-          <a href="{{ url('/')}}" class="btn btn-primary float-sm-right">Kembali</a>
+          <a href="{{ url('/penilai/dashboard')}}" class="btn btn-primary float-sm-right">Kembali</a>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -18,6 +18,7 @@
   <!-- Main content -->
   <section class="content">
     <div class="container">
+
       <div class="card">
         <div class="card-body">
           <table id="example" class="display">

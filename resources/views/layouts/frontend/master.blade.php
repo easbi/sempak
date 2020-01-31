@@ -97,14 +97,12 @@
               <p>Pengajuan Dupak</p>
             </a>
           </li>
-          @if(Auth::user()->role == 1)
           <li class="nav-item">
             <a href="{{ url('/penilai/dashboard') }}" class="nav-link">
               <i class="nav-icon fas fa-clipboard-check"></i>
               <p>Penilaian Dupak</p>
             </a>
           </li>
-          @endif
           <li class="nav-header">Tampilkan Laporan</li>
           </li>
           <li class="nav-item has-treeview">
@@ -208,11 +206,9 @@
 </div>
 <!-- ./wrapper -->
   <script src="{{asset('admin_lte/plugins/jquery/jquery.min.js')}}"></script>
-  {{-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script> --}}
   <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   <script src="{{asset('admin_lte/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
   <script src="{{asset('select2/dist/js/select2.min.js')}}" type="text/javascript"></script>
-  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
   <script>
     $.widget.bridge('uibutton', $.ui.button)
   </script>

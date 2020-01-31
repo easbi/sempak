@@ -51,7 +51,7 @@
                   <input type="date" name="akhir_acara" class="form-control" value="{{ $transaksi->tgl_selesai }}">                
                 </div>          
                 <div class="form-group">
-                  <label>Keterangan</label>
+                  <label>Mata Diklat / Keterangan Lainnya</label>
                   <textarea class="form-control" name="keterangan">{{$transaksi->keterangan}}</textarea>            
                 </div>
                 <div class="form-group">
