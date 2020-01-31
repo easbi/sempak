@@ -67,7 +67,20 @@
             </div> 
             <div class="form-group">
               <label>Status Angka Kredit oleh penilai {{ $x == 1 ? 2 : 1 }}</label>
-              <input type="text" class="form-control" readonly="true" value="{{ $x == 1 ? $transaksi->status2 : $transaksi->status1 }}">
+              @if ($x == 1)
+                <select class="form-control" disabled>
+                  <option value="1" {{ $transaksi->status1 == 1?'selected':'' }}>Proses</option>
+                  <option value="2" {{ $transaksi->status1 == 2?'selected':'' }}>Setuju</option>
+                  <option value="3" {{ $transaksi->status1 == 3?'selected':'' }}>Tolak</option>
+                </select>
+              @endif
+              @if ($x == 2)
+                <select class="form-control" disabled>
+                  <option value="1" {{ $transaksi->status2 == 1?'selected':'' }}>Proses</option>
+                  <option value="2" {{ $transaksi->status2 == 2?'selected':'' }}>Setuju</option>
+                  <option value="3" {{ $transaksi->status2 == 3?'selected':'' }}>Tolak</option>
+                </select>
+              @endif
             </div> 
             <div class="form-group">
               <label>Keterangan Angka Kredit oleh penilai {{ $x == 1 ? 2 : 1 }}</label>
@@ -95,14 +108,14 @@
             <div class="form-group">
               <label>Status</label>
               @if ($x == 1)
-                <select id="status1" name="status1"class="form-control">
+                <select id="status1" name="status1" class="form-control">
                   <option value="1" {{ $transaksi->status1 == 1?'selected':'' }}>Proses</option>
                   <option value="2" {{ $transaksi->status1 == 2?'selected':'' }}>Setuju</option>
                   <option value="3" {{ $transaksi->status1 == 3?'selected':'' }}>Tolak</option>
                 </select>
               @endif
               @if ($x == 2)
-                <select id="status1" name="status2"class="form-control">
+                <select id="status1" name="status2" class="form-control">
                   <option value="1" {{ $transaksi->status2 == 1?'selected':'' }}>Proses</option>
                   <option value="2" {{ $transaksi->status2 == 2?'selected':'' }}>Setuju</option>
                   <option value="3" {{ $transaksi->status2 == 3?'selected':'' }}>Tolak</option>
