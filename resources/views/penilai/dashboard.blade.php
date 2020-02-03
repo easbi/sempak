@@ -30,6 +30,7 @@
                         <div class="info-box-content">
                             <span class="info-box-text">{{Illuminate\Support\Str::limit($p->nama, 17) }}</span>
                             <a href="{{ action('PenilaiController@show',$p->id_user) }}"><span class="info-box-number">{{ $p->total_kegiatan }} Kegiatan</span></a>
+                            <a href="{{ action('PenilaiController@showDokdasar',$p->id_user) }}"><span class="info-box-number">Lihat Dokumen Dasar</span></a>
                         </div>
                     </div>
                 </div>
@@ -45,7 +46,8 @@
                         <span class="info-box-icon bg-info"><i class="fas fa-user-circle"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">{{Illuminate\Support\Str::limit($p->nama, 17) }}</span>
-                            <a href="{{ action('PenilaiController@show',$p->id_user) }}"><span class="info-box-number">{{ $p->total_kegiatan }} Kegiatan</span>
+                            <a href="{{ action('PenilaiController@show',$p->id_user) }}"><span class="info-box-number">{{ $p->total_kegiatan }} KEegiatan</span></a>
+                            <a href="{{ action('PenilaiController@showDokdasar',$p->id_user) }}"><span class="info-box-number">Lihat Dokumen Dasar</span></a>
                         </div>
                     </div>
                 </div>

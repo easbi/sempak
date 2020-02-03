@@ -50,6 +50,7 @@ Route::post('/transaksi/getAcara/','TransaksiController@getAcara')->name('transa
 
 //Route untuk Tim Evaluasi penilaian dupak
 Route::get('penilai/dashboard', 'PenilaiController@dashboardPenilai');
+Route::get('penilai/showDokdasar/{id_user}', 'PenilaiController@showDokdasar')->name('penilai.showDokdasar');
 Route::resource('penilai', 'PenilaiController');
 
 

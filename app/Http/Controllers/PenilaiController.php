@@ -97,6 +97,19 @@ class PenilaiController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showDokdasar($id_user)
+    {
+        $dokdasar = DB::table('master_dok_wi')->where('id_user',$id_user)->get();
+        $nama_dinilai = DB::table('master_pegawai')->where('id', $id_user)->select('nama')->first();
+        return view('penilai.showdokdasar',compact('dokdasar', 'nama_dinilai'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
