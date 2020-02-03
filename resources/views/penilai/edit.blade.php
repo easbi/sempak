@@ -99,10 +99,10 @@
             <div class="form-group">
               <label>Angka kredit hasil penilaian</label>
               @if ($x == 1)
-              <input type="text" name="angka_kredit1" class="form-control" value="{{ $transaksi->angka_kredit_usul }}">
+              <input type="text" name="angka_kredit1" class="form-control" value="{{ $transaksi->angka_kredit1 == NULL ? $transaksi->angka_kredit_usul : $transaksi->angka_kredit1 }}">
               @endif
               @if ($x == 2)
-              <input type="text" name="angka_kredit2" class="form-control" value="{{ $transaksi->angka_kredit_usul }}">
+              <input type="text" name="angka_kredit2" class="form-control" value="{{ $transaksi->angka_kredit2 == NULL ? $transaksi->angka_kredit_usul : $transaksi->angka_kredit2 }}">
               @endif
             </div>
             <div class="form-group">
