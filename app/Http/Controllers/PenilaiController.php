@@ -104,7 +104,7 @@ class PenilaiController extends Controller
      */
     public function showDokdasar($id_user)
     {
-        $dokdasar = DB::table('master_dok_wi')->where('id_user',$id_user)->get();
+        $dokdasar = DB::table('master_dok_wi')->where('id_user',$id_user)->first();
         $nama_dinilai = DB::table('master_pegawai')->where('id', $id_user)->select('nama')->first();
         //dd($dokdasar);
         return view('penilai.showdokdasar',compact('dokdasar', 'nama_dinilai'));

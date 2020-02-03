@@ -17,8 +17,6 @@
   <div class="container">
     <div class="card">
       <div class="card-body">
-
-
           <div class="form-group">
             <label>SK Pangkat PNS Terakhir</label><br>
             @if(!empty($dokdasar->sk_pangkat_pns))
