@@ -52,7 +52,7 @@
                 <td><a href='{{  url('file_rincian_dupak', $tr->berkas) }}' class="btn btn-warning" target="_blank">Berkas</a></td>
                 <td>
                   {{-- <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal">Evaluasi<i class="fa fa-edit"></i></button> --}}
-                  <a class="btn btn-info" href="{{ action('PenilaiController@edit',$tr->id_transaksi) }}">Evaluasi</a>
+                  <a class="btn btn-info" target="_blank" href="{{ action('PenilaiController@edit',$tr->id_transaksi) }}">Evaluasis</a>
                 </td>
               </tr>
               @endforeach
