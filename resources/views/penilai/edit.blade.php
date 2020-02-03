@@ -88,7 +88,7 @@
             </div> 
             <div class="form-group">
               <label>Berkas</label><br>
-              <a href='{{  url('file_rincian_dupak', $transaksi->berkas) }}' class="btn btn-warning" target="_blank">Berkas</a>
+              <a href='{{  url('public/file_rincian_dupak', $transaksi->berkas) }}' class="btn btn-warning" target="_blank">Berkas</a>
             </div>
 
             <br>
