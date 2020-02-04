@@ -40,7 +40,7 @@
               <?php $no = 1; ?>
               @foreach($transaksis as $tr)
               <tr>
-                <td>{{ $no++ }}</td>
+                <td>{{ $tr->id_transaksi }}</td>
                 <td>
                   @if ($x == 1 AND ($tr->status1 == NULL OR $tr->status1 == 1))
                     <span class="badge bg-danger">Belum Diperiksa</span>

@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Rincian Kegiatan - <strong>Evaluasi</strong></h1>
+          <h1 class="m-0 text-dark">Rincian Kegiatan  - <strong>Evaluasi</strong></h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <a href="{{ url()->previous() }}" class="btn btn-primary float-sm-right">Kembali</a>
@@ -21,6 +21,9 @@
       <div class="card">
         <div class="card-body">
           @foreach($transaksi as $transaksi)
+          <b>Kode Data : {{ $transaksi->id_transaksi }}<b>
+          <br>
+          <br>
           <form method="post" action="{{route('penilai.update', $transaksi->id_transaksi)}}">
 
             @csrf
