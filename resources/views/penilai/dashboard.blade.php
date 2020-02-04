@@ -49,18 +49,18 @@
                           </li>
                           <li class="nav-item">
                             <a href="#" class="nav-link" style="color: black">
-                               Total Kegiatan yang sudah diperiksa <span class="float-right badge bg-success">{{ $p->setuju + $p->tolak }}</span>
+                               Total Kegiatan yang sudah diperiksa <span class="float-right badge bg-info">{{ $p->setuju + $p->tolak }}</span>
                             </a>                            
                             <a href="#" class="nav-link" style="color: black">
-                               &nbsp &nbsp &nbsp Total Kegiatan yang disetujui <span class="float-right badge bg-success">{{ $p->setuju }}</span>
+                               &nbsp &nbsp - Total Kegiatan yang disetujui <span class="float-right badge bg-success">{{ $p->setuju }}</span>
                             </a>                                                        
                             <a href="#" class="nav-link" style="color: black">
-                               &nbsp &nbsp &nbsp Total Kegiatan yang ditolak <span class="float-right badge bg-success">{{ $p->tolak }}</span>
+                               &nbsp &nbsp - Total Kegiatan yang ditolak <span class="float-right badge bg-secondary">{{ $p->tolak }}</span>
                             </a>
                           </li>
                           <li class="nav-item">
                             <a href="#" class="nav-link" style="color: black">
-                               Total Kegiatan yang dipending <span class="float-right badge bg-info">{{ $p->pending }}</span>
+                               Total Kegiatan yang dipending <span class="float-right badge bg-warning">{{ $p->pending }}</span>
                             </a>
                           </li>
                         </ul>
@@ -100,18 +100,18 @@
                           </li>
                           <li class="nav-item">
                             <a href="#" class="nav-link" style="color: black">
-                               Total Kegiatan yang sudah diperiksa <span class="float-right badge bg-success">{{ $p->setuju + $p->tolak }}</span>
+                               Total Kegiatan yang sudah diperiksa <span class="float-right badge bg-info">{{ $p->setuju + $p->tolak }}</span>
                             </a>                            
                             <a href="#" class="nav-link" style="color: black">
-                               &nbsp &nbsp &nbsp Total Kegiatan yang disetujui <span class="float-right badge bg-success">{{ $p->setuju }}</span>
+                               &nbsp &nbsp - Total Kegiatan yang disetujui <span class="float-right badge bg-success">{{ $p->setuju }}</span>
                             </a>                                                        
                             <a href="#" class="nav-link" style="color: black">
-                               &nbsp &nbsp &nbsp Total Kegiatan yang ditolak <span class="float-right badge bg-success">{{ $p->tolak }}</span>
+                               &nbsp &nbsp - Total Kegiatan yang ditolak <span class="float-right badge bg-secondary">{{ $p->tolak }}</span>
                             </a>
                           </li>
                           <li class="nav-item">
                             <a href="#" class="nav-link" style="color: black">
-                               Total Kegiatan yang dipending <span class="float-right badge bg-info">{{ $p->pending }}</span>
+                               Total Kegiatan yang dipending <span class="float-right badge bg-warning">{{ $p->pending }}</span>
                             </a>
                           </li>
                         </ul>
