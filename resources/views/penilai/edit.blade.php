@@ -72,6 +72,7 @@
                   <option value="1" {{ $transaksi->status2 == 1?'selected':'' }}>Proses</option>
                   <option value="2" {{ $transaksi->status2 == 2?'selected':'' }}>Setuju</option>
                   <option value="3" {{ $transaksi->status2 == 3?'selected':'' }}>Tolak</option>
+                  <option value="4" {{ $transaksi->status2 == 4?'selected':'' }}>Pending</option>
                 </select>
               @endif
               @if ($x == 2)
@@ -79,6 +80,7 @@
                   <option value="1" {{ $transaksi->status1 == 1?'selected':'' }}>Proses</option>
                   <option value="2" {{ $transaksi->status1 == 2?'selected':'' }}>Setuju</option>
                   <option value="3" {{ $transaksi->status1 == 3?'selected':'' }}>Tolak</option>
+                  <option value="4" {{ $transaksi->status1 == 4?'selected':'' }}>Pending</option>
                 </select>
               @endif
             </div> 
@@ -112,6 +114,7 @@
                   <option value="1" {{ $transaksi->status1 == 1?'selected':'' }}>Proses</option>
                   <option value="2" {{ $transaksi->status1 == 2?'selected':'' }}>Setuju</option>
                   <option value="3" {{ $transaksi->status1 == 3?'selected':'' }}>Tolak</option>
+                  <option value="4" {{ $transaksi->status1 == 4?'selected':'' }}>Pending</option>
                 </select>
               @endif
               @if ($x == 2)
@@ -119,6 +122,7 @@
                   <option value="1" {{ $transaksi->status2 == 1?'selected':'' }}>Proses</option>
                   <option value="2" {{ $transaksi->status2 == 2?'selected':'' }}>Setuju</option>
                   <option value="3" {{ $transaksi->status2 == 3?'selected':'' }}>Tolak</option>
+                  <option value="4" {{ $transaksi->status2 == 4?'selected':'' }}>Pending</option>
                 </select>
               @endif
             </div>
