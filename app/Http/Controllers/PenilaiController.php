@@ -197,15 +197,26 @@ class PenilaiController extends Controller
         ->join('transaksi', 'plot_penilai_dupak.id_user_dinilai', '=', 'transaksi.id_user')
         ->join('master_pegawai', 'plot_penilai_dupak.id_user_dinilai', '=', 'master_pegawai.id')
         ->whereBetween('transaksi.tgl_selesai', ['2019-01-01', '2019-12-31'])  //change then with flag
-        ->select('transaksi.id_user', 'master_pegawai.nama', DB::raw('count(*) as total_kegiatan'))           
+        ->select('transaksi.id_user', 'master_pegawai.nama',
+            DB::raw('count(*) as total_kegiatan'), 
+            DB::raw('sum(status1 = 2) setuju'),
+            DB::raw('sum(status1 = 1) proses'),
+            DB::raw('sum(status1 = 3) tolak'),
+            DB::raw('sum(status1 = 4) pending'))           
         ->groupBy('transaksi.id_user')
         ->get();
+        //dd($pen1);
 
         $pen2 = DB::table ('plot_penilai_dupak')->where('id_user_penilai_2',  Auth::user()->id)
         ->join('transaksi', 'plot_penilai_dupak.id_user_dinilai', '=', 'transaksi.id_user')
         ->join('master_pegawai', 'plot_penilai_dupak.id_user_dinilai', '=', 'master_pegawai.id')
         ->whereBetween('transaksi.tgl_selesai', ['2019-01-01', '2019-12-31'])  //change then with flag
-        ->select('transaksi.id_user','master_pegawai.nama', DB::raw('count(*) as total_kegiatan'))           
+        ->select('transaksi.id_user', 'master_pegawai.nama',
+            DB::raw('count(*) as total_kegiatan'), 
+            DB::raw('sum(status1 = 2) setuju'),
+            DB::raw('sum(status1 = 1) proses'),
+            DB::raw('sum(status1 = 3) tolak'),
+            DB::raw('sum(status1 = 4) pending'))           
         ->groupBy('master_pegawai.nama')
         ->get();        
         return view('penilai.dashboard', compact('pen1', 'pen2'));
