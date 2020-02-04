@@ -205,7 +205,6 @@ class PenilaiController extends Controller
             DB::raw('sum(status1 = 4) pending'))           
         ->groupBy('transaksi.id_user')
         ->get();
-        //dd($pen1);
 
         $pen2 = DB::table ('plot_penilai_dupak')->where('id_user_penilai_2',  Auth::user()->id)
         ->join('transaksi', 'plot_penilai_dupak.id_user_dinilai', '=', 'transaksi.id_user')

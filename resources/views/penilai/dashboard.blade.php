@@ -50,6 +50,12 @@
                           <li class="nav-item">
                             <a href="#" class="nav-link" style="color: black">
                                Total Kegiatan yang sudah diperiksa <span class="float-right badge bg-success">{{ $p->setuju + $p->tolak }}</span>
+                            </a>                            
+                            <a href="#" class="nav-link" style="color: black">
+                               &nbsp &nbsp &nbsp Total Kegiatan yang disetujui <span class="float-right badge bg-success">{{ $p->setuju }}</span>
+                            </a>                                                        
+                            <a href="#" class="nav-link" style="color: black">
+                               &nbsp &nbsp &nbsp Total Kegiatan yang ditolak <span class="float-right badge bg-success">{{ $p->tolak }}</span>
                             </a>
                           </li>
                           <li class="nav-item">
@@ -95,6 +101,12 @@
                           <li class="nav-item">
                             <a href="#" class="nav-link" style="color: black">
                                Total Kegiatan yang sudah diperiksa <span class="float-right badge bg-success">{{ $p->setuju + $p->tolak }}</span>
+                            </a>                            
+                            <a href="#" class="nav-link" style="color: black">
+                               &nbsp &nbsp &nbsp Total Kegiatan yang disetujui <span class="float-right badge bg-success">{{ $p->setuju }}</span>
+                            </a>                                                        
+                            <a href="#" class="nav-link" style="color: black">
+                               &nbsp &nbsp &nbsp Total Kegiatan yang ditolak <span class="float-right badge bg-success">{{ $p->tolak }}</span>
                             </a>
                           </li>
                           <li class="nav-item">
