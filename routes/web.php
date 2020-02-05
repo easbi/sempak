@@ -57,9 +57,9 @@ Route::resource('penilai', 'PenilaiController');
 //Route untuk Pengeplot DUPAK di TU
 Route::resource('plotpenilai', 'PlotpenilaiController');
 
-// Route::get('plotpenilai/edit2/{id}', 'PlotpenilaiController@edit')->name('plotpenilai.edit2');
+//Route untuk Sekretariat DUPAK
+Route::resource('sekretariat', 'SekretariatController');
 
-//Route::get('dokdasar/edit/{id}', 'DokdasarController@edit')->name('dokdasar.edit');
 Route::resource('dokdasar', 'DokdasarController');
 
 

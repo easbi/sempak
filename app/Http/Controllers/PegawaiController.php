@@ -117,7 +117,7 @@ class PegawaiController extends Controller
             $pegawai->unit_kerja = $request->unit_kerja;
             $pegawai->save();
 
-            return redirect('/pegawai');
+            return redirect('/home');
         }
 
         public function delete($id)
