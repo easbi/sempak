@@ -56,7 +56,7 @@
                     <span class="badge bg-info">Sudah Diperiksa : Disetujui</span> 
                   @elseif ($x == 2 AND ($tr->status2 == 3 )) 
                     <span class="badge bg-warning">Sudah Diperiksa : Ditolak</span>                 
-                  @elseif ($x == 1 AND ($tr->status2 == 4 )) 
+                  @elseif ($x == 2 AND ($tr->status2 == 4 )) 
                     <span class="badge bg-secondary">Sudah Diperiksa : Pending</span>
                   @endif
                 </td>
