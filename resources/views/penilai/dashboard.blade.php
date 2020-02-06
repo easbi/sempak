@@ -24,16 +24,13 @@
                     <h4>Penilai pertama dari</h4>
                 </div>
                 @foreach($pen1 as $p)
-                    <!-- Widget: user widget style 2 -->
                     <div class="card card-widget widget-user-2">
-                      <!-- Add the bg color to the header using any of the bg-* classes -->
-                      <div class="widget-user-header bg-warning">
+                      <div class="widget-user-header bg-info">
                         <div class="widget-user-image">
                           <img class="img-circle elevation-2" src="{{asset('admin_lte/dist/img/icon.png')}}" alt="User Avatar">
                         </div>
-                        <!-- /.widget-user-image -->
                         <h3 class="widget-user-username">{{Illuminate\Support\Str::limit($p->nama, 17) }}</h3>
-                        <h5 class="widget-user-desc"><a href="{{ action('PenilaiController@showDokdasar',$p->id_user) }}"><span class="info-box-number">Lihat berkas administrasi</span></a></h5>
+                        <h5 class="widget-user-desc"><a href="{{ action('PenilaiController@showDokdasar',$p->id_user) }}"><span class="info-box-number" style="color: black">Lihat berkas administrasi</span></a></h5>
                       </div>
                       <div class="card-footer p-0">
                         <ul class="nav flex-column">
@@ -66,7 +63,6 @@
                         </ul>
                       </div>
                     </div>
-                    <!-- /.widget-user -->
                 @endforeach                      
             </div>
             <div class="row">
@@ -75,16 +71,13 @@
                 </div>
                 @foreach($pen2 as $p)
                 <div class="col-md-4">
-                    <!-- Widget: user widget style 2 -->
-                    <div class="card card-widget widget-user-2">
-                      <!-- Add the bg color to the header using any of the bg-* classes -->
-                      <div class="widget-user-header bg-warning">
+                    <div class="card card-widget widget-user-2">                      
+                      <div class="widget-user-header bg-info">
                         <div class="widget-user-image">
                           <img class="img-circle elevation-2" src="{{asset('admin_lte/dist/img/icon.png')}}" alt="User Avatar">
                         </div>
-                        <!-- /.widget-user-image -->
                         <h3 class="widget-user-username">{{Illuminate\Support\Str::limit($p->nama, 17) }}</h3>
-                        <h5 class="widget-user-desc"><a href="{{ action('PenilaiController@showDokdasar',$p->id_user) }}"><span class="info-box-number">Lihat berkas administrasi</span></a></h5>
+                        <h5 class="widget-user-desc"><a href="{{ action('PenilaiController@showDokdasar',$p->id_user) }}"><span class="info-box-number" style="color: black">Lihat berkas administrasi</span></a></h5>
                       </div>
                       <div class="card-footer p-0">
                         <ul class="nav flex-column">
@@ -117,7 +110,6 @@
                         </ul>
                       </div>
                     </div>
-                    <!-- /.widget-user -->
                 </div>
                 @endforeach 
             </div>
