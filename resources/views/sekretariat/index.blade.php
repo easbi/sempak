@@ -1,12 +1,13 @@
 @extends('layouts.frontend.master')
 @section('content')
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css">
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Rekap Penilaian DUPAK</h1>
+          <h1 class="m-0 text-dark">Rekap Penilaian DUPAK2</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <a href="{{ url('/')}}" class="btn btn-primary float-sm-right">Kembali Ke Beranda</a>
@@ -59,7 +60,7 @@
                   @if ($p->total_kegiatan - $p->setuju1 - $p->tolak1 == 0)
                     <span class="float-right badge bg-danger">0 </span>
                   @else
-                    <span class="float-right badge bg-danger">{{ $p->total_kegiatan - $p->setuju1 - $p->tolak1 }}</span>
+                    <span class="float-right badge bg-danger">{{ $p->total_kegiatan - $p->setuju1 - $p->tolak1 - $p->pending1}}</span>
                   @endif
                 </td>
                 <td>{{ $p->user_penilai2 == NULL ? 0 : $p->user_penilai2}}</td>
@@ -73,10 +74,10 @@
                 <td>{{ $p->tolak2 == NULL ? 0 : $p->tolak2}}</td>
                 <td>{{ $p->pending2 == NULL ? 0 : $p->pending2 }}</td>
                 <td>                   
-                  @if ($p->total_kegiatan - $p->setuju1 - $p->tolak2 == 0)
+                  @if ($p->total_kegiatan - $p->setuju2 - $p->tolak2 == 0)
                     <span class="float-right badge bg-danger">0 </span>
                   @else
-                    <span class="float-right badge bg-danger">{{ $p->total_kegiatan - $p->setuju1 - $p->tolak1 }}</span>
+                    <span class="float-right badge bg-danger">{{ $p->total_kegiatan - $p->setuju2- $p->tolak2 - $p->pending2 }}</span>
                   @endif
                 </td>
               </tr>
@@ -93,10 +94,27 @@
 
 
 @push('scripts')
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
     $('#example').DataTable({
-      "scrollX": true
+      "scrollX": true,
+      dom: 'Bfrtip',
+      buttons: [{
+        extend: 'collection',
+        className: "btn-primary",
+        text: 'Export',
+        buttons:
+        [{
+          extend: "excel", className: "btn-primary"
+        }],
+    }]
     });
   } );
 </script>
