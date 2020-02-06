@@ -41,7 +41,7 @@
                           </li>
                           <li class="nav-item">
                             <a href="#" class="nav-link" style="color: black">
-                              Total Kegiatan yang belum diperiksa <span class="float-right badge bg-danger">{{$p->total_kegiatan - $p->setuju - $p->tolak  }}</span>
+                              Total Kegiatan yang belum diperiksa <span class="float-right badge bg-danger">{{$p->total_kegiatan - $p->setuju - $p->tolak - $p->pending }}</span>
                             </a>
                           </li>
                           <li class="nav-item">
@@ -88,7 +88,7 @@
                           </li>
                           <li class="nav-item">
                             <a href="#" class="nav-link" style="color: black">
-                              Total Kegiatan yang belum diperiksa <span class="float-right badge bg-danger">{{$p->total_kegiatan - $p->setuju - $p->tolak  }}</span>
+                              Total Kegiatan yang belum diperiksa <span class="float-right badge bg-danger">{{$p->total_kegiatan - $p->setuju - $p->tolak - $p->pending }}</span>
                             </a>
                           </li>
                           <li class="nav-item">
