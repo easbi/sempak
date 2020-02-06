@@ -19,13 +19,23 @@
     <!-- Main content -->
     <section class="content">
         <div class="container">
+            @if($pen1->isEmpty() AND $pen2->isEmpty())
+            <div class="col-sm-12">
+              <h4>Anda Belum Dialokasikan Untuk Menilai DUPAK</h4>
+            </div>
+            @else
             <div class="row">
                 <div class="col-sm-12">
                     <h4>Penilai pertama dari</h4>
                 </div>
                 @foreach($pen1 as $p)
-                    <div class="card card-widget widget-user-2">
+                <div class="col-md-4">
+                    <div class="card card-widget widget-user-2">   
+                    @if( ($p->total_kegiatan - $p->setuju - $p->tolak - $p->pending) > 0 )
+                      <div class="widget-user-header bg-warning">
+                    @else
                       <div class="widget-user-header bg-info">
+                    @endif
                         <div class="widget-user-image">
                           <img class="img-circle elevation-2" src="{{asset('admin_lte/dist/img/icon.png')}}" alt="User Avatar">
                         </div>
@@ -63,7 +73,8 @@
                         </ul>
                       </div>
                     </div>
-                @endforeach                      
+                </div>
+                @endforeach                 
             </div>
             <div class="row">
                 <div class="col-sm-12">
@@ -71,8 +82,12 @@
                 </div>
                 @foreach($pen2 as $p)
                 <div class="col-md-4">
-                    <div class="card card-widget widget-user-2">                      
+                    <div class="card card-widget widget-user-2">   
+                    @if( ($p->total_kegiatan - $p->setuju - $p->tolak - $p->pending) > 0 )
+                      <div class="widget-user-header bg-warning">
+                    @else
                       <div class="widget-user-header bg-info">
+                    @endif
                         <div class="widget-user-image">
                           <img class="img-circle elevation-2" src="{{asset('admin_lte/dist/img/icon.png')}}" alt="User Avatar">
                         </div>
@@ -112,6 +127,7 @@
                     </div>
                 </div>
                 @endforeach 
+                @endif
             </div>
     </section>
 </div>
