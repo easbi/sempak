@@ -58,6 +58,7 @@ Route::resource('penilai', 'PenilaiController');
 Route::resource('plotpenilai', 'PlotpenilaiController');
 
 //Route untuk Sekretariat DUPAK
+Route::get('sekretariat/rekap1', 'SekretariatController@rekap1');
 Route::resource('sekretariat', 'SekretariatController');
 
 Route::resource('dokdasar', 'DokdasarController');

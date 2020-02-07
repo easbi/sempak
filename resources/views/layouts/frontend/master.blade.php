@@ -103,12 +103,29 @@
               <p>Penilaian Dupak</p>
             </a>
           </li>
-          @if(Auth::user()->role == 4) 
-          <li class="nav-item">
-            <a href="{{ url('/sekretariat') }}" class="nav-link">
-              <i class="nav-icon fas fa-clipboard-check"></i>
-              <p>Monitoring Dupak</p>
+          @if(Auth::user()->role == 4)
+          <li class="nav-header">Monitoring DUPAK</li>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-chart-line"></i>
+              <p>Rekapitulasi<i class="right fas fa-angle-left"></i>
+              </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('/sekretariat') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Penilaian DUPAK</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/sekretariat/rekap1')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Total Angka Kredit</p>
+                </a>
+              </li>
+            </ul>
           </li>
           @endif
           <li class="nav-header">Tampilkan Laporan</li>
