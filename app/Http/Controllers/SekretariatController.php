@@ -79,9 +79,8 @@ class SekretariatController extends Controller
                 ->join('master_rincian_angka_kredit','master_rincian_kegiatan.id_rincian_kegiatan','=',DB::raw('master_rincian_angka_kredit.id_rincian_kegiatan AND master_rincian_angka_kredit.id_tingkatan_wi='.$jabatan->jabatan))
                 ->select('master_rincian_angka_kredit.kk','rincian_kegiatan',DB::raw('COUNT(transaksi.id_transaksi) as jumlah_kegiatan'),
                     DB::raw('SUM(transaksi.angka_kredit_usul) as angka_kredit'),
-                    DB::raw('SUM(transaksi.angka_kredit1) as ak1'),
-                    DB::raw('SUM(transaksi.angka_kredit2) as ak2')
-                )
+                    DB::raw('SUM((CASE WHEN transaksi.status1 = 2 THEN transaksi.angka_kredit1 END)) AS ak1'),
+                    DB::raw('SUM((CASE WHEN transaksi.status2 = 2 THEN transaksi.angka_kredit2 END)) AS ak2'))
                 ->where('master_rincian_kegiatan.id_subunsur',$su->id_sub_unsur)
                 ->groupBy('master_rincian_kegiatan.rincian_kegiatan')
                 ->groupBy('master_rincian_angka_kredit.kk')
