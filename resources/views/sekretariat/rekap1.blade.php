@@ -29,7 +29,8 @@
                 <th>Total Kegiatan</th>          
                 <th>Total Angka Kredit Yang Diusulkan</th>
                 <th>Total Angka Kredit oleh Penilai 1</th>
-                <th>Total Angka Kredit oleh Penilai 2</th>                       
+                <th>Total Angka Kredit oleh Penilai 2</th> 
+                <th>Lihat Detail</th>                      
               </tr>
             </thead>
             <tbody>
@@ -59,6 +60,9 @@
                   @else
                     {{ $p->total_ak_2 }}
                   @endif
+                </td>
+                <td>
+                  <a href="{{ action('SekretariatController@rekap2',$p->id_user) }}" class="nav-link"><span class="badge bg-danger">Lihat</span></a>
                 </td>
               </tr>
               @endforeach

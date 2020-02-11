@@ -57,12 +57,45 @@ class SekretariatController extends Controller
         ->select('transaksi.id_user', 'A.nama as user_dinilai',
             DB::raw('count(*) as total_kegiatan'), 
             DB::raw('sum(angka_kredit_usul) total_ak_usul'),
-            DB::raw('sum(angka_kredit1) total_ak_1'),
-            DB::raw('sum(angka_kredit2) total_ak_2'))         
+            DB::raw('SUM((CASE WHEN status1 = 2 THEN angka_kredit1 END)) AS total_ak_1'),
+            DB::raw('SUM((CASE WHEN status2 = 2 THEN angka_kredit2 END)) AS total_ak_2'))      
         ->groupBy('transaksi.id_user')
         ->get();
 
         return view('sekretariat.rekap1', compact('rekap1'));
+    }
+
+    public function rekap2($id_user)
+    {
+        $result = array();
+        $jabatan = DB::table('master_pegawai')->where('id', $id_user)->select('jabatan')->first();
+        $unsurutamas = DB::table('master_unsur_utama')->select('id','unsur_utama')->get();
+        foreach($unsurutamas as $uu) {
+            $subunsurs = DB::table('master_subunsurs')->select('id_sub_unsur','kegiatan_sub_unsur')->where('id_unsur',$uu->id)->get();
+            $temp_su = array();
+            foreach($subunsurs as $su) {
+                $kegiatans = DB::table('master_rincian_kegiatan')
+                ->leftJoin('transaksi','master_rincian_kegiatan.id_rincian_kegiatan','=',DB::raw('transaksi.id_rincian_kegiatan AND transaksi.id_user='.$id_user.' AND transaksi.tgl_selesai BETWEEN cast("2019-01-01" as date) AND cast("2019-12-31" as date)'))
+                ->join('master_rincian_angka_kredit','master_rincian_kegiatan.id_rincian_kegiatan','=',DB::raw('master_rincian_angka_kredit.id_rincian_kegiatan AND master_rincian_angka_kredit.id_tingkatan_wi='.$jabatan->jabatan))
+                ->select('master_rincian_angka_kredit.kk','rincian_kegiatan',DB::raw('COUNT(transaksi.id_transaksi) as jumlah_kegiatan'),
+                    DB::raw('SUM(transaksi.angka_kredit_usul) as angka_kredit'),
+                    DB::raw('SUM(transaksi.angka_kredit1) as ak1'),
+                    DB::raw('SUM(transaksi.angka_kredit2) as ak2')
+                )
+                ->where('master_rincian_kegiatan.id_subunsur',$su->id_sub_unsur)
+                ->groupBy('master_rincian_kegiatan.rincian_kegiatan')
+                ->groupBy('master_rincian_angka_kredit.kk')
+                ->orderBy('master_rincian_angka_kredit.kk','asc')
+                ->get();
+                $temp_keg = array('id_su' => $su->id_sub_unsur, 'su' => $su->kegiatan_sub_unsur, 'kegiatans' => json_decode(json_encode($kegiatans), true));
+                array_push($temp_su, $temp_keg);
+        }
+            $temp_uu = array('id_uu' => $uu->id, 'unsur' => $uu->unsur_utama, 'sub_unsurs' => $temp_su);
+            array_push($result, $temp_uu);
+        }
+
+        //dd($result);
+        return view('sekretariat.rekap2', compact('result'));
     }
 
     /**
