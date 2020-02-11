@@ -78,6 +78,7 @@ class PenilaiController extends Controller
         ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'master_acara.nama_acara') 
         ->get();
         $nama_dinilai = DB::table('master_pegawai')->where('id', $id_user)->select('nama')->first();
+        //dd($transaksis);
         
         //Cek Posisi Penilai
         $ternilai = $id_user;

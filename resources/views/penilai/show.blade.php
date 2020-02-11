@@ -30,7 +30,7 @@
                 <th>Subunsur</th>          
                 <th>Rincian Kegiatan</th>
                 <th>Nama Kegiatan</th>
-                <th>Angka Kredit Diusulkan</th>
+                <th>Mata Diklat/ keterangan lainnya</th>
                 <th>Satuan</th>
                 <th>Dokumen</th>
                 <th>Aksi</th>                         
@@ -64,7 +64,7 @@
                 <td>{{ $tr->kegiatan_sub_unsur }}</td>
                 <td>{{ $tr->rincian_kegiatan }}</td>
                 <td>{{ $tr->nama_acara }}</td>
-                <td>{{ str_replace('.', ',', $tr->angka_kredit_usul) }}</td>
+                <td>{{ $tr->keterangan }}</td>
                 <td>{{ $tr->satuan }}</td>
                 <td><a href='{{  url('public/file_rincian_dupak', $tr->berkas) }}' class="btn btn-warning" target="_blank">Berkas</a></td>
                 <td>
