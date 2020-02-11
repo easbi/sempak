@@ -100,16 +100,19 @@ class SekretariatController extends Controller
 
     public function rekap3()
     {
-        $rekap1 = DB::table('plot_penilai_dupak')
+        $rekap3 = DB::table('plot_penilai_dupak')
         ->join('transaksi', 'plot_penilai_dupak.id_user_dinilai', '=', 'transaksi.id_user')        
-        ->join('master_pegawai AS A', 'A.id', 'plot_penilai_dupak.id_user_dinilai')
+        ->join('master_pegawai AS A', 'A.id', 'plot_penilai_dupak.id_user_dinilai') 
+        ->join('master_pegawai AS B', 'B.id', 'plot_penilai_dupak.id_user_penilai_1')
+        ->join('master_pegawai AS C', 'C.id', 'plot_penilai_dupak.id_user_penilai_2')       
+        ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=','master_rincian_kegiatan.id_rincian_kegiatan')
         ->whereBetween('transaksi.tgl_selesai', ['2019-01-01', '2019-12-31'])
-        ->where('transaksi.status1')
-        ->select('transaksi.id_user', 'A.nama as user_dinilai', 'transaksi.status1')    
-        ->groupBy('transaksi.id_user')
+        ->where('transaksi.status1', '=', '4')
+        ->orWhere('transaksi.status2', '=', '4')
+        ->select('transaksi.id_transaksi','transaksi.id_user', 'A.nama as user_dinilai', 'transaksi.status1', 'transaksi.status2', 'master_rincian_kegiatan.rincian_kegiatan', 'transaksi.keterangan', 'B.nama as penilai1', 'transaksi.ket_status1', 'C.nama as penilai2', 'transaksi.ket_status2')
         ->get();
-
-        return view('sekretariat.rekap1', compact('rekap1'));
+        //dd($rekap3);
+        return view('sekretariat.rekap3', compact('rekap3'));
     }
 
     /**
@@ -128,9 +131,9 @@ class SekretariatController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        
     }
 
     /**
@@ -139,9 +142,21 @@ class SekretariatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id_transaksi)
     {
-        //
+        $transaksi = DB::table('transaksi')->where('id_transaksi',$id_transaksi)
+        ->join('master_unsur_utama', 'transaksi.id_unsur_utama', '=', 'master_unsur_utama.id')        
+        ->join('master_pegawai AS A', 'A.id', 'transaksi.id_user') 
+        ->join('master_subunsurs', 'transaksi.id_subunsur', '=', 'master_subunsurs.id_sub_unsur')            
+        ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=', 'master_rincian_kegiatan.id_rincian_kegiatan')   
+        ->join('master_acara', 'transaksi.nama_event', '=', 'master_acara.id')     
+        ->join('master_rincian_angka_kredit', 'transaksi.id_rinci_ak', '=', 'master_rincian_angka_kredit.id_rinci_ak')    
+        ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'master_acara.nama_acara', 'master_rincian_angka_kredit.angka_kredit', 'A.nama as user_dinilai') 
+        ->first();
+        $unsurutamas = DB::table("master_unsur_utama")->pluck( 'unsur_utama', 'id');
+        $nama_acaras = DB::table("master_acara")->pluck('nama_acara', 'id');
+        //dd($transaksi);
+        return view('sekretariat.rekap3rinci', compact('transaksi', 'unsurutamas', 'nama_acaras'));
     }
 
     /**
@@ -150,9 +165,9 @@ class SekretariatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        
     }
 
     /**
