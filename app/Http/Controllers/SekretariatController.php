@@ -97,6 +97,21 @@ class SekretariatController extends Controller
         return view('sekretariat.rekap2', compact('result'));
     }
 
+
+    public function rekap3()
+    {
+        $rekap1 = DB::table('plot_penilai_dupak')
+        ->join('transaksi', 'plot_penilai_dupak.id_user_dinilai', '=', 'transaksi.id_user')        
+        ->join('master_pegawai AS A', 'A.id', 'plot_penilai_dupak.id_user_dinilai')
+        ->whereBetween('transaksi.tgl_selesai', ['2019-01-01', '2019-12-31'])
+        ->where('transaksi.status1')
+        ->select('transaksi.id_user', 'A.nama as user_dinilai', 'transaksi.status1'    
+        ->groupBy('transaksi.id_user')
+        ->get();
+
+        return view('sekretariat.rekap1', compact('rekap1'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
