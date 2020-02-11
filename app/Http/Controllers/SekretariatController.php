@@ -105,7 +105,7 @@ class SekretariatController extends Controller
         ->join('master_pegawai AS A', 'A.id', 'plot_penilai_dupak.id_user_dinilai')
         ->whereBetween('transaksi.tgl_selesai', ['2019-01-01', '2019-12-31'])
         ->where('transaksi.status1')
-        ->select('transaksi.id_user', 'A.nama as user_dinilai', 'transaksi.status1'    
+        ->select('transaksi.id_user', 'A.nama as user_dinilai', 'transaksi.status1')    
         ->groupBy('transaksi.id_user')
         ->get();
 
