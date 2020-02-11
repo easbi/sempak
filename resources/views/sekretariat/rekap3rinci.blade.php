@@ -1,0 +1,89 @@
+@extends('layouts.frontend.master')
+
+@section('content')
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Data Rincian DUPAK - <strong>{{ $transaksi->user_dinilai }}</strong></h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <a href="{{ URL::previous() }}" class="btn btn-primary float-sm-right">Kembali</a>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+  <!-- Main content -->
+  <section class="content">
+    <div class="container">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> 
+      <div class="card">
+        <div class="card-body">    
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                  <label>Unsur Utama</label>
+                  <input type="text" name="unsurutamas" id="unsurutamas" class="form-control" value="{{ $transaksi->unsur_utama }}" readonly="true">
+                </div>
+                <div class="form-group">
+                  <label>Sub Unsur</label>
+                  <input type="text" name="subunsur" id="subunsur" class="form-control" value="{{ $transaksi->kegiatan_sub_unsur }}" readonly="true">
+                </div>
+                <div class="form-group">
+                  <label>Rincian Kegiatan</label>
+                  <input type="text" name="rincian_kegiatan" id="rincian_kegiatan" class="form-control" value="{{ $transaksi->rincian_kegiatan }}" readonly="true">
+                </div>
+                <div class="form-group">
+                  <label>Nama Acara / Diklat</label>
+                  <input type="text" name="nama_acara" id="nama_acara" class="form-control" value="{{ $transaksi->nama_acara }}" readonly="true">
+                </div>
+                <div class="form-group">
+                  <label>Tanggal Mulai</label>
+                  <input type="date" name="awal_acara" readonly="true" class="form-control" value="{{ $transaksi->tgl_mulai }}">        
+                </div>
+                <div class="form-group">
+                  <label>Tanggal Selesai</label>
+                  <input type="date" name="akhir_acara" readonly="true" class="form-control" value="{{ $transaksi->tgl_selesai }}">                
+                </div>          
+                <div class="form-group">
+                  <label>Mata Diklat / Keterangan Lainnya</label>
+                  <textarea class="form-control" name="keterangan" readonly="true"> {{$transaksi->keterangan}}</textarea>            
+                </div>
+                <div class="form-group">
+                  <label>Angka Kredit</label>
+                  <input type="text" name="ak_per_satuan" id="ak_per_satuan" style="display:none;" value="{{$transaksi->angka_kredit}}">
+                  <input type="text" name="ak_usul" id="ak_usul" class="form-control" readonly="true" value="{{$transaksi->angka_kredit_usul}}">
+                </div> 
+                <div class="form-group">
+                  <label>Kuantitas</label>
+                  <input type="number" name="kuantitas" id="kuantitas" class="form-control" value="{{ $transaksi->kuantitas }}" readonly="true">
+                </div> 
+                <div class="form-group">
+                  <label>Lihat Berkas</label><br>
+                  <a href='{{  url('public/file_rincian_dupak', $transaksi->berkas) }}' class="btn btn-warning" target="_blank"><i class="fas fa-book"></i></a>
+                </div>           
+            </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
+@endsection
+
+@push('scripts')
+    <script type="text/javascript">
+      jQuery('#nama_acara').on('change', function(){
+        if(jQuery(this).val() == 1000){
+          window.location.href = '{{ url('/masteracara')}}'
+        }
+      })
+
+      $('#kuantitas').on('change',function(){
+        var kuantitas = $(this).val();
+        $("#ak_usul").val(kuantitas*{{$transaksi->angka_kredit}});    
+      });
+    </script>
+@endpush

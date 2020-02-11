@@ -122,7 +122,13 @@
               <li class="nav-item">
                 <a href="{{ url('/sekretariat/rekap1')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Total Angka Kredit</p>
+                  <p>Tabel Total Angka Kredit</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/sekretariat/rekap3')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tabel Status Dupak Pending</p>
                 </a>
               </li>
             </ul>

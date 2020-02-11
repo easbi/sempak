@@ -25,44 +25,46 @@
             <thead>
               <tr>
                 <th>No</th>
-                <th>Widyaiswara Yang Dinilai</th>
-                <th>Total Kegiatan</th>          
-                <th>Total Angka Kredit Yang Diusulkan</th>
-                <th>Total Angka Kredit oleh Penilai 1</th>
-                <th>Total Angka Kredit oleh Penilai 2</th> 
+                <th>Ternilai</th>
+                <th>Rincian Kegiatan</th>          
+                <th>Keterangan kegiatan</th>
+                <th>Penilai</th>
+                <th>Keterangan Pending</th> 
                 <th>Lihat Detail</th>                      
               </tr>
             </thead>
             <tbody>
               <?php $no = 1; ?>
-              @foreach($rekap1 as $p)
+              @foreach($rekap3 as $p)
               <tr>
-                <td>{{ $no++ }}</td>
+                <td>{{ $p->id_transaksi }}</td>
                 <td>{{ $p->user_dinilai }}</td>                
-                <td>{{ $p->total_kegiatan }}</td>
+                <td>{{ $p->rincian_kegiatan }}</td>             
+                <td>{{ $p->keterangan }}</td>
+                @if ($p->status1 == 4 AND $p->status2 == 4)
+                  <td>
+                    {{$p->penilai1}} dan {{$p->penilai2}}                    
+                  </td>
+                  <td>
+                    Menurut penilai pertama : {{$p->ket_status1}} sedangkan menurut penilai kedua {{$p->ket_status2}}                    
+                  </td>
+                @elseif ($p->status1 == 4)
+                  <td>
+                    {{$p->penilai1}}                   
+                  </td>
+                  <td>
+                    Menurut penilai pertama : {{$p->ket_status1}}                  
+                  </td>
+                @elseif ($p->status2 == 4)
+                  <td>
+                    {{$p->penilai2}}                    
+                  </td>
+                  <td>
+                    menurut penilai kedua : {{$p->ket_status2}}                    
+                  </td>
+                @endif
                 <td>
-                  @if ($p->total_ak_usul == NULL AND $p->total_ak_usul == 0)
-                    Belum dinilai
-                  @else
-                    {{ $p->total_ak_usul }}
-                  @endif
-                </td>
-                <td>
-                  @if ($p->total_ak_1 == NULL AND $p->total_ak_1 == 0)
-                    <i>Belum dinilai</i>
-                  @else
-                    {{ $p->total_ak_1 }}
-                  @endif
-                </td>
-                <td>
-                  @if ($p->total_ak_2 == NULL AND $p->total_ak_2 == 0)
-                    <i>Belum dinilai</i>
-                  @else
-                    {{ $p->total_ak_2 }}
-                  @endif
-                </td>
-                <td>
-                  <a href="{{ action('SekretariatController@rekap2',$p->id_user) }}" class="nav-link"><span class="badge bg-danger">Lihat</span></a>
+                  <a href="{{ action('SekretariatController@show',$p->id_transaksi) }}" class="nav-link"><span class="badge bg-danger">Lihat</span></a>
                 </td>
               </tr>
               @endforeach
