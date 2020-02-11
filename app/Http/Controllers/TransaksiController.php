@@ -84,7 +84,7 @@ class TransaksiController extends Controller
                 ->get();
                 $temp_keg = array('id_su' => $su->id_sub_unsur, 'su' => $su->kegiatan_sub_unsur, 'kegiatans' => json_decode(json_encode($kegiatans), true));
                 array_push($temp_su, $temp_keg);
-            }
+        }
             $temp_uu = array('id_uu' => $uu->id, 'unsur' => $uu->unsur_utama, 'sub_unsurs' => $temp_su);
             array_push($result, $temp_uu);
         }
