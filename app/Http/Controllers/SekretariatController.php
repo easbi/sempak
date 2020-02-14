@@ -68,6 +68,7 @@ class SekretariatController extends Controller
     public function rekap2($id_user)
     {
         $result = array();
+        $nama = DB::table('master_pegawai')->where('id', $id_user)->select('nama')->first();
         $jabatan = DB::table('master_pegawai')->where('id', $id_user)->select('jabatan')->first();
         $unsurutamas = DB::table('master_unsur_utama')->select('id','unsur_utama')->get();
         foreach($unsurutamas as $uu) {
@@ -94,7 +95,7 @@ class SekretariatController extends Controller
         }
 
         //dd($result);
-        return view('sekretariat.rekap2', compact('result'));
+        return view('sekretariat.rekap2', compact('result', 'nama'));
     }
 
 
