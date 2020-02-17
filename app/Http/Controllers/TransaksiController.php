@@ -125,11 +125,6 @@ class TransaksiController extends Controller
      */
     public function create()
     {
-
-        // $unsurutamas = DB::table("master_unsur_utama")->pluck( 'unsur_utama', 'id');
-        // $nama_acaras = DB::table("master_acara")->pluck('nama_acara', 'id');
-        // return view('transaksi.create', compact('unsurutamas', 'nama_acaras'));
-
         return redirect('/');
     }
 
@@ -237,7 +232,7 @@ class TransaksiController extends Controller
             if($request->file('berkas')) {
                 $file = $request->file('berkas');
                 $filename = $file->getClientOriginalName();
-                $file->move('file_rincian_dupak', $filename);
+                $file->move('public/file_rincian_dupak', $filename);
                 $transaksi->berkas = $filename; 
                 
             } else {
