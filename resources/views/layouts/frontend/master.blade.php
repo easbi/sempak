@@ -103,7 +103,7 @@
               <p>Penilaian Dupak</p>
             </a>
           </li>
-          @if(Auth::user()->role == 4)
+          @if(Auth::user()->role == 4 OR Auth::user()->role == 1)
           <li class="nav-header">Monitoring DUPAK</li>
           </li>
           <li class="nav-item has-treeview">
