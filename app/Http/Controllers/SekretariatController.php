@@ -93,8 +93,6 @@ class SekretariatController extends Controller
             $temp_uu = array('id_uu' => $uu->id, 'unsur' => $uu->unsur_utama, 'sub_unsurs' => $temp_su);
             array_push($result, $temp_uu);
         }
-
-        dd($result);
         return view('sekretariat.rekap2', compact('result', 'nama'));
     }
 
@@ -127,7 +125,11 @@ class SekretariatController extends Controller
                     DB::raw('SUM((CASE WHEN transaksi.status2 = 2 THEN transaksi.angka_kredit2 END)) AS ak2'))
             ->groupBy('master_unsur_utama.id')
             ->get();
-            $temp_keg = array('id_user' => $ud->id_user_dinilai, 'kegiatans' => json_decode(json_encode($unsurutama), true));
+            $temp_keg = array('id_user' => $ud->id_user_dinilai,
+                'nama' => $ud->nama,
+                'nip' => $ud->nip,
+                'jabatan'=> $ud->jabatan,
+                'kegiatans' => json_decode(json_encode($unsurutama), true));
             array_push($temp_su, $temp_keg);
         }
         dd($temp_su);
