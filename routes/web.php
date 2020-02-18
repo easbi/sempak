@@ -47,7 +47,7 @@ Route::get('dupak','TransaksiController@dupak');
 
 
 //Route untuk Tim Evaluasi penilaian dupak
-Route::get('penilai/dashboard', 'PenilaiController@dashboardPenilai');
+Route::get('penilai/dashboard', 'PenilaiController@index');
 Route::resource('penilai', 'PenilaiController');
 
 

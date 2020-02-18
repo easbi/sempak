@@ -28,15 +28,10 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Unsur Utama</th>
-                            <th>Subunsur</th>          
-                            <th>Rincian Kegiatan</th>
-                            <th>Nama Kegiatan</th>
-                            <th>Tanggal Mulai</th>  
-                            <th>Tanggal Selesai</th>
-                            <th>Angka Kredit Yang Diusulkan</th>
-                            <th>Satuan</th>
-                            <th>Dokumen</th>
+                            <th>Nama</th>
+                            <th>Periode DUPAK</th>          
+                            <th>Jumlah Kegiatan</th>
+                            <th>Usulan Angka Kredit</th>
                             <th>Aksi</th>                         
                         </tr>
                     </thead>
