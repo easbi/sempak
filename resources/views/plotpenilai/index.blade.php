@@ -1,8 +1,5 @@
 @extends('layouts.frontend.master')
 @section('content')
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <div class="content-header">
@@ -59,9 +56,12 @@
   </section>
   <!-- /.content -->
 </div>
+@endsection
+
+@push('scripts')
 <script type="text/javascript">
     $(document).ready(function() {
         $('#example').DataTable();
     } );
 </script>
-@endsection
+@endpush

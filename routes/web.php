@@ -42,21 +42,28 @@ Route::resource('transaksi', 'TransaksiController');
 Route::get('periode/{y}/{m}', 'TransaksiController@byPeriode');
 Route::get('usulan/{y}/{m}/{kk}', 'TransaksiController@byKk');
 Route::get('transaksi/{y}/{m}/{kk}', 'TransaksiController@createByKk');
+Route::get('/test/{awal}/{akhir}', 'TransaksiController@submit_flag');
 Route::post('generatedupak','TransaksiController@generateDupak');
 Route::get('dupak','TransaksiController@dupak');
+Route::post('/transaksi/getAcara/','TransaksiController@getAcara')->name('transaksi.getAcara');
 
 
 //Route untuk Tim Evaluasi penilaian dupak
-Route::get('penilai/dashboard', 'PenilaiController@index');
+Route::get('penilai/dashboard', 'PenilaiController@dashboardPenilai');
+Route::get('penilai/showDokdasar/{id_user}', 'PenilaiController@showDokdasar')->name('penilai.showDokdasar');
 Route::resource('penilai', 'PenilaiController');
 
 
 //Route untuk Pengeplot DUPAK di TU
 Route::resource('plotpenilai', 'PlotpenilaiController');
 
-// Route::get('plotpenilai/edit2/{id}', 'PlotpenilaiController@edit')->name('plotpenilai.edit2');
+//Route untuk Sekretariat DUPAK
+Route::get('sekretariat/bapak', 'SekretariatController@bapak');
+Route::get('sekretariat/rekap3', 'SekretariatController@rekap3');
+Route::get('sekretariat/rekap2/{id_user}', 'SekretariatController@rekap2');
+Route::get('sekretariat/rekap1', 'SekretariatController@rekap1');
+Route::resource('sekretariat', 'SekretariatController');
 
-//Route::get('dokdasar/edit/{id}', 'DokdasarController@edit')->name('dokdasar.edit');
 Route::resource('dokdasar', 'DokdasarController');
 
 

@@ -10,7 +10,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Status Penilaian DUPAK</h1>
+                    <h1 class="m-0 text-dark">DUPAK Yang Diperiksa</h1>
                 </div>
             </div>
         </div>
@@ -19,166 +19,122 @@
     <!-- Main content -->
     <section class="content">
         <div class="container">
+            @if($pen1->isEmpty() AND $pen2->isEmpty())
+            <div class="col-sm-12">
+              <h4>Anda Belum Dialokasikan Untuk Menilai DUPAK</h4>
+            </div>
+            @else
             <div class="row">
                 <div class="col-sm-12">
-                    <h4>Semester I 2019</h4>
+                    <h4>Penilai pertama dari</h4>
                 </div>
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3>{{ $proses_total }}</h3>
-                            <p>Total Kegiatan Diinput</p>
+                @foreach($pen1 as $p)
+                <div class="col-md-4">
+                    <div class="card card-widget widget-user-2">   
+                    @if( ($p->total_kegiatan - $p->setuju - $p->tolak - $p->pending) > 0 )
+                      <div class="widget-user-header bg-warning">
+                    @else
+                      <div class="widget-user-header bg-info">
+                    @endif
+                        <div class="widget-user-image">
+                          <img class="img-circle elevation-2" src="{{asset('admin_lte/dist/img/icon.png')}}" alt="User Avatar">
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-soup-can"></i>
-                        </div>
+                        <h3 class="widget-user-username">{{Illuminate\Support\Str::limit($p->nama, 17) }}</h3>
+                        <h5 class="widget-user-desc"><a href="{{ action('PenilaiController@showDokdasar',$p->id_user) }}"><span class="info-box-number" style="color: black">Lihat berkas administrasi</span></a></h5>
+                      </div>
+                      <div class="card-footer p-0">
+                        <ul class="nav flex-column">
+                          <li class="nav-item">
+                            <a href="{{ action('PenilaiController@show',$p->id_user) }}" class="nav-link">
+                              Total kegiatan yang diusulkan <span class="float-right badge bg-primary">{{ $p->total_kegiatan }}</span>
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a href="#" class="nav-link" style="color: black">
+                              Total Kegiatan yang belum diperiksa <span class="float-right badge bg-danger">{{$p->total_kegiatan - $p->setuju - $p->tolak - $p->pending }}</span>
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a href="#" class="nav-link" style="color: black">
+                               Total Kegiatan yang sudah diperiksa <span class="float-right badge bg-info">{{ $p->setuju + $p->tolak }}</span>
+                            </a>                            
+                            <a href="#" class="nav-link" style="color: black">
+                               &nbsp &nbsp - Total Kegiatan yang disetujui <span class="float-right badge bg-success">{{ $p->setuju }}</span>
+                            </a>                                                        
+                            <a href="#" class="nav-link" style="color: black">
+                               &nbsp &nbsp - Total Kegiatan yang ditolak <span class="float-right badge bg-secondary">{{ $p->tolak }}</span>
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a href="#" class="nav-link" style="color: black">
+                               Total Kegiatan yang dipending <span class="float-right badge bg-warning">{{ $p->pending }}</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                 </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            <h3>{{ $proses_11 }}</h3>
-                            <p>Kegiatan Sedang diproses</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-bag"></i>
-                        </div>
-                    </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-warning">
-                        <div class="inner">
-                            <h3>{{ $proses_12 }}</h3>
-                            <p>Kegiatan Yang Disetujui</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-thumbsup"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-danger">
-                        <div class="inner">
-                            <h3>{{ $proses_13 }}</h3>
-                            <p>Kegiatan Yang Ditolak</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion ion-thumbsdown"></i>
-                        </div>
-                    </div>
-                </div>
+                @endforeach                 
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <h4>Semester II 2019</h4>
+                    <h4>Penilai kedua dari</h4>
                 </div>
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3>{{ $proses_total }}</h3>
-                            <p>Total Kegiatan Diinput</p>
+                @foreach($pen2 as $p)
+                <div class="col-md-4">
+                    <div class="card card-widget widget-user-2">   
+                    @if( ($p->total_kegiatan - $p->setuju - $p->tolak - $p->pending) > 0 )
+                      <div class="widget-user-header bg-warning">
+                    @else
+                      <div class="widget-user-header bg-info">
+                    @endif
+                        <div class="widget-user-image">
+                          <img class="img-circle elevation-2" src="{{asset('admin_lte/dist/img/icon.png')}}" alt="User Avatar">
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-soup-can"></i>
-                        </div>
+                        <h3 class="widget-user-username">{{Illuminate\Support\Str::limit($p->nama, 17) }}</h3>
+                        <h5 class="widget-user-desc"><a href="{{ action('PenilaiController@showDokdasar',$p->id_user) }}"><span class="info-box-number" style="color: black">Lihat berkas administrasi</span></a></h5>
+                      </div>
+                      <div class="card-footer p-0">
+                        <ul class="nav flex-column">
+                          <li class="nav-item">
+                            <a href="{{ action('PenilaiController@show',$p->id_user) }}" class="nav-link">
+                              Total kegiatan yang diusulkan <span class="float-right badge bg-primary">{{ $p->total_kegiatan }}</span>
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a href="#" class="nav-link" style="color: black">
+                              Total Kegiatan yang belum diperiksa <span class="float-right badge bg-danger">{{$p->total_kegiatan - $p->setuju - $p->tolak - $p->pending }}</span>
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a href="#" class="nav-link" style="color: black">
+                               Total Kegiatan yang sudah diperiksa <span class="float-right badge bg-info">{{ $p->setuju + $p->tolak }}</span>
+                            </a>                            
+                            <a href="#" class="nav-link" style="color: black">
+                               &nbsp &nbsp - Total Kegiatan yang disetujui <span class="float-right badge bg-success">{{ $p->setuju }}</span>
+                            </a>                                                        
+                            <a href="#" class="nav-link" style="color: black">
+                               &nbsp &nbsp - Total Kegiatan yang ditolak <span class="float-right badge bg-secondary">{{ $p->tolak }}</span>
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a href="#" class="nav-link" style="color: black">
+                               Total Kegiatan yang dipending <span class="float-right badge bg-warning">{{ $p->pending }}</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                 </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            <h3>{{ $proses_11 }}</h3>
-                            <p>Kegiatan Sedang diproses Evaluasi</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-bag"></i>
-                        </div>
-                    </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-warning">
-                        <div class="inner">
-                            <h3>{{ $proses_12 }}</h3>
-                            <p>Kegiatan Yang Disetujui</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-thumbsup"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-danger">
-                        <div class="inner">
-                            <h3>{{ $proses_13 }}</h3>
-                            <p>Kegiatan Yang Ditolak</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion ion-thumbsdown"></i>
-                        </div>
-                    </div>
-                </div>
+                @endforeach 
+                @endif
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <h4>Semester I 2020</h4>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3>{{ $proses_total }}</h3>
-                            <p>Total Kegiatan Diinput</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-soup-can"></i>
-                        </div>
-                    </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            <h3>{{ $proses_11 }}</h3>
-                            <p>Kegiatan Sedang diproses</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-bag"></i>
-                        </div>
-                    </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-warning">
-                        <div class="inner">
-                            <h3>{{ $proses_12 }}</h3>
-                            <p>Kegiatan Yang Disetujui</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-thumbsup"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-danger">
-                        <div class="inner">
-                            <h3>{{ $proses_13 }}</h3>
-                            <p>Kegiatan Yang Ditolak</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion ion-thumbsdown"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </section>
 </div>
 
 <script type="text/javascript">
-$(document).ready(function() {
-    $('#example').DataTable();
-});
+    $(document).ready(function() {
+        $('#example').DataTable();
+    });
 </script>
 @endsection

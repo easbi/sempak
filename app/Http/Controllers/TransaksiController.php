@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 use App\Transaksi;
+use App\Masteracara;
 use DB;
 use Auth;
 
@@ -37,8 +38,27 @@ class TransaksiController extends Controller
             ->where('id_user', Auth::user()->id)
             ->orderby('id_transaksi','asc')
             ->get();
+        //dd($transaksis);
         return view('transaksi.index', compact('transaksis'));
 
+    }
+
+    public function getAcara(Request $request){
+      $search = $request->search;
+      if($search == ''){
+         $acaras = Masteracara::orderby('nama_acara','asc')->select('id','nama_acara')->limit(5)->get();
+      }else{
+         $acaras = Masteracara::orderby('nama_acara','asc')->select('id','nama_acara')->where('nama_acara', 'like', '%' .$search . '%')->limit(5)->get();
+      }
+
+      $response = array();
+      foreach($acaras as $acara){
+         $response[] = array(
+              "id"=>$acara->id,
+              "text"=>$acara->nama_acara
+         );
+      }
+      echo json_encode($response);
     }
 
     public function byPeriode($y,$m)
@@ -64,7 +84,7 @@ class TransaksiController extends Controller
                 ->get();
                 $temp_keg = array('id_su' => $su->id_sub_unsur, 'su' => $su->kegiatan_sub_unsur, 'kegiatans' => json_decode(json_encode($kegiatans), true));
                 array_push($temp_su, $temp_keg);
-            }
+        }
             $temp_uu = array('id_uu' => $uu->id, 'unsur' => $uu->unsur_utama, 'sub_unsurs' => $temp_su);
             array_push($result, $temp_uu);
         }
@@ -105,15 +125,12 @@ class TransaksiController extends Controller
      */
     public function create()
     {
-        $unsurutamas = DB::table("master_unsur_utama")->pluck( 'unsur_utama', 'id');
-        $nama_acaras = DB::table("master_acara")->pluck('nama_acara', 'id');
-        return view('transaksi.create', compact('unsurutamas', 'nama_acaras'));
+        return redirect('/');
     }
 
     public function createByKk($y,$m,$kk)
     {
         $periode = Transaksi::Periode($y,$m);
-
         $kegiatan = DB::table("master_rincian_kegiatan")
             ->join('master_unsur_utama', 'master_rincian_kegiatan.id_unsur_utama', '=', 'master_unsur_utama.id')
             ->join('master_subunsurs', 'master_rincian_kegiatan.id_subunsur', '=', 'master_subunsurs.id_sub_unsur')
@@ -135,7 +152,6 @@ class TransaksiController extends Controller
     public function store(Request $request)
     {
         ini_set('memory_limit','50M');
-
         $id_rinci_ak = DB::table("master_rincian_angka_kredit")->where('kk', $request->kk)->where("id_tingkatan_wi", Auth::user()->jabatan)->first()->id_rinci_ak;
         // $id_rinci_ak = DB::table("master_rincian_angka_kredit")->where('id_unsur_utama', $request->unsurutamas)->where('id_subunsur', $request->subunsur)->where('id_rincian_kegiatan', $request->rinciankegiatan)->where("id_tingkatan_wi", Auth::user()->jabatan)->first();
         // $kk = DB::table('master_rincian_angka_kredit')->where('id_rinci_ak', $id_rinci_ak)->first()->kk;
@@ -182,17 +198,18 @@ class TransaksiController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id_transaksi)
-    {
+    {      
         $transaksi = DB::table('transaksi')->where('id_transaksi',$id_transaksi)
         ->join('master_unsur_utama', 'transaksi.id_unsur_utama', '=', 'master_unsur_utama.id')
         ->join('master_subunsurs', 'transaksi.id_subunsur', '=', 'master_subunsurs.id_sub_unsur')            
         ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=', 'master_rincian_kegiatan.id_rincian_kegiatan')   
-        ->join('master_acara', 'transaksi.nama_event', '=', 'master_acara.id')      
-        ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'master_acara.nama_acara') 
+        ->join('master_acara', 'transaksi.nama_event', '=', 'master_acara.id')     
+        ->join('master_rincian_angka_kredit', 'transaksi.id_rinci_ak', '=', 'master_rincian_angka_kredit.id_rinci_ak')    
+        ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'master_acara.nama_acara', 'master_rincian_angka_kredit.angka_kredit') 
         ->first();
-        //dd($transaksi);
         $unsurutamas = DB::table("master_unsur_utama")->pluck( 'unsur_utama', 'id');
         $nama_acaras = DB::table("master_acara")->pluck('nama_acara', 'id');
+        //dd($transaksi);
         return view('transaksi.edit', compact('transaksi', 'unsurutamas', 'nama_acaras'));
     }
 
@@ -210,10 +227,12 @@ class TransaksiController extends Controller
             $transaksi->keterangan = $request->keterangan;
             $transaksi->tgl_mulai = $request->awal_acara;
             $transaksi->tgl_selesai = $request->akhir_acara;
+            $transaksi->angka_kredit_usul = $request->ak_usul;
+            $transaksi->kuantitas = $request->kuantitas;
             if($request->file('berkas')) {
                 $file = $request->file('berkas');
                 $filename = $file->getClientOriginalName();
-                $file->move('file_rincian_dupak', $filename);
+                $file->move('public/file_rincian_dupak', $filename);
                 $transaksi->berkas = $filename; 
                 
             } else {
@@ -221,7 +240,7 @@ class TransaksiController extends Controller
             }
             $transaksi->save();
         }
-        return redirect()->route('transaksi.index')->with('success', 'Hasil Penilaian udpdated successfully');
+        return redirect()->route('home')->with('success', 'Hasil Penilaian udpdated successfully');
     }
 
     /**
@@ -239,6 +258,16 @@ class TransaksiController extends Controller
     public function dupak()
     {
         return view('transaksi.dupak');
+    }
+
+    public function submit_flag($awal,$akhir)
+    {
+        dd($awal."-".$akhir);
+        print("OK");
+        // $from = $y;
+        // $to = $m;
+        // dd($m);
+        // Transaksi::where('id_user', '=', Auth::user()->id)->where('id_user', '=', Auth::user()->id)->whereBetween('tgl_selesai', [$from, $to])->update(['flag_submited' => 1]);
     }
 
     public function generateDupak(Request $request)

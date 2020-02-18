@@ -38,8 +38,8 @@
                         <table class="table table-bordered table-hover">
                             <thead style="background-color:#eefeff">
                                 <tr style="text-align:center;">
-                                    <th width=10% rowspan="2">Sub Unsur</th>
-                                    <th width=20% rowspan="2">Kegiatan</th>
+                                    <th width=10% rowspan="2">Unsur</th>
+                                    <th width=20% rowspan="2">Sub Unsur</th>
                                     <th width=3% rowspan="2">KK</th>
                                     <th width=50% rowspan="2">Rincian Kegiatan</th>
                                     <th width=17% colspan="3">Angka Kredit</th>
@@ -86,7 +86,13 @@
                             @endforeach
                             </tbody>
                         </table>
-                    </div>
+                        <br>
+                        <br>
+                        <div class="col-sm-6">
+                            <a href="{{ url('/test/'.date_format($periode['awal'], "d M Y").'/'.date_format($periode['akhir'], "d M Y"))}}" class="btn btn-primary float-sm-right">Submit Dupak</a>
+                        </div>
+                    </div>                        
+                    
                 </div>
                 </div>
             </div>

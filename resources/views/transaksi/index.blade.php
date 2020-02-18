@@ -1,112 +1,86 @@
 @extends('layouts.frontend.master')
 @section('content')
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Data Rincian Yang Telah Masuk</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <a href="{{ url('/transaksi/create') }}" class="btn btn-primary float-sm-right">Input Rincian Angka Kredit Baru</a>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-    <!-- Main content -->
-    <section class="content">
-        <div class="container">
-            <div class="card">
-                <div class="card-body">
-                    <table id="example" class="display">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Unsur Utama</th>
-                                <th>Subunsur</th>          
-                                <th>Rincian Kegiatan</th>
-                                <th>Nama Kegiatan</th>
-                                <th>Tanggal Mulai</th>  
-                                <th>Tanggal Selesai</th>
-                                <th>Angka Kredit</th>
-                                <th>Satuan</th>
-                                <th>Berkas</th>
-                                <th>Aksi</th>
-                                <th></th>
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Data Rincian yang Telah Masuk </h1>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+  <!-- Main content -->
+  <section class="content">
+    <div class="container">
+      <div class="card">
+        <div class="card-body">
+          <table id="example" class="display">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Unsur Utama</th>
+                <th>Subunsur</th>          
+                <th>Rincian Kegiatan</th>
+                <th>Nama Kegiatan</th>
+                <th>Tanggal Mulai</th>  
+                <th>Tanggal Selesai</th>
+                <th>Angka Kredit</th>
+                <th>Satuan</th>
+                <th>Berkas</th>
+                <th>Aksi</th>
+                <th></th>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $no = 1; ?>
-                            @foreach($transaksis as $tr)
-                            <tr>
-                                <td>{{ $no++ }}</td>
-                                <td>{{ $tr->unsur_utama }}</td>
-                                <td>{{ $tr->kegiatan_sub_unsur }}</td>
-                                <td>{{ $tr->rincian_kegiatan }}</td>
-                                <td>{{ $tr->nama_acara }}</td>
-                                <td>{{ $tr->tgl_mulai }}</td>
-                                <td>{{ $tr->tgl_selesai }}</td>
-                                <td>{{ str_replace('.', ',', $tr->angka_kredit_usul) }}</td>
-                                <td>{{ $tr->satuan }}</td>
-                                <td>
-                                    <a href='{{  url('public/file_rincian_dupak', $tr->berkas) }}' class="btn btn-info" target="_blank">Berkas</a>
-                                </td>
-                                <td>
-                                    <a class="btn btn-warning" href="{{ action('TransaksiController@edit',$tr->id_transaksi) }}">Edit</a>
-                                </td>
-                                <td>
-                                    <form action="{{ route('transaksi.destroy',$tr->id_transaksi) }}" method="POST">                                       
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="modal fade" id="modal-lg">
-                    <div class="modal-dialog modal-lg">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h4 class="modal-title">Large Modal</h4>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                      <p>One fine body&hellip;</p>
-                  </div>
-                  <div class="modal-footer justify-content-between">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
-                  </div>
-              </div>
-              <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
+              </tr>
+            </thead>
+            <tbody>
+              <?php $no = 1; ?>
+              @foreach($transaksis as $tr)
+              <tr>
+                <td>{{ $no++ }}</td>
+                <td>{{ $tr->unsur_utama }}</td>
+                <td>{{ $tr->kegiatan_sub_unsur }}</td>
+                <td>{{ $tr->rincian_kegiatan }}</td>
+                <td>{{ $tr->nama_acara }}</td>
+                <td>{{ $tr->tgl_mulai }}</td>
+                <td>{{ $tr->tgl_selesai }}</td>
+                <td>{{ str_replace('.', ',', $tr->angka_kredit_usul) }}</td>
+                <td>{{ $tr->satuan }}</td>
+                <td>
+                  <a href='{{  url('public/file_rincian_dupak', $tr->berkas) }}' class="btn btn-info" target="_blank">Berkas</a>
+                </td>
+                <td>
+                  <a class="btn btn-warning" href="{{ action('TransaksiController@edit',$tr->id_transaksi) }}">Edit</a>
+                </td>
+                <td>
+                  <form action="{{ route('transaksi.destroy',$tr->id_transaksi) }}" method="POST">                                       
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                  </form>
+                </td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
       </div>
-  </div>
+    </div>
+  </section>
+  <!-- /.content -->
 </div>
-</section>
-    <!-- /.content -->
-  </div>
-  
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#example').DataTable({
-            "scrollX": true
-        });
-    } );
-</script>
 @endsection
+
+
+@push('scripts')
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#example').DataTable({
+      "scrollX": true
+    });
+  } );
+</script>
+@endpush
 

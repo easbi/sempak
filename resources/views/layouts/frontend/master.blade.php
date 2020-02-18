@@ -29,7 +29,9 @@
   <link rel="stylesheet" href="{{asset('admin_lte/plugins/summernote/summernote-bs4.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  <link rel="shortcut icon" type="image/x-icon" href="icon.jpg">
+  <!-- Datatable CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+  {{-- <link rel="shortcut icon" type="image/x-icon" href="icon.jpg"> --}}
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -95,12 +97,41 @@
               <p>Pengajuan Dupak</p>
             </a>
           </li>
-          @if(Auth::user()->role == 1)
           <li class="nav-item">
             <a href="{{ url('/penilai/dashboard') }}" class="nav-link">
               <i class="nav-icon fas fa-clipboard-check"></i>
               <p>Penilaian Dupak</p>
             </a>
+          </li>
+          @if(Auth::user()->role == 4 OR Auth::user()->role == 1)
+          <li class="nav-header">Monitoring DUPAK</li>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-chart-line"></i>
+              <p>Rekapitulasi<i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('/sekretariat') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Penilaian DUPAK</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/sekretariat/rekap1')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tabel Total Angka Kredit</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/sekretariat/rekap3')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tabel Status Dupak Pending</p>
+                </a>
+              </li>
+            </ul>
           </li>
           @endif
           <li class="nav-header">Tampilkan Laporan</li>
@@ -205,9 +236,10 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-  <!-- jQuery UI 1.11.4 -->
+  <script src="{{asset('admin_lte/plugins/jquery/jquery.min.js')}}"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   <script src="{{asset('admin_lte/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
-  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+  <script src="{{asset('select2/dist/js/select2.min.js')}}" type="text/javascript"></script>
   <script>
     $.widget.bridge('uibutton', $.ui.button)
   </script>
@@ -230,9 +262,9 @@
   <script src="{{asset('admin_lte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
   <!-- AdminLTE App -->
   <script src="{{asset('admin_lte/dist/js/adminlte.js')}}"></script>
-  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-  <script src="{{asset('admin_lte/dist/js/pages/dashboard.js')}}"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="{{asset('admin_lte/dist/js/demo.js')}}"></script>
+
+  @stack('scripts')
 </body>
 </html>
