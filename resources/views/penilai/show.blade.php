@@ -25,9 +25,9 @@
             <thead>
               <tr>
                 <th>No</th>
+                <th>Keselarasan antar Penilai</th>
                 <th>Status Pemeriksaan</th>ths>
-                <th>Unsur Utama</th>
-                <th>Subunsur</th>          
+                <th>Unsur Utama</th>        
                 <th>Rincian Kegiatan</th>
                 <th>Nama Kegiatan</th>
                 <th>Mata Diklat/ keterangan lainnya</th>
@@ -41,6 +41,13 @@
               @foreach($transaksis as $tr)
               <tr>
                 <td>{{ $tr->id_transaksi }}</td>
+                <td>
+                  @if(($tr->status1 == $tr->status2) AND ($tr->angka_kredit1 == $tr->angka_kredit2))
+                    <span class="badge bg-info">Sudah Selaras</span>
+                  @else
+                    <span class="badge bg-danger">Belum Selaras</span>
+                  @endif
+                </td>
                 <td>
                   @if ($x == 1 AND ($tr->status1 == NULL OR $tr->status1 == 1))
                     <span class="badge bg-danger">Belum Diperiksa</span>
@@ -61,7 +68,6 @@
                   @endif
                 </td>
                 <td>{{ $tr->unsur_utama }}</td>
-                <td>{{ $tr->kegiatan_sub_unsur }}</td>
                 <td>{{ $tr->rincian_kegiatan }}</td>
                 <td>{{ $tr->nama_acara }}</td>
                 <td>{{ $tr->keterangan }}</td>
