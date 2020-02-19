@@ -176,16 +176,13 @@
   $(document).ready(function() {
     $('#example').DataTable({
       "scrollX": true,
-      "ordering": false,
       dom: 'Bfrtip',
       buttons: [{
-        extend: 'collection',
         className: "btn-primary",
-        text: 'Export',
-        buttons:
-        [{
-          extend: "excel", className: "btn-primary"
-        }],
+        text: 'Ekspor Excel',
+        action: function ( e, dt, button, config ) {
+          window.location = 'eksporbapak';
+        }   
     }]
     });
   } );

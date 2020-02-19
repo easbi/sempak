@@ -50,6 +50,22 @@
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="far fa-bell"></i>
+          <span class="badge badge-warning navbar-badge">!</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <span class="dropdown-item dropdown-header">Ada Pemberitahuan</span>
+          <div class="dropdown-divider"></div>
+          @if(Auth::user()->no_seri_karpeg == 'xxx')
+            <a href="#" class="dropdown-item">
+              <i class="fas fa-envelope mr-2"></i>Anda Belum Mengupdate Profil 
+            </a>
+          @endif
+        </div>
+      </li>
+      <!-- Profile Dropdown Menu -->
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
         {{ Auth::user()->nama }} <i class="fas fa-user-cog"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
