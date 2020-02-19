@@ -7,7 +7,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Data Unsur Utama - <strong>Tambah Data</strong></h1>
+          <h1 class="m-0 text-dark">Data Pegawai - <strong>Edit Data</strong></h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <a href="{{ url('/pegawai')}}" class="btn btn-primary float-sm-right">Kembali</a>
