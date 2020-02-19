@@ -7,7 +7,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">BAPAK</h1>
+          <h2 class="m-0 text-dark">BERITA ACARA PENILAIAN ANGKA KREDIT</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <a href="{{ url('/')}}" class="btn btn-primary float-sm-right">Kembali Ke Beranda</a>
@@ -21,35 +21,137 @@
     <div class="container">
       <div class="card">
         <div class="card-body">
-          <table>
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>Nama dan NIP</th>        
-                <th>Jabatan</th>
-                <th>AK Awal</th>
+          <table id="example" class="display" style='font-size:70%'>
+            <thead style="background-color:#eefeff">
+              <tr style="text-align:center;">
+                <th rowspan="2">No</th>
+                <th rowspan="2">Nama / NIP</th>        
+                <th rowspan="2">Jabatan</th>
+                <th rowspan="2">AK Awal</th>
+                <th colspan="2">AK yang diperlukan</th>
+                <th colspan="2">AK periode sebelumnya</th>
+                <th colspan="2">AK yang diusulkan</th> 
+                <th colspan="2">Hasil Penilaian TPI</th> 
+                <th colspan="2">Jumlah perolehan (6+8)</th>  
+                <th colspan="2">Jumlah perolehan yang dipertimbangkan</th> 
+                <th rowspan="2">Kumulatif (4+10)</th>
+                <th rowspan="2">AK harus dicapai</th>
+                <th rowspan="2">Keterangan</th>       
+              </tr>
+              <tr style="text-align:center;">
                 <th>Kode</th>
-                <th>AK yang diusulkan</th>  
-                <th>Hasil Penilaian TPI 1</th>      
-                <th>Hasil Penilaian TPI 2</th>              
+                <th>AK</th>
+                <th>Kode</th>
+                <th>AK</th>
+                <th>Kode</th>
+                <th>AK</th>
+                <th>Kode</th>
+                <th>AK</th>
+                <th>Kode</th>
+                <th>AK</th>
+                <th>Kode</th>
+                <th>AK</th>
+              </tr>
+              <tr style="text-align:center;">
+                <th>(1)</th>
+                <th>(2)</th>
+                <th>(3)</th>
+                <th>(4)</th>
+                <th colspan="2">(5)</th>
+                <th colspan="2">(6)</th>
+                <th colspan="2">(7)</th>
+                <th colspan="2">(8)</th>
+                <th colspan="2">(9)</th>
+                <th colspan="2">(10)</th>
+                <th>(11)</th>
+                <th>(12)</th>
+                <th>(13)</th>
               </tr>
             </thead>
             <tbody>
-              <?php $no = 1; ?>
-              @foreach($result as $p)
-              <tr>
-                <td>{{ $no++ }}</td>
-                <td>{{ $p->nama_ternilai }} <br> {{ $p->nip }}</td>
-                <td>{{ $p->nama_jabatan }}</td>   
-                <td> </td> 
-                <td>
-                  {{ $p->id_unsur_utama }}
-                </td>            
-                <td>{{ $p->angka_kredit }}</td>             
-                <td>{{ $p->ak1 }}</td>            
-                <td>{{ $p->ak2 }}</td>
-              </tr>
-              </tr>
+              @foreach ($temp_su as $us)
+                <?php $s=0; ?>
+                @foreach ($us['array1lagi'] as $al)
+                  @if($s==0)
+                    <td style="border-bottom:0;">{{$us['id_user']}}</td>
+                    <td style="border-bottom:0;">{{$us['nama']}}</td>
+                    <td style="border-bottom:0;">{{$us['jabatan']}}</td>                    
+                    <td style="border-bottom:0;">0</td>
+                  @else
+                    <td style="border-top:0; border-bottom:0;"></td>
+                    <td style="border-top:0; border-bottom:0;"></td>
+                    <td style="border-top:0; border-bottom:0;"></td>                    
+                    <td style="border-top:0; border-bottom:0;"></td>
+                  @endif
+                    <td>{{ $al['kode'] }}</td>
+                    <td></td>
+                    <td>{{ $al['kode'] }}</td>
+                    <td></td>
+                    <td>{{ $al['kode'] }}</td>
+                    <td>
+                      {{ number_format($al['usul'], 3, ",",".") }}
+                    </td>
+                    <td>U</td>
+                    <td>                    
+                      {{ number_format($al['ak'], 3, ",",".") }}
+                    </td>
+                    <td>{{ $al['kode'] }}</td>
+                    <td></td>
+                    <td>{{ $al['kode'] }}</td>
+                    <td></td>
+                    @if($s==0)
+                      <td style="border-bottom:0;"></td>
+                      <td style="border-bottom:0;"></td>
+                      <td style="border-bottom:0;"></td>
+                    @else
+                      <td style="border-top:0; border-bottom:0;"></td>
+                      <td style="border-top:0; border-bottom:0;"></td>                    
+                      <td style="border-top:0; border-bottom:0;"></td>
+                    @endif                         
+                  </tr>
+                  <?php $s++; ?>
+                @endforeach
+                @foreach ($us['kegiatans'] as $uu)
+                <tr>
+                  <td style="border-top:0; border-bottom:0;"></td>
+                  <td style="border-top:0; border-bottom:0;"></td>
+                  <td style="border-top:0; border-bottom:0;"></td>                    
+                  <td style="border-top:0; border-bottom:0;"></td>                      
+                  <td>{{ $uu['kode'] }}</td>
+                  <td></td>
+                  <td>{{ $uu['kode'] }}</td>
+                  <td></td>
+                  <td>{{ $uu['kode'] }}</td>
+                  <td>
+                    @if( $uu['ak_usul'] == 0)
+                      0
+                    @else
+                      {{ number_format($uu['ak_usul'], 3, ",",".") }}
+                    @endif
+                  </td>
+                  <td>{{ $uu['kode'] }}</td>
+                  <td>                    
+                    @if( $uu['ak1'] == 0)
+                      0
+                    @else
+                      {{ number_format($uu['ak1'], 3, ",",".") }}
+                    @endif
+                  </td>
+                  <td>{{ $uu['kode'] }}</td>
+                  <td></td>
+                  <td>{{ $uu['kode'] }}</td>
+                  <td></td>
+                  @if($s==0)
+                    <td style="border-bottom:0;"></td>
+                    <td style="border-bottom:0;"></td>
+                    <td style="border-bottom:0;"></td>
+                  @else
+                    <td style="border-top:0; border-bottom:0;"></td>
+                    <td style="border-top:0; border-bottom:0;"></td>                    
+                    <td style="border-top:0; border-bottom:0;"></td>
+                  @endif                         
+                </tr>
+                @endforeach
               @endforeach
             </tbody>
           </table>
@@ -70,4 +172,22 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#example').DataTable({
+      "scrollX": true,
+      "ordering": false,
+      dom: 'Bfrtip',
+      buttons: [{
+        extend: 'collection',
+        className: "btn-primary",
+        text: 'Export',
+        buttons:
+        [{
+          extend: "excel", className: "btn-primary"
+        }],
+    }]
+    });
+  } );
+</script>
 @endpush
