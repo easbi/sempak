@@ -44,7 +44,6 @@ class SekretariatController extends Controller
             DB::raw('sum(status2 = 4) pending2'))           
         ->groupBy('transaksi.id_user')
         ->get();
-        //dd($plotpenilais);
         return view('sekretariat.index', compact('plotpenilais'));
     }
 
@@ -93,6 +92,7 @@ class SekretariatController extends Controller
             $temp_uu = array('id_uu' => $uu->id, 'unsur' => $uu->unsur_utama, 'sub_unsurs' => $temp_su);
             array_push($result, $temp_uu);
         }
+        //dd($result);
         return view('sekretariat.rekap2', compact('result', 'nama'));
     }
 
@@ -119,21 +119,44 @@ class SekretariatController extends Controller
                     $join->on('tgl_selesai','<=',DB::raw("'2019-12-31'"));
                 })
             ->select('transaksi.id_unsur_utama',
+                    'master_unsur_utama.unsur_utama',
+                    'master_unsur_utama.kode',
                     DB::raw('COUNT(transaksi.id_transaksi) as jumlah_kegiatan'),
-                    DB::raw('SUM(transaksi.angka_kredit_usul) as angka_kredit'),
+                    DB::raw('SUM(transaksi.angka_kredit_usul) as ak_usul'),
                     DB::raw('SUM((CASE WHEN transaksi.status1 = 2 THEN transaksi.angka_kredit1 END)) AS ak1'),
                     DB::raw('SUM((CASE WHEN transaksi.status2 = 2 THEN transaksi.angka_kredit2 END)) AS ak2'))
             ->groupBy('master_unsur_utama.id')
             ->get();
+
+            $t_akusul = 0;
+            $t_ak1 = 0;
+            $t_ak2 = 0;
+            $u_akusul = 0;
+            $u_ak1 = 0;
+            $u_ak2 = 0;
+            $array1lagi = array();
+
+            foreach ($unsurutama as $ut) {
+                $t_akusul = $t_akusul + $ut->ak_usul;
+                $t_ak1 = $t_ak1 + $ut->ak1;
+                if($ut->kode != "P"){
+                    $u_akusul = $u_akusul + $ut->ak_usul;
+                    $u_ak1 = $u_ak1 + $ut->ak1;
+                }
+            }
+            array_push($array1lagi, array('kode'=>"T", 'usul'=>$t_akusul, 'ak'=>$t_ak1));
+            array_push($array1lagi, array('kode'=>"U", 'usul'=>$u_akusul, 'ak'=>$u_ak1));
+
             $temp_keg = array('id_user' => $ud->id_user_dinilai,
                 'nama' => $ud->nama,
                 'nip' => $ud->nip,
                 'jabatan'=> $ud->jabatan,
+                'array1lagi' => $array1lagi,
                 'kegiatans' => json_decode(json_encode($unsurutama), true));
             array_push($temp_su, $temp_keg);
         }
-        dd($temp_su);
-        //return view('sekretariat.bapak', compact('result'));
+        //dd($temp_su);
+        return view('sekretariat.bapak', compact('temp_su'));
     }
 
 
@@ -153,6 +176,8 @@ class SekretariatController extends Controller
         //dd($rekap3);
         return view('sekretariat.rekap3', compact('rekap3'));
     }
+
+    
 
     /**
      * Show the form for creating a new resource.
