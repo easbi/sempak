@@ -13,7 +13,8 @@
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@homepage1');
+
 
 //Route master data pegawai as login item
 Route::get('pegawai', 'PegawaiController@index')->name('pegawai');

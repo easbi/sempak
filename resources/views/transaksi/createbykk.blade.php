@@ -53,16 +53,6 @@
                 <option value="1000">-- <i>Tambahkan Acara, Jika Opsi Acara /Diklat tidak ada di sini</i> --</option><i></i>
               </select>
             </div>
-
-            {{-- <link rel="stylesheet" type="text/css" href="{{asset('select2/dist/css/select2.min.css')}}">
-            <div class="form-group">
-              <label>Nama Acara / Diklat</label>
-              <select id="selUser" name="nama_acara" class="form-control">
-                <option value='0'>-- Select user --</option>
-                <option value="1000">-- <i>Tambahkan Acara, Jika Opsi Acara /Diklat tidak ada di sini</i> --</option><i></i>
-              </select>
-            </div> --}}
-
             <div class="form-group">
               <label>Tanggal Mulai</label>
               <input type="date" name="awal_acara" class="form-control" min="{{date_format($periode['awal'],'Y-m-d')}}" max="{{date_format($periode['akhir'],'Y-m-d')}}">            
@@ -72,7 +62,7 @@
               <input type="date" name="akhir_acara" class="form-control" min="{{date_format($periode['awal'],'Y-m-d')}}" max="{{date_format($periode['akhir'],'Y-m-d')}}">            
             </div>          
             <div class="form-group">
-              <label>Mata Diklat / Keterangan Lainnya </label>
+              <label>Mata Diklat / Keterangan Lainnyaa </label>
               <textarea class="form-control" name="keterangan"></textarea>            
             </div>
             <div class="form-group">

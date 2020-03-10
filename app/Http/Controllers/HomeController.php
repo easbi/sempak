@@ -62,4 +62,9 @@ class HomeController extends Controller
         
         return view('home', compact('result'));
     }
+
+    public function homepage1()
+    {
+        return view('layouts.homepage.index');
+    }
 }
