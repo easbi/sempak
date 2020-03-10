@@ -78,7 +78,7 @@
           </div>
           <div class="form-group">
             <label>Kuantitas</label>
-            <input type="number" name="kuantitas" id="kuantitas" class="form-control" value="1">
+            <input type="number" name="kuantitas" id="kuantitas" class="form-control">
           </div> 
           <div class="form-group">
             <label>Angka Kredit Per Satuan</label>
