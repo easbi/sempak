@@ -13,7 +13,8 @@
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@homepage1');
+
 
 //Route master data pegawai as login item
 Route::get('pegawai', 'PegawaiController@index')->name('pegawai');
@@ -59,6 +60,7 @@ Route::resource('plotpenilai', 'PlotpenilaiController');
 
 //Route untuk Sekretariat DUPAK
 Route::get('sekretariat/bapak', 'SekretariatController@bapak');
+Route::get('sekretariat/eksporbapak','SekretariatController@eksporbapak');
 Route::get('sekretariat/rekap3', 'SekretariatController@rekap3');
 Route::get('sekretariat/rekap2/{id_user}', 'SekretariatController@rekap2');
 Route::get('sekretariat/rekap1', 'SekretariatController@rekap1');

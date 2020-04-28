@@ -18,7 +18,7 @@
     <!-- Main content -->
     <section class="content">
     <div class="container">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> 
     <div class="card">
       <div class="card-body">
         <form method="post" action="{{ url('generatedupak') }}" enctype="multipart/form-data">

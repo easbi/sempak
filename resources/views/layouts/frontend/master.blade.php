@@ -50,6 +50,22 @@
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="far fa-bell"></i>
+          <span class="badge badge-warning navbar-badge">!</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <span class="dropdown-item dropdown-header">Ada Pemberitahuan</span>
+          <div class="dropdown-divider"></div>
+          @if(Auth::user()->no_seri_karpeg == 'xxx')
+            <a href="#" class="dropdown-item">
+              <i class="fas fa-envelope mr-2"></i>Anda Belum Mengupdate Profil 
+            </a>
+          @endif
+        </div>
+      </li>
+      <!-- Profile Dropdown Menu -->
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
         {{ Auth::user()->nama }} <i class="fas fa-user-cog"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
@@ -92,7 +108,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="{{ url('/') }}" class="nav-link">
+            <a href="{{ url('/home') }}" class="nav-link">
               <i class="nav-icon fas fa-clipboard-list"></i>
               <p>Pengajuan Dupak</p>
             </a>
@@ -129,6 +145,12 @@
                 <a href="{{ url('/sekretariat/rekap3')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tabel Status Dupak Pending</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/sekretariat/bapak')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tabel BAPAK</p>
                 </a>
               </li>
             </ul>

@@ -44,7 +44,6 @@ class SekretariatController extends Controller
             DB::raw('sum(status2 = 4) pending2'))           
         ->groupBy('transaksi.id_user')
         ->get();
-        //dd($plotpenilais);
         return view('sekretariat.index', compact('plotpenilais'));
     }
 
@@ -93,8 +92,7 @@ class SekretariatController extends Controller
             $temp_uu = array('id_uu' => $uu->id, 'unsur' => $uu->unsur_utama, 'sub_unsurs' => $temp_su);
             array_push($result, $temp_uu);
         }
-
-        dd($result);
+        //dd($result);
         return view('sekretariat.rekap2', compact('result', 'nama'));
     }
 
@@ -121,17 +119,170 @@ class SekretariatController extends Controller
                     $join->on('tgl_selesai','<=',DB::raw("'2019-12-31'"));
                 })
             ->select('transaksi.id_unsur_utama',
+                    'master_unsur_utama.unsur_utama',
+                    'master_unsur_utama.kode',
                     DB::raw('COUNT(transaksi.id_transaksi) as jumlah_kegiatan'),
-                    DB::raw('SUM(transaksi.angka_kredit_usul) as angka_kredit'),
+                    DB::raw('SUM(transaksi.angka_kredit_usul) as ak_usul'),
                     DB::raw('SUM((CASE WHEN transaksi.status1 = 2 THEN transaksi.angka_kredit1 END)) AS ak1'),
                     DB::raw('SUM((CASE WHEN transaksi.status2 = 2 THEN transaksi.angka_kredit2 END)) AS ak2'))
             ->groupBy('master_unsur_utama.id')
             ->get();
-            $temp_keg = array('id_user' => $ud->id_user_dinilai, 'kegiatans' => json_decode(json_encode($unsurutama), true));
+
+            $t_akusul = 0;
+            $t_ak1 = 0;
+            $t_ak2 = 0;
+            $u_akusul = 0;
+            $u_ak1 = 0;
+            $u_ak2 = 0;
+            $array1lagi = array();
+
+            foreach ($unsurutama as $ut) {
+                $t_akusul = $t_akusul + $ut->ak_usul;
+                $t_ak1 = $t_ak1 + $ut->ak1;
+                if($ut->kode != "P"){
+                    $u_akusul = $u_akusul + $ut->ak_usul;
+                    $u_ak1 = $u_ak1 + $ut->ak1;
+                }
+            }
+            array_push($array1lagi, array('kode'=>"T", 'usul'=>$t_akusul, 'ak'=>$t_ak1));
+            array_push($array1lagi, array('kode'=>"U", 'usul'=>$u_akusul, 'ak'=>$u_ak1));
+
+            $temp_keg = array('id_user' => $ud->id_user_dinilai,
+                'nama' => $ud->nama,
+                'nip' => $ud->nip,
+                'jabatan'=> $ud->jabatan,
+                'array1lagi' => $array1lagi,
+                'kegiatans' => json_decode(json_encode($unsurutama), true));
             array_push($temp_su, $temp_keg);
         }
-        dd($temp_su);
-        //return view('sekretariat.bapak', compact('result'));
+        //dd($temp_su);
+        return view('sekretariat.bapak', compact('temp_su'));
+    }
+
+    public function eksporbapak()
+    {
+        $nama2 = DB::table('plot_penilai_dupak')
+            ->join('master_pegawai', 'plot_penilai_dupak.id_user_dinilai','=', 'master_pegawai.id')
+            ->join('master_jabatan', 'master_pegawai.jabatan', '=', 'master_jabatan.id')
+            ->select(
+                'plot_penilai_dupak.id_user_dinilai',
+                'master_pegawai.nama',
+                'master_pegawai.nip',
+                'master_jabatan.nama_jabatan AS jabatan'
+                )
+            ->get();
+
+        $temp_su = array();
+        foreach ($nama2 as $ud) {
+            $unsurutama = DB::table('master_unsur_utama')
+            ->leftJoin('transaksi', function($join) use($ud) {
+                    $join->on('master_unsur_utama.id', '=', 'transaksi.id_unsur_utama')                    
+                        ->where('transaksi.id_user', '=', $ud->id_user_dinilai);
+                    $join->on('tgl_selesai','>=',DB::raw("'2019-01-01'"));
+                    $join->on('tgl_selesai','<=',DB::raw("'2019-12-31'"));
+                })
+            ->select('transaksi.id_unsur_utama',
+                    'master_unsur_utama.unsur_utama',
+                    'master_unsur_utama.kode',
+                    DB::raw('COUNT(transaksi.id_transaksi) as jumlah_kegiatan'),
+                    DB::raw('SUM(transaksi.angka_kredit_usul) as ak_usul'),
+                    DB::raw('SUM((CASE WHEN transaksi.status1 = 2 THEN transaksi.angka_kredit1 END)) AS ak1'),
+                    DB::raw('SUM((CASE WHEN transaksi.status2 = 2 THEN transaksi.angka_kredit2 END)) AS ak2'))
+            ->groupBy('master_unsur_utama.id')
+            ->get();
+
+            $t_akusul = 0;
+            $t_ak1 = 0;
+            $t_ak2 = 0;
+            $u_akusul = 0;
+            $u_ak1 = 0;
+            $u_ak2 = 0;
+            $array1lagi = array();
+
+            foreach ($unsurutama as $ut) {
+                $t_akusul = $t_akusul + $ut->ak_usul;
+                $t_ak1 = $t_ak1 + $ut->ak1;
+                if($ut->kode != "P"){
+                    $u_akusul = $u_akusul + $ut->ak_usul;
+                    $u_ak1 = $u_ak1 + $ut->ak1;
+                }
+            }
+            array_push($array1lagi, array('kode'=>"T", 'usul'=>$t_akusul, 'ak'=>$t_ak1));
+            array_push($array1lagi, array('kode'=>"U", 'usul'=>$u_akusul, 'ak'=>$u_ak1));
+
+            $temp_keg = array('id_user' => $ud->id_user_dinilai,
+                'nama' => $ud->nama,
+                'nip' => $ud->nip,
+                'jabatan'=> $ud->jabatan,
+                'array1lagi' => $array1lagi,
+                'kegiatans' => json_decode(json_encode($unsurutama), true));
+            array_push($temp_su, $temp_keg);
+        }
+
+        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::load(storage_path('template_bapak.xlsx'));
+        $worksheet = $reader->getActiveSheet();
+
+        $r = 8;
+        foreach ($temp_su as $us){
+            $s = 0;
+            foreach ($us['array1lagi'] as $al) {
+                if($s == 0) {
+                    $worksheet->setCellValue('B'.$r, $us['id_user']);
+                    $worksheet->setCellValue('C'.$r, $us['nama']);
+                    $worksheet->setCellValue('D'.$r, $us['jabatan']);
+                    $worksheet->setCellValue('E'.$r, 0);
+                } else {
+                    $worksheet->setCellValue('B'.$r, '');
+                    $worksheet->setCellValue('C'.$r, '');
+                    $worksheet->setCellValue('D'.$r, '');
+                    $worksheet->setCellValue('E'.$r, '');
+                }
+                $worksheet->setCellValue('F'.$r, $al['kode']);
+                $worksheet->setCellValue('G'.$r, '');
+                $worksheet->setCellValue('H'.$r, $al['kode']);
+                $worksheet->setCellValue('I'.$r, '');
+                $worksheet->setCellValue('J'.$r, $al['kode']);
+                $worksheet->setCellValue('K'.$r, number_format($al['usul'], 3, ",","."));
+                $worksheet->setCellValue('L'.$r, $al['kode']);
+                $worksheet->setCellValue('M'.$r, number_format($al['ak'], 3, ",","."));
+                $worksheet->setCellValue('N'.$r, $al['kode']);
+                $worksheet->setCellValue('O'.$r, '');
+                $worksheet->setCellValue('P'.$r, $al['kode']);
+                $worksheet->setCellValue('Q'.$r, '');
+                $worksheet->setCellValue('R'.$r, '');
+                $worksheet->setCellValue('S'.$r, '');
+                $worksheet->setCellValue('T'.$r, '');
+                $r++;
+                $s++;
+            }
+            foreach ($us['kegiatans'] as $al) {
+                $worksheet->setCellValue('B'.$r, '');
+                $worksheet->setCellValue('C'.$r, '');
+                $worksheet->setCellValue('D'.$r, '');
+                $worksheet->setCellValue('E'.$r, '');
+                $worksheet->setCellValue('F'.$r, $al['kode']);
+                $worksheet->setCellValue('G'.$r, '');
+                $worksheet->setCellValue('H'.$r, $al['kode']);
+                $worksheet->setCellValue('I'.$r, '');
+                $worksheet->setCellValue('J'.$r, $al['kode']);
+                $worksheet->setCellValue('K'.$r, number_format($al['ak_usul'], 3, ",","."));
+                $worksheet->setCellValue('L'.$r, $al['kode']);
+                $worksheet->setCellValue('M'.$r, number_format($al['ak1'], 3, ",","."));
+                $worksheet->setCellValue('N'.$r, $al['kode']);
+                $worksheet->setCellValue('O'.$r, '');
+                $worksheet->setCellValue('P'.$r, $al['kode']);
+                $worksheet->setCellValue('Q'.$r, '');
+                $worksheet->setCellValue('R'.$r, '');
+                $worksheet->setCellValue('S'.$r, '');
+                $worksheet->setCellValue('T'.$r, '');
+                $r++;
+            }
+        }
+
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($reader);
+        $writer->save(storage_path('result_bapak.xlsx'));
+
+        return response()->download(storage_path('result_bapak.xlsx'));
     }
 
 
@@ -151,6 +302,8 @@ class SekretariatController extends Controller
         //dd($rekap3);
         return view('sekretariat.rekap3', compact('rekap3'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.
