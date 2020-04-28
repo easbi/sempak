@@ -176,7 +176,6 @@ class TransaksiController extends Controller
                 'kk' => $request->kk,
                 'berkas' => $filename
             ]);
-        dd($filename);
         return redirect('/');
     }
 
