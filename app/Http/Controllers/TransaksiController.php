@@ -230,7 +230,7 @@ class TransaksiController extends Controller
             $transaksi->kuantitas = $request->kuantitas;
             if($request->file('berkas')) {
                 $file = $request->file('berkas');
-                $filename = $file->getClientOriginalName();
+                $filename = \Carbon\Carbon::now()->format('Y-m-d H-i').'_'. Auth::user()->nip .'_'. str_replace(' ', '', substr(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME), 0, 25)). '.' .$file->getClientOriginalExtension();
                 $file->move('public/file_rincian_dupak', $filename);
                 $transaksi->berkas = $filename; 
                 
