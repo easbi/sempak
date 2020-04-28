@@ -158,7 +158,7 @@ class TransaksiController extends Controller
         // $ak_usul = $request->angka_kredit_per_satuan * $request->kuantitas;
         //dd($request->angka_kredit_per_satuan);
         $file = $request->file('berkas');
-        $filename = $file->getClientOriginalName();
+        $filename = \Carbon\Carbon::now()->format('Y-m-d H-i').'_'. Auth::user()->nip .'_'. str_replace(' ', '', substr(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME), 0, 25)). '.' .$file->getClientOriginalExtension();
         $file->move('public/file_rincian_dupak', $filename);
         $result = Transaksi::create([
                 'id_user' => Auth::user()->id,
@@ -176,7 +176,7 @@ class TransaksiController extends Controller
                 'kk' => $request->kk,
                 'berkas' => $filename
             ]);
-
+        dd($filename);
         return redirect('/');
     }
 

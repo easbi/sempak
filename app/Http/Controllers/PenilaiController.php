@@ -29,12 +29,10 @@ class PenilaiController extends Controller
     {
         $user = Auth::user()->id;
         $transaksis = DB::table('transaksi')
-            ->join('master_unsur_utama', 'transaksi.id_unsur_utama', '=', 'master_unsur_utama.id')
-            ->join('master_subunsurs', 'transaksi.id_subunsur', '=', 'master_subunsurs.id_sub_unsur')            
-            ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=', 'master_rincian_kegiatan.id_rincian_kegiatan')   
-            ->join('master_acara', 'transaksi.nama_event', '=', 'master_acara.id')      
+            ->join('master_pegawai', 'transaksi.id_user', '=', 'master_unsur_utama.id')
             ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'master_acara.nama_acara')   
-            ->where('id_user', Auth::user()->id)
+            ->where('id_penilai1', Auth::user()->id)
+            ->orWhere('id_penilai2', Auth::user()->id)
             ->orderby('id_transaksi','asc')
             ->get();
         return view('penilai.index', compact('transaksis'));
