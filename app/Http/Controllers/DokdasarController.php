@@ -57,25 +57,35 @@ class DokdasarController extends Controller
         $sk_pangkat_pns = $file->getClientOriginalName();
         $file->move('public/dok_dasar_dupak/sk_pangkat_pns', $sk_pangkat_pns);
 
-        #SK PNS
+        #SK WI
         $file = $request->file('sk_jab_wi');
         $sk_jab_wi = $file->getClientOriginalName();
         $file->move('public/dok_dasar_dupak/sk_jab_wi', $sk_jab_wi);
 
-        #SK PNS
+        #PAK
         $file = $request->file('pak');
         $pak = $file->getClientOriginalName();
         $file->move('public/dok_dasar_dupak/pak', $pak);
 
-        #SK PNS
+        #KARPEG
         $file = $request->file('karpeg');
         $karpeg = $file->getClientOriginalName();
         $file->move('public/dok_dasar_dupak/karpeg', $karpeg);
 
-        #SK PNS
+        #DP3
         $file = $request->file('dp3');
         $dp3 = $file->getClientOriginalName();
         $file->move('public/dok_dasar_dupak/dp3', $dp3);
+
+        #Ringkasan DUPAK
+        $file = $request->file('ringkasan');
+        $ringkasan = $file->getClientOriginalName();
+        $file->move('public/dok_dasar_dupak/ringkasan', $ringkasan);
+
+        #Pengantar DUPAK
+        $file = $request->file('pengantar');
+        $pengantar = $file->getClientOriginalName();
+        $file->move('public/dok_dasar_dupak/pengantar', $pengantar);
 
         $id_user = Auth::user()->id;
         
@@ -85,7 +95,9 @@ class DokdasarController extends Controller
             'sk_jab_wi' => $sk_jab_wi,
             'pak' => $pak,
             'karpeg' => $karpeg,
-            'dp3' => $dp3
+            'dp3' => $dp3,
+            'ringkasan' => $ringkasan,
+            'pengantar' => $pengantar
         ]);
         return redirect('/dokdasar');
     }
@@ -166,6 +178,24 @@ class DokdasarController extends Controller
             $dokdasar->dp3 = $filename;
         } else {
             $dokdasar->dp3 = $dokdasar->dp3;
+        }
+
+        if($request->file('ringkasan')) {
+            $file = $request->file('ringkasan');
+            $filename = $file->getClientOriginalName();
+            $file->move('public/dok_dasar_dupak/ringkasan', $filename);
+            $dokdasar->ringkasan = $filename;
+        } else {
+            $dokdasar->ringkasan = $dokdasar->ringkasan;
+        }
+
+        if($request->file('pengantar')) {
+            $file = $request->file('pengantar');
+            $filename = $file->getClientOriginalName();
+            $file->move('public/dok_dasar_dupak/pengantar', $filename);
+            $dokdasar->pengantar = $filename;
+        } else {
+            $dokdasar->pengantar = $dokdasar->pengantar;
         }
 
         $dokdasar->save();
