@@ -50,7 +50,7 @@
                 @foreach($nama_acaras as $key => $nama_acara)
                 <option value="{{$key}}"> {{$nama_acara}}</option>
                 @endforeach
-                <option value="1000">-- <i>Tambahkan Acara, Jika Opsi Acara /Diklat tidak ada di sini</i> --</option><i></i>
+                <option value="1000">-- <i>Tambahkan Acara & Dokumen SPMT dan STMT dahulu, Jika Opsi yang anda inginkan tidak ada di sini</i> --</option><i></i>
               </select>
             </div>
             <div class="form-group">
@@ -75,9 +75,32 @@
               <input type="text" name="ak_usul" id="ak_usul" class="form-control" readonly="true" value="{{$kegiatan->angka_kredit}}">
             </div>
             <br>
+            <!-- <div class="form-group">
+              <label>Pilih Referensi Berkas STMP dan SPMK</label>
+              <input type="file" name="letter_file">
+            </div> -->
             <div class="form-group">
-              <label>Berkas</label>
+              <input type="checkbox" id="checkbox" name="checkbox">
+              <label for="checkbox">Gunakan link/url</label><br>
+              <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+              <script type="text/javascript">
+                $(function () {
+                  $('input[name="link"]').hide();
+                  //show it when the checkbox is clicked
+                  $('input[name="checkbox"]').on('click', function () {
+                    if ($(this).prop('checked')) {
+                      $('input[name="link"]').fadeIn();
+                      $('input[name="berkas"]').hide();
+                    } else {
+                      $('input[name="link"]').hide();
+                      $('input[name="berkas"]').fadeIn();
+                    }
+                  });
+                });
+              </script>
+              <label>Berkas</label><br>
               <input type="file" name="berkas">
+              <input type="text" name="link" id="link" placeholder="Copy-Paste Link Berkas Anda Dari Laci/Google Drive/Penyimpanan Cloud Lainnya di Sini">
             </div>
             <div class="form-group">
               <br>
@@ -91,12 +114,12 @@
   <!-- /.content -->
 </div>
 <!-- dropdown.blade.php -->
-  @endsection
+@endsection
 
 @push('scripts')
-  <!-- Script -->
-  <script src="{{asset('select2/dist/js/select2.min.js')}}" type="text/javascript"></script>
-  <script type="text/javascript">
+<!-- Script -->
+<script src="{{asset('select2/dist/js/select2.min.js')}}" type="text/javascript"></script>
+<script type="text/javascript">
       // CSRF Token
       var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
       $(document).ready(function(){
@@ -131,7 +154,8 @@
     <script type="text/javascript">
       jQuery('#nama_acara').on('change', function(){
         if(jQuery(this).val() == 1000){
-          window.location.href = '{{ url('/masteracara')}}'
+          //window.location.href = '{{ url('/dokumenkeg')}}'
+          window.open('{{ url('/dokumenkeg')}}', '_blank');
         }
       })
 
@@ -140,4 +164,4 @@
         $("#ak_usul").val(kuantitas*{{$kegiatan->angka_kredit}});    
       });
     </script>
-@endpush
+    @endpush

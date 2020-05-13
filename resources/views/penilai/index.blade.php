@@ -49,7 +49,7 @@
                 <td>{{ $tr->tgl_selesai }}</td>
                 <td>{{ str_replace('.', ',', $tr->angka_kredit_usul) }}</td>
                 <td>{{ $tr->satuan }}</td>
-                <td><a href='{{  url('file_rincian_dupak', $tr->berkas) }}' class="btn btn-warning" target="_blank">Berkas</a></td>
+                <td><a href="{{  url('file_rincian_dupak', $tr->berkas) }}" class="btn btn-warning" target="_blank">Berkas</a></td>
                 <td>
                   <a class="btn btn-info" target="_blank" href="{{ action('PenilaiController@edit',$tr->id_transaksi) }}">Evaluasis</a>
                 </td>
