@@ -105,14 +105,36 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-item">
+          <li class="nav-header">Pengajuan DUPAK</li>
+          <li class="nav-item has-treeview menu-open">
             <a href="{{ url('/home') }}" class="nav-link">
               <i class="nav-icon fas fa-clipboard-list"></i>
-              <p>Pengajuan Dupak</p>
+              <p>Pengajuan Dupak
+                <i class="right fas fa-angle-left"></i>
+              </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('/masteracara') }}" class="nav-link">
+                  <i class="fas fa-people-carry nav-icon"></i>
+                  <p>Entri Acara/Event</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/dokumenkeg') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pengisian SPMT dan STMT</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/home') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Entri Rincian Dupak</p>
+                </a>
+              </li>
+            </ul>
           </li>
+          <li class="nav-header">Penilaian DUPAK</li>
           <li class="nav-item">
             <a href="{{ url('/penilai/dashboard') }}" class="nav-link">
               <i class="nav-icon fas fa-clipboard-check"></i>

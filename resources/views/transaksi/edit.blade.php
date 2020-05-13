@@ -40,7 +40,13 @@
                 </div>
                 <div class="form-group">
                   <label>Nama Acara / Diklat</label>
-                  <input type="text" name="nama_acara" id="nama_acara" class="form-control" value="{{ $transaksi->nama_acara }}" readonly="true">
+                  <select id="nama_acara" name="nama_acara" class="form-control">
+                    <option value="" selected disabled>Select</option>
+                    @foreach($nama_acaras as $nama_acara)
+                    <option value={{ $nama_acara->id }}  @if($transaksi->nama_event==$nama_acara->id) selected @endif>{{ $nama_acara->acara }}</option>
+                    @endforeach
+                    <option value="1000">-- <i>Tambahkan Acara & Dokumen SPMT dan STMT dahulu, Jika Opsi yang anda inginkan tidak ada di sini</i> --</option><i></i>
+                  </select>
                 </div>
                 <div class="form-group">
                   <label>Tanggal Mulai</label>
@@ -65,7 +71,7 @@
                 </div> 
                 <div class="form-group">
                   <label>Berkas Sebelumnya</label><br>
-                  <a href='{{  url('public/file_rincian_dupak', $transaksi->berkas) }}' class="btn btn-warning" target="_blank"><i class="fas fa-book"></i></a>
+                  <a href="{{  url('public/file_rincian_dupak', $transaksi->berkas) }}" class="btn btn-warning" target="_blank"><i class="fas fa-book"></i></a>
                 </div>  
                 <div class="form-group">
                   <label>Ganti Berkas *</label><br>
@@ -88,7 +94,7 @@
     <script type="text/javascript">
       jQuery('#nama_acara').on('change', function(){
         if(jQuery(this).val() == 1000){
-          window.location.href = '{{ url('/masteracara')}}'
+          window.open('{{ url('/dokumenkeg')}}', '_blank');
         }
       })
 

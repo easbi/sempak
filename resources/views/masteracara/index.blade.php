@@ -23,7 +23,7 @@
           <table id="example" class="display">
             <thead>
               <tr>
-                <th>No</th>
+                <th>Kode</th>
                 <th>Nama Acara</th>
                 <th>Tanggal Mulai</th>          
                 <th>Tanggal Selesai</th>
@@ -32,10 +32,9 @@
               </tr>
             </thead>
             <tbody>
-              <?php $no = 1; ?>
               @foreach($acaras as $a)
               <tr>
-                <td>{{ $no++ }}</td>
+                <td>{{ $a->id }}</td>
                 <td>{{ $a->nama_acara }}</td>
                 <td>{{ $a->awal_acara }}</td>
                 <td>{{ $a->akhir_acara }}</td>

@@ -68,6 +68,11 @@ Route::resource('sekretariat', 'SekretariatController');
 
 Route::resource('dokdasar', 'DokdasarController');
 
+//Route untuk portal upload dan kelola stmt dan spmt
+Route::get('autocomplete', 'DokumenkegController@autocomplete')->name('autocomplete');
+Route::resource('dokumenkeg', 'DokumenkegController');
+
+
 
 //Soon be deleted
 Route::get('admin', function () {

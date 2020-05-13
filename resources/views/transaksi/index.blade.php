@@ -49,7 +49,13 @@
                 <td>{{ str_replace('.', ',', $tr->angka_kredit_usul) }}</td>
                 <td>{{ $tr->satuan }}</td>
                 <td>
-                  <a href='{{  url('public/file_rincian_dupak', $tr->berkas) }}' class="btn btn-info" target="_blank">Berkas</a>
+                  @if (!empty($tr->berkas))
+                    <a href="{{  url('public/file_rincian_dupak', $tr->berkas) }}" class="btn btn-info" target="_blank">Berkas</a>
+                  @elseif (!empty($tr->url_berkas))
+                    <a href="{{  url($tr->url_berkas) }}" class="btn btn-info" target="_blank">Berkas Cloud</a>
+                  @else
+                    <a href="#" class="btn btn-info" target="_blank">Berkas Kosong/Error</a>
+                  @endif
                 </td>
                 <td>
                   <a class="btn btn-warning" href="{{ action('TransaksiController@edit',$tr->id_transaksi) }}">Edit</a>

@@ -33,8 +33,8 @@ class TransaksiController extends Controller
             ->join('master_unsur_utama', 'transaksi.id_unsur_utama', '=', 'master_unsur_utama.id')
             ->join('master_subunsurs', 'transaksi.id_subunsur', '=', 'master_subunsurs.id_sub_unsur')            
             ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=', 'master_rincian_kegiatan.id_rincian_kegiatan')   
-            ->join('master_acara', 'transaksi.nama_event', '=', 'master_acara.id')      
-            ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'master_acara.nama_acara')   
+            //->join('master_acara', 'transaksi.nama_event', '=', 'master_acara.id')      
+            ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan')   
             ->where('id_user', Auth::user()->id)
             ->orderby('id_transaksi','asc')
             ->get();
@@ -114,8 +114,9 @@ class TransaksiController extends Controller
             ->where('master_rincian_angka_kredit.kk', $kk)
             ->orderby('id_transaksi','asc')
             ->get();
-        
-        return view('transaksi.index', compact('transaksis'));
+        //dd($transaksis);
+        $nama_acaras = DB::table("transaksi_dok_spmk_stmk")->where('id_user', Auth::user()->id)->pluck('acara', 'id');        
+        return view('transaksi.index', compact('transaksis', 'nama_acaras'));
     }
 
     /**
@@ -138,7 +139,7 @@ class TransaksiController extends Controller
             ->select('master_unsur_utama.unsur_utama','master_unsur_utama.id','master_subunsurs.kegiatan_sub_unsur','master_subunsurs.id_sub_unsur','master_rincian_kegiatan.id_rincian_kegiatan','master_rincian_kegiatan.rincian_kegiatan','master_rincian_angka_kredit.angka_kredit')
             ->where('master_rincian_angka_kredit.kk',$kk)
             ->first();
-        $nama_acaras = DB::table("master_acara")->pluck('nama_acara', 'id');
+        $nama_acaras = DB::table("transaksi_dok_spmk_stmk")->where('id_user', Auth::user()->id)->pluck('acara', 'id');
         
         return view('transaksi.createbykk', compact('kegiatan', 'nama_acaras', 'periode', 'kk'));
     }
@@ -153,13 +154,22 @@ class TransaksiController extends Controller
     {
         ini_set('memory_limit','50M');
         $id_rinci_ak = DB::table("master_rincian_angka_kredit")->where('kk', $request->kk)->where("id_tingkatan_wi", Auth::user()->jabatan)->first()->id_rinci_ak;
-        // $id_rinci_ak = DB::table("master_rincian_angka_kredit")->where('id_unsur_utama', $request->unsurutamas)->where('id_subunsur', $request->subunsur)->where('id_rincian_kegiatan', $request->rinciankegiatan)->where("id_tingkatan_wi", Auth::user()->jabatan)->first();
-        // $kk = DB::table('master_rincian_angka_kredit')->where('id_rinci_ak', $id_rinci_ak)->first()->kk;
-        // $ak_usul = $request->angka_kredit_per_satuan * $request->kuantitas;
-        //dd($request->angka_kredit_per_satuan);
-        $file = $request->file('berkas');
-        $filename = \Carbon\Carbon::now()->format('Y-m-d H-i').'_'. Auth::user()->nip .'_'. str_replace(' ', '', substr(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME), 0, 25)). '.' .$file->getClientOriginalExtension();
-        $file->move('public/file_rincian_dupak', $filename);
+
+        //check the existing of file upload Berkas
+        $filename = NULL;
+        if ($request->hasFile('berkas'))
+        {
+           $file = $request->file('berkas');
+           $filename = \Carbon\Carbon::now()->format('Y-m-d H-i').'_'. Auth::user()->nip .'_'. str_replace(' ', '', substr(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME), 0, 25)). '.' .$file->getClientOriginalExtension();
+           $file->move('public/file_rincian_dupak', $filename);
+        }
+
+        //check the existing of url Berkas
+        $link = NULL;
+        if ($request->has('link')){
+          $link = $request->link;
+        }
+       
         $result = Transaksi::create([
                 'id_user' => Auth::user()->id,
                 'id_unsur_utama' => $request->unsurutamas,
@@ -174,9 +184,10 @@ class TransaksiController extends Controller
                 'angka_kredit_usul' => $request->ak_usul,
                 'id_rinci_ak' => $id_rinci_ak,
                 'kk' => $request->kk,
-                'berkas' => $filename
+                'berkas' => $filename,
+                'url_berkas' => $link
             ]);
-        return redirect('/');
+        return redirect('/home');
     }
 
     /**
@@ -202,12 +213,12 @@ class TransaksiController extends Controller
         ->join('master_unsur_utama', 'transaksi.id_unsur_utama', '=', 'master_unsur_utama.id')
         ->join('master_subunsurs', 'transaksi.id_subunsur', '=', 'master_subunsurs.id_sub_unsur')            
         ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=', 'master_rincian_kegiatan.id_rincian_kegiatan')   
-        ->join('master_acara', 'transaksi.nama_event', '=', 'master_acara.id')     
+        // ->join('transaksi_dok_spmk_stmk', 'transaksi.nama_event', '=', 'transaksi_dok_spmk_stmk.id')     
         ->join('master_rincian_angka_kredit', 'transaksi.id_rinci_ak', '=', 'master_rincian_angka_kredit.id_rinci_ak')    
-        ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'master_acara.nama_acara', 'master_rincian_angka_kredit.angka_kredit') 
+        ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'master_rincian_angka_kredit.angka_kredit') 
         ->first();
         $unsurutamas = DB::table("master_unsur_utama")->pluck( 'unsur_utama', 'id');
-        $nama_acaras = DB::table("master_acara")->pluck('nama_acara', 'id');
+        $nama_acaras = DB::table("transaksi_dok_spmk_stmk")->where('id_user', Auth::user()->id)->get();
         //dd($transaksi);
         return view('transaksi.edit', compact('transaksi', 'unsurutamas', 'nama_acaras'));
     }
@@ -223,6 +234,7 @@ class TransaksiController extends Controller
     {
         $transaksi = \App\Transaksi::find($id_transaksi);
         if($transaksi) {
+            $transaksi->nama_event = $request->nama_acara;
             $transaksi->keterangan = $request->keterangan;
             $transaksi->tgl_mulai = $request->awal_acara;
             $transaksi->tgl_selesai = $request->akhir_acara;
@@ -238,6 +250,7 @@ class TransaksiController extends Controller
                $transaksi->berkas = $transaksi->berkas;
             }
             $transaksi->save();
+            //dd($request->nama_acara);
         }
         return redirect()->route('home')->with('success', 'Hasil Penilaian udpdated successfully');
     }

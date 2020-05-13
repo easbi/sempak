@@ -18,6 +18,7 @@ class Transaksi extends Model
     	'tgl_selesai',
     	'keterangan',
     	'berkas',
+        'url_berkas',
         'id_rinci_ak',
         'kk',
         'kuantitas',
