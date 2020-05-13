@@ -14,6 +14,8 @@ class Dokdasar extends Model
     	'sk_jab_wi',
     	'pak',
     	'karpeg',
-    	'dp3'
+    	'dp3',
+        'ringkasan',
+        'pengantar'
     ];
 }

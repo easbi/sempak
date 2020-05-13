@@ -46,6 +46,14 @@
               <input type="file" name="dp3" class="form-control">            
             </div>
             <div class="form-group">
+              <label>Ringkasan DUPAK Sekarang</label>
+              <input type="file" name="ringkasan" class="form-control">            
+            </div>
+            <div class="form-group">
+              <label>Surat Pengantar</label>
+              <input type="file" name="pengantar" class="form-control">            
+            </div>
+            <div class="form-group">
               <br>
               <input type="submit" class="btn btn-success" value="Simpan">
             </div>
