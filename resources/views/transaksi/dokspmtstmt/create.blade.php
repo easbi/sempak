@@ -17,7 +17,7 @@
   <!-- /.content-header -->
   <!-- Main content -->
   <section class="content">
-    <div class="container">
+    <div class="container-fluid">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> 
       <div class="card">
         <div class="card-body">

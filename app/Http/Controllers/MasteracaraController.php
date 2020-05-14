@@ -25,8 +25,9 @@ class MasteracaraController extends Controller
      */
     public function index()
     {
-        $acaras = DB::table('master_acara')->get();
-        return view('masteracara.index', compact('acaras'));//ss
+        $acaras = DB::table('master_acara')->orderBy('id', 'desc')->get();
+        //dd($acaras);
+        return view('masteracara.index', compact('acaras'));
     }
 
     /**

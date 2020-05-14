@@ -16,6 +16,7 @@ class Dokdasar extends Model
     	'karpeg',
     	'dp3',
         'ringkasan',
-        'pengantar'
+        'pengantar',
+        'dupak'
     ];
 }

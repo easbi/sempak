@@ -20,7 +20,7 @@
 		  height: auto;
 		}
 	</style>
-    <div class="container">
+    <div class="container-fluid">
     	<img src="{{asset('admin_lte/dist/img/dooloh2.png')}}" class="responsive">
     	<img src="{{asset('admin_lte/dist/img/dooloh1.png')}}" class="responsive">
     </div>
