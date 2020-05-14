@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Berkas SPMT/STMT - <strong>Isi Data</strong></h1>
+          <h1 class="m-0 text-dark">Berkas SPMK/STMK - <strong>Isi Data</strong></h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <a href="{{ url()->previous() }}" class="btn btn-primary float-sm-right">Kembali</a>
@@ -51,7 +51,7 @@
             </div>
             <br>
             <div class="form-group">
-              <label>Dokumen Surat Perintah Melaksanakan Kegiatan (SPMT)</label> <br>
+              <label>Dokumen Surat Perintah Melaksanakan Kegiatan (SPMK)</label> <br>
               <input type="checkbox" id="checkbox_spmt" name="checkbox_spmt">
               <label for="checkbox_spmt"><small>Cek List Jika Berkas Dalam Bentuk URL/Link</small></label><br>              
               <script type="text/javascript">
@@ -74,7 +74,7 @@
             </div>
             <br>
             <div class="form-group">
-              <label>Dokumen Surat Telah Melaksanakan Kegiatan (STMT)</label> <br>
+              <label>Dokumen Surat Telah Melaksanakan Kegiatan (STMK)</label> <br>
               <input type="checkbox" id="checkbox_stmt" name="checkbox_stmt">
               <label for="checkbox_stmt"><small>Cek List Jika Berkas Dalam Bentuk URL/Link</small></label><br>              
               <script type="text/javascript">
