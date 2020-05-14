@@ -36,7 +36,7 @@
           <div class="form-group">
             <label>Form Dupak</label><br>
             @if(!empty($dokutkusul->dupak))
-              <a href='{{  url('public/dok_dasar_dupak/dupak', $dokutkusul->sk_jab_wi) }}' class="btn btn-success" target="_blank">Berkas</a>
+              <a href='{{  url('public/dok_dasar_dupak/dupak', $dokutkusul->dupak) }}' class="btn btn-success" target="_blank">Berkas</a>
             @else
               <div class="alert alert-warning">
                 <strong>Sorry!</strong> File Belum Diupload.
