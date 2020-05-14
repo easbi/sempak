@@ -102,14 +102,19 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-header">Pengajuan DUPAK</li>          
+          <li class="nav-header">Pengajuan DUPAK</li>            
+          <li class="nav-item">
+            <a href="{{ url('dokdasar') }}" class="nav-link">
+              <i class="fas fa-file-signature nav-icon"></i>  
+              <p>Berkas Administrasi DUPAK</p>
+            </a>
+          </li>   <!--   
           <li class="nav-item">
             <a href="{{ url('/masteracara') }}" class="nav-link">
-              <p> </p>
               <i class="fas fa-people-carry nav-icon"></i>
               <p>Daftar Acara/Event</p>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a href="{{ url('/dokumenkeg') }}" class="nav-link">
               <i class="fas fa-file-archive nav-icon"></i>
@@ -121,12 +126,13 @@
               <i class="fas fa-envelope-open-text nav-icon"></i>
               <p>Entri Rincian Dupak</p>
             </a>
-          </li>
+          </li>       
           <li class="nav-item">
-            <a href="{{ url('dokdasar') }}" class="nav-link">
-            <i class="fas fa-file-signature nav-icon"></i>  
-            <p>Berkas Administrasi DUPAK</p>
-          </a>
+            <a href="{{ url('/dokutkusul') }}" class="nav-link">
+              <p> </p>
+              <i class="fas fa-people-carry nav-icon"></i>
+              <p>Dokumen Pengajuan</p>
+            </a>
           </li>
           <li class="nav-header">Penilaian DUPAK</li>
           <li class="nav-item">

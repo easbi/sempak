@@ -77,20 +77,20 @@ class DokdasarController extends Controller
         $dp3 = Auth::user()->nip .'_'.$file->getClientOriginalName();
         $file->move('public/dok_dasar_dupak/dp3', $dp3);
 
-        #Ringkasan 
-        $file = $request->file('ringkasan');
-        $ringkasan = Auth::user()->nip .'_'.$file->getClientOriginalName();
-        $file->move('public/dok_dasar_dupak/ringkasan', $ringkasan);
+        // #Ringkasan 
+        // $file = $request->file('ringkasan');
+        // $ringkasan = Auth::user()->nip .'_'.$file->getClientOriginalName();
+        // $file->move('public/dok_dasar_dupak/ringkasan', $ringkasan);
 
-        #Pengantar DUPAK
-        $file = $request->file('pengantar');
-        $pengantar = Auth::user()->nip .'_'.$file->getClientOriginalName();
-        $file->move('public/dok_dasar_dupak/pengantar', $pengantar);
+        // #Pengantar DUPAK
+        // $file = $request->file('pengantar');
+        // $pengantar = Auth::user()->nip .'_'.$file->getClientOriginalName();
+        // $file->move('public/dok_dasar_dupak/pengantar', $pengantar);
 
-        #Dupak 
-        $file = $request->file('dupak');
-        $dupak = Auth::user()->nip .'_'.$file->getClientOriginalName();
-        $file->move('public/dok_dasar_dupak/dupak', $dupak);
+        // #Dupak 
+        // $file = $request->file('dupak');
+        // $dupak = Auth::user()->nip .'_'.$file->getClientOriginalName();
+        // $file->move('public/dok_dasar_dupak/dupak', $dupak);
 
         $id_user = Auth::user()->id;
         
@@ -100,10 +100,7 @@ class DokdasarController extends Controller
             'sk_jab_wi' => $sk_jab_wi,
             'pak' => $pak,
             'karpeg' => $karpeg,
-            'dp3' => $dp3,
-            'ringkasan' => $ringkasan,
-            'pengantar' => $pengantar,
-            'dupak' => $dupak
+            'dp3' => $dp3
         ]);
         return redirect('/dokdasar');
     }
@@ -185,34 +182,6 @@ class DokdasarController extends Controller
         } else {
             $dokdasar->dp3 = $dokdasar->dp3;
         }
-
-        if($request->file('ringkasan')) {
-            $file = $request->file('ringkasan');
-            $filename = Auth::user()->nip .'_'.$file->getClientOriginalName();
-            $file->move('public/dok_dasar_dupak/ringkasan', $filename);
-            $dokdasar->ringkasan = $filename;
-        } else {
-            $dokdasar->ringkasan = $dokdasar->ringkasan;
-        }
-
-        if($request->file('pengantar')) {
-            $file = $request->file('pengantar');
-            $filename = Auth::user()->nip .'_'.$file->getClientOriginalName();
-            $file->move('public/dok_dasar_dupak/pengantar', $filename);
-            $dokdasar->pengantar = $filename;
-        } else {
-            $dokdasar->pengantar = $dokdasar->pengantar;
-        }
-
-        if($request->file('dupak')) {
-            $file = $request->file('dupak');
-            $filename = Auth::user()->nip .'_'.$file->getClientOriginalName();
-            $file->move('public/dok_dasar_dupak/dupak', $filename);
-            $dokdasar->dupak = $filename;
-        } else {
-            $dokdasar->dupak = $dokdasar->dupak;
-        }
-
         $dokdasar->save();
         
         return redirect()->route('dokdasar.index');

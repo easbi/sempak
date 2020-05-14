@@ -23,8 +23,6 @@
   <div class="container-fluid">
     <div class="card">
       <div class="card-body">
-
-
           <div class="form-group">
             <label>SK Pangkat PNS Terakhir</label><br>
             @if(!empty($dokdasar->sk_pangkat_pns))
@@ -69,36 +67,6 @@
             <label>DP3 Satu Tahun Terakhir</label><br>
             @if(!empty($dokdasar->dp3))
               <a href='{{  url('public/dok_dasar_dupak/dp3', $dokdasar->dp3) }}' class="btn btn-success" target="_blank">Berkas</a>
-            @else
-              <div class="alert alert-warning">
-                <strong>Sorry!</strong> File Belum Diupload.
-              </div>
-            @endif
-          </div>
-          <div class="form-group">
-            <label>Ringkasan Dupak Sekarang</label><br>
-            @if(!empty($dokdasar->ringkasan))
-              <a href='{{  url('public/dok_dasar_dupak/ringkasan', $dokdasar->ringkasan) }}' class="btn btn-success" target="_blank">Berkas</a>
-            @else
-              <div class="alert alert-warning">
-                <strong>Sorry!</strong> File Belum Diupload.
-              </div>
-            @endif
-          </div>
-          <div class="form-group">
-            <label>Surat Pengantar</label><br>
-            @if(!empty($dokdasar->pengantar))
-              <a href='{{  url('public/dok_dasar_dupak/pengantar', $dokdasar->pengantar) }}' class="btn btn-success" target="_blank">Berkas</a>
-            @else
-              <div class="alert alert-warning">
-                <strong>Sorry!</strong> File Belum Diupload.
-              </div>
-            @endif
-          </div>
-          <div class="form-group">
-            <label>DUPAK</label><br>
-            @if(!empty($dokdasar->dupak))
-              <a href='{{  url('public/dok_dasar_dupak/dupak', $dokdasar->dupak) }}' class="btn btn-success" target="_blank">Berkas</a>
             @else
               <div class="alert alert-warning">
                 <strong>Sorry!</strong> File Belum Diupload.
