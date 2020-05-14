@@ -22,7 +22,6 @@
       <div class="card">
         <div class="card-body">
           <form method="post" action="{{ route('dokdasar.store') }}" enctype="multipart/form-data">
-
             {{ csrf_field() }}
             <h4>Dokumen Administrasi Pokok</h4>
             <br>
@@ -46,7 +45,7 @@
               <label>DP3 Satu tahun Terakhir</label>
               <input type="file" name="dp3" class="form-control">            
             </div>
-            <br>
+            <br><!-- 
             <br>
             <h4>Dokumen Pelengkap Pengajuan</h4>
             <br>
@@ -63,7 +62,7 @@
             <div class="form-group">
               <label>DUPAK</label>
               <input type="file" name="dupak" class="form-control">            
-            </div>
+            </div> -->
             <div class="form-group">
               <br>
               <input type="submit" class="btn btn-success" value="Simpan">

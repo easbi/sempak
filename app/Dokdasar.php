@@ -15,7 +15,6 @@ class Dokdasar extends Model
     	'pak',
     	'karpeg',
     	'dp3',
-        'ringkasan',
         'pengantar',
         'dupak'
     ];
