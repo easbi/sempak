@@ -6,10 +6,10 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Data Dokumen SPMT & STMT</h1>
+          <h1 class="m-0 text-dark">Data Dokumen SPMK & STMK</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
-          <a href="{{ url('/dokumenkeg/create') }}" class="btn btn-primary float-sm-right">Input SPMT & STMT Baru</a>
+          <a href="{{ url('/dokumenkeg/create') }}" class="btn btn-primary float-sm-right">Input SPMK & STMK Baru</a>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -25,8 +25,8 @@
               <tr>
                 <th>No</th>
                 <th>Nama Event/Acara/Diklat</th>
-                <th>Dokumen SPMT</th>          
-                <th>Dokumen STMT</th>
+                <th>Dokumen SPMK</th>          
+                <th>Dokumen STMK</th>
                 <th>Aksi</th>
               </tr>
             </thead>

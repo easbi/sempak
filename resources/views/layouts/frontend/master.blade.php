@@ -113,7 +113,7 @@
           <li class="nav-item">
             <a href="{{ url('/dokumenkeg') }}" class="nav-link">
               <i class="fas fa-file-archive nav-icon"></i>
-              <p>Pengisian SPMT dan STMT</p>
+              <p>Pengisian SPMK dan STMK</p>
             </a>
           </li>
           <li class="nav-item">
