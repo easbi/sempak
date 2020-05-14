@@ -20,7 +20,7 @@
  <!-- /.content-header -->
  <!-- Main content -->
  <section class="content">
-  <div class="container">
+  <div class="container-fluid">
     <div class="card">
       <div class="card-body">
 
@@ -89,6 +89,16 @@
             <label>Surat Pengantar</label><br>
             @if(!empty($dokdasar->pengantar))
               <a href='{{  url('public/dok_dasar_dupak/pengantar', $dokdasar->pengantar) }}' class="btn btn-success" target="_blank">Berkas</a>
+            @else
+              <div class="alert alert-warning">
+                <strong>Sorry!</strong> File Belum Diupload.
+              </div>
+            @endif
+          </div>
+          <div class="form-group">
+            <label>DUPAK</label><br>
+            @if(!empty($dokdasar->dupak))
+              <a href='{{  url('public/dok_dasar_dupak/dupak', $dokdasar->dupak) }}' class="btn btn-success" target="_blank">Berkas</a>
             @else
               <div class="alert alert-warning">
                 <strong>Sorry!</strong> File Belum Diupload.

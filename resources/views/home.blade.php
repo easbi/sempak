@@ -18,7 +18,7 @@
 
     <!-- Main content -->
     <section class="content">
-        <div class="container">
+        <div class="container-fluid">
             @foreach($result as $periode)
             <div class="row">
                 <div class="col-sm-12">

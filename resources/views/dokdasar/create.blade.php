@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Berkas Administrasi Pokok - <strong>Isi Data</strong></h1>
+          <h1 class="m-0 text-dark">Berkas Administrasi DUPAK - <strong>Isi Data</strong></h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <a href="{{ url('/dokdasar')}}" class="btn btn-primary float-sm-right">Kembali</a>
@@ -17,14 +17,15 @@
   <!-- /.content-header -->
   <!-- Main content -->
   <section class="content">
-    <div class="container">
+    <div class="container-fluid">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> 
       <div class="card">
         <div class="card-body">
           <form method="post" action="{{ route('dokdasar.store') }}" enctype="multipart/form-data">
 
             {{ csrf_field() }}
-
+            <h4>Dokumen Administrasi Pokok</h4>
+            <br>
             <div class="form-group">
               <label>SK Pangkat PNS Terakhir</label>
               <input type="file" name="sk_pangkat_pns" class="form-control">
@@ -45,13 +46,23 @@
               <label>DP3 Satu tahun Terakhir</label>
               <input type="file" name="dp3" class="form-control">            
             </div>
+            <br>
+            <br>
+            <h4>Dokumen Pelengkap Pengajuan</h4>
+            <br>
+
             <div class="form-group">
-              <label>Ringkasan DUPAK Sekarang</label>
+              <label>Ringkasan</label>
               <input type="file" name="ringkasan" class="form-control">            
             </div>
             <div class="form-group">
               <label>Surat Pengantar</label>
               <input type="file" name="pengantar" class="form-control">            
+            </div>
+
+            <div class="form-group">
+              <label>DUPAK</label>
+              <input type="file" name="dupak" class="form-control">            
             </div>
             <div class="form-group">
               <br>

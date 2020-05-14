@@ -54,38 +54,43 @@ class DokdasarController extends Controller
     {
         #SK PNS
         $file = $request->file('sk_pangkat_pns');
-        $sk_pangkat_pns = $file->getClientOriginalName();
+        $sk_pangkat_pns = Auth::user()->nip .'_'.$file->getClientOriginalName();
         $file->move('public/dok_dasar_dupak/sk_pangkat_pns', $sk_pangkat_pns);
 
         #SK WI
         $file = $request->file('sk_jab_wi');
-        $sk_jab_wi = $file->getClientOriginalName();
+        $sk_jab_wi = Auth::user()->nip .'_'.$file->getClientOriginalName();
         $file->move('public/dok_dasar_dupak/sk_jab_wi', $sk_jab_wi);
 
         #PAK
         $file = $request->file('pak');
-        $pak = $file->getClientOriginalName();
+        $pak = Auth::user()->nip .'_'.$file->getClientOriginalName();
         $file->move('public/dok_dasar_dupak/pak', $pak);
 
         #KARPEG
         $file = $request->file('karpeg');
-        $karpeg = $file->getClientOriginalName();
+        $karpeg = Auth::user()->nip .'_'.$file->getClientOriginalName();
         $file->move('public/dok_dasar_dupak/karpeg', $karpeg);
 
         #DP3
         $file = $request->file('dp3');
-        $dp3 = $file->getClientOriginalName();
+        $dp3 = Auth::user()->nip .'_'.$file->getClientOriginalName();
         $file->move('public/dok_dasar_dupak/dp3', $dp3);
 
-        #Ringkasan DUPAK
+        #Ringkasan 
         $file = $request->file('ringkasan');
-        $ringkasan = $file->getClientOriginalName();
+        $ringkasan = Auth::user()->nip .'_'.$file->getClientOriginalName();
         $file->move('public/dok_dasar_dupak/ringkasan', $ringkasan);
 
         #Pengantar DUPAK
         $file = $request->file('pengantar');
-        $pengantar = $file->getClientOriginalName();
+        $pengantar = Auth::user()->nip .'_'.$file->getClientOriginalName();
         $file->move('public/dok_dasar_dupak/pengantar', $pengantar);
+
+        #Dupak 
+        $file = $request->file('dupak');
+        $dupak = Auth::user()->nip .'_'.$file->getClientOriginalName();
+        $file->move('public/dok_dasar_dupak/dupak', $dupak);
 
         $id_user = Auth::user()->id;
         
@@ -97,7 +102,8 @@ class DokdasarController extends Controller
             'karpeg' => $karpeg,
             'dp3' => $dp3,
             'ringkasan' => $ringkasan,
-            'pengantar' => $pengantar
+            'pengantar' => $pengantar,
+            'dupak' => $dupak
         ]);
         return redirect('/dokdasar');
     }
@@ -137,7 +143,7 @@ class DokdasarController extends Controller
         $dokdasar = \App\Dokdasar::find($id_user);
         if($request->file('sk_pangkat_pns')) {
             $file = $request->file('sk_pangkat_pns');
-            $filename = $file->getClientOriginalName();
+            $filename = Auth::user()->nip .'_'.$file->getClientOriginalName();
             $file->move('public/dok_dasar_dupak/sk_pangkat_pns', $filename);
             $dokdasar->sk_pangkat_pns = $filename;    
         } else {
@@ -146,7 +152,7 @@ class DokdasarController extends Controller
 
         if($request->file('sk_jab_wi')) {
             $file = $request->file('sk_jab_wi');
-            $filename = $file->getClientOriginalName();
+            $filename = Auth::user()->nip .'_'.$file->getClientOriginalName();
             $file->move('public/dok_dasar_dupak/sk_jab_wi', $filename);
             $dokdasar->sk_jab_wi = $filename;                
         } else {
@@ -155,7 +161,7 @@ class DokdasarController extends Controller
 
         if($request->file('pak')) {
             $file = $request->file('pak');
-            $filename = $file->getClientOriginalName();
+            $filename = Auth::user()->nip .'_'.$file->getClientOriginalName();
             $file->move('public/dok_dasar_dupak/pak', $filename);
             $dokdasar->pak = $filename;                
         } else {
@@ -164,7 +170,7 @@ class DokdasarController extends Controller
 
         if($request->file('karpeg')) {
             $file = $request->file('karpeg');
-            $filename = $file->getClientOriginalName();
+            $filename = Auth::user()->nip .'_'.$file->getClientOriginalName();
             $file->move('public/dok_dasar_dupak/karpeg', $filename);
             $dokdasar->karpeg = $filename;                
         } else {
@@ -173,7 +179,7 @@ class DokdasarController extends Controller
 
         if($request->file('dp3')) {
             $file = $request->file('dp3');
-            $filename = $file->getClientOriginalName();
+            $filename = Auth::user()->nip .'_'.$file->getClientOriginalName();
             $file->move('public/dok_dasar_dupak/dp3', $filename);
             $dokdasar->dp3 = $filename;
         } else {
@@ -182,7 +188,7 @@ class DokdasarController extends Controller
 
         if($request->file('ringkasan')) {
             $file = $request->file('ringkasan');
-            $filename = $file->getClientOriginalName();
+            $filename = Auth::user()->nip .'_'.$file->getClientOriginalName();
             $file->move('public/dok_dasar_dupak/ringkasan', $filename);
             $dokdasar->ringkasan = $filename;
         } else {
@@ -191,11 +197,20 @@ class DokdasarController extends Controller
 
         if($request->file('pengantar')) {
             $file = $request->file('pengantar');
-            $filename = $file->getClientOriginalName();
+            $filename = Auth::user()->nip .'_'.$file->getClientOriginalName();
             $file->move('public/dok_dasar_dupak/pengantar', $filename);
             $dokdasar->pengantar = $filename;
         } else {
             $dokdasar->pengantar = $dokdasar->pengantar;
+        }
+
+        if($request->file('dupak')) {
+            $file = $request->file('dupak');
+            $filename = Auth::user()->nip .'_'.$file->getClientOriginalName();
+            $file->move('public/dok_dasar_dupak/dupak', $filename);
+            $dokdasar->dupak = $filename;
+        } else {
+            $dokdasar->dupak = $dokdasar->dupak;
         }
 
         $dokdasar->save();

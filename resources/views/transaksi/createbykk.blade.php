@@ -22,7 +22,7 @@
   </section>
   <!-- Main content -->
   <section class="content">
-    <div class="container">
+    <div class="container-fluid">
       <div class="card">
         <div class="card-body">
           <form method="post" action="{{ route('transaksi.store') }}" enctype="multipart/form-data">

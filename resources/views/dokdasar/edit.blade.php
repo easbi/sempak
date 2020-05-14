@@ -55,6 +55,10 @@
               <input type="file" name="pengantar" class="form-control">            
             </div>
             <div class="form-group">
+              <label>DUPAK</label>
+              <input type="file" name="dupak" class="form-control">            
+            </div>
+            <div class="form-group">
               <br>
               <input type="submit" class="btn btn-success" value="Simpan">
             </div>

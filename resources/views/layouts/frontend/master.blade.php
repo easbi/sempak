@@ -70,9 +70,6 @@
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <div class="dropdown-divider"></div>
-          <a href="{{ url('dokdasar') }}" class="dropdown-item">
-            <i class="fas fa-file-signature"></i>  Berkas Administrasi DUPAK
-          </a>
           <a href="{{ route('pegawai.edit', ['id' => Auth::id()]) }}" class="dropdown-item">
             <i class="far fa-address-book"></i>   Ubah Profil
           </a>
@@ -105,34 +102,31 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-header">Pengajuan DUPAK</li>
-          <li class="nav-item has-treeview menu-open">
-            <a href="{{ url('/home') }}" class="nav-link">
-              <i class="nav-icon fas fa-clipboard-list"></i>
-              <p>Pengajuan Dupak
-                <i class="right fas fa-angle-left"></i>
-              </p>
+          <li class="nav-header">Pengajuan DUPAK</li>          
+          <li class="nav-item">
+            <a href="{{ url('/masteracara') }}" class="nav-link">
+              <p> </p>
+              <i class="fas fa-people-carry nav-icon"></i>
+              <p>Daftar Acara/Event</p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ url('/masteracara') }}" class="nav-link">
-                  <i class="fas fa-people-carry nav-icon"></i>
-                  <p>Entri Acara/Event</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ url('/dokumenkeg') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pengisian SPMT dan STMT</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ url('/home') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Entri Rincian Dupak</p>
-                </a>
-              </li>
-            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('/dokumenkeg') }}" class="nav-link">
+              <i class="fas fa-file-archive nav-icon"></i>
+              <p>Pengisian SPMT dan STMT</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('/home') }}" class="nav-link">
+              <i class="fas fa-envelope-open-text nav-icon"></i>
+              <p>Entri Rincian Dupak</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('dokdasar') }}" class="nav-link">
+            <i class="fas fa-file-signature nav-icon"></i>  
+            <p>Berkas Administrasi DUPAK</p>
+          </a>
           </li>
           <li class="nav-header">Penilaian DUPAK</li>
           <li class="nav-item">
