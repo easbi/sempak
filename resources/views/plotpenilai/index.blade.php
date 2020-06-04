@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Data Rincian Kegiatan</h1>
+          <h1 class="m-0 text-dark">Data Plot Penilaian dari Pengusul</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <a href="{{ url('/plotpenilai/create') }}" class="btn btn-primary float-sm-right">Input Plot Penilai Baru</a>
