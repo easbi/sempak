@@ -8,12 +8,14 @@
         <div class="col-sm-6">
           <h1 class="m-0 text-dark">Berkas Administrasi Pokok </h1>
           @if(!empty($dokdasar->sk_pangkat_pns))
-             <a href='{{ route('dokdasar.edit', $dokdasar->id_user) }}' class="btn btn-primary float-sm-right">Edit Berkas</a>
+             <a href="{{ route('dokdasar.edit', $dokdasar->id_user) }}" class="btn btn-primary float-sm-right">Edit Berkas</a>
           @else
-             <a href='{{  url('dokdasar/create') }}' class="btn btn-primary float-sm-right">Isi Berkas</a>
+             <a href="{{  url('dokdasar/create') }}" class="btn btn-primary float-sm-right">Isi Berkas</a>
           @endif
-
-        </div><!-- /.col -->
+        </div><!-- /.col -->        
+        <div class="col-sm-6">
+          <a href="{{ url()->previous() }}" class="btn btn-primary float-sm-right">Kembali</a>
+        </div>
      </div><!-- /.row -->
    </div><!-- /.container-fluid -->
  </div>

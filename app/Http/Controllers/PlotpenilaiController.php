@@ -20,8 +20,8 @@ class PlotpenilaiController extends Controller
         ->leftjoin('master_pegawai AS B', 'B.id', 'plot_penilai_dupak.id_user_penilai_1')
         ->leftjoin('master_pegawai AS C', 'C.id', 'plot_penilai_dupak.id_user_penilai_2')
         ->select('plot_penilai_dupak.*', 'A.nama as user_dinilai', 'B.nama as penilai1', 'C.nama as penilai2')
-        ->get();
-
+        ->get();//dd($plotpenilais);
+        
         return view('plotpenilai.index', compact('plotpenilais'));
     }
 

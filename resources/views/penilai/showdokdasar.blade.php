@@ -8,6 +8,9 @@
         <div class="col-sm-6">
           <h1 class="m-0 text-dark">Berkas Administrasi Pokok {{ $nama_dinilai->nama }}</h1>
         </div><!-- /.col -->
+        <div class="col-sm-6">
+          <a href="{{ url()->previous() }}" class="btn btn-primary float-sm-right">Kembali</a>
+        </div>
      </div><!-- /.row -->
    </div><!-- /.container-fluid -->
  </div>
