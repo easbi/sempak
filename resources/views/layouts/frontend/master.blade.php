@@ -102,19 +102,14 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          @if(Auth::user()->role != 5)
           <li class="nav-header">Pengajuan DUPAK</li>            
           <li class="nav-item">
             <a href="{{ url('dokdasar') }}" class="nav-link">
               <i class="fas fa-file-signature nav-icon"></i>  
               <p>Berkas Administrasi DUPAK</p>
             </a>
-          </li>   <!--   
-          <li class="nav-item">
-            <a href="{{ url('/masteracara') }}" class="nav-link">
-              <i class="fas fa-people-carry nav-icon"></i>
-              <p>Daftar Acara/Event</p>
-            </a>
-          </li> -->
+          </li>
           <li class="nav-item">
             <a href="{{ url('/dokumenkeg') }}" class="nav-link">
               <i class="fas fa-file-archive nav-icon"></i>
@@ -141,7 +136,9 @@
               <p>Penilaian Dupak</p>
             </a>
           </li>
-          @if(Auth::user()->role == 4 OR Auth::user()->role == 1)
+          @endif
+
+          @if(Auth::user()->role == 4 OR Auth::user()->role == 1 OR Auth::user()->role == 5)
           <li class="nav-header">Monitoring DUPAK</li>
           </li>
           <li class="nav-item has-treeview">
@@ -184,6 +181,8 @@
             </ul>
           </li>
           @endif
+
+          @if(Auth::user()->role != 5)
           <li class="nav-header">Tampilkan Laporan</li>
           </li>
           <li class="nav-item has-treeview">
@@ -213,8 +212,9 @@
               </li>
             </ul>
           </li>
+          @endif
 
-          @if(Auth::user()->role == 1) 
+          @if(Auth::user()->role == 4 OR Auth::user()->role == 1)
           <li class="nav-header">Metadata Dupak</li>
           <li class="nav-item">
             <a href="{{ url('/metadata') }}" class="nav-link">
