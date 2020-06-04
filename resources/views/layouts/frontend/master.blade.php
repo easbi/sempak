@@ -150,7 +150,13 @@
               <p>Rekapitulasi<i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <ul class="nav nav-treeview">              
+              <li class="nav-item">
+                <a href="{{ url('/plotpenilai') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Plot Penilai</p>
+                </a>
+              </li>
               <li class="nav-item">
                 <a href="{{ url('/sekretariat') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -232,12 +238,6 @@
             <a href="{{ url('/rincianangkakredit') }}" class="nav-link">
               <i class="nav-icon fas fa-project-diagram"></i>
               <p>Rincian Angka Kredit</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('/plotpenilai') }}" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
-              <p>Plot Penilai</p>
             </a>
           </li>
           <li class="nav-item">

@@ -27,6 +27,7 @@
                             <th>Pengusul yang di Nilai</th>
                             <th>Penilai 1</th>                  
                             <th>Penilai 2</th>
+                            <th>Berkas Administrasi</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -38,6 +39,11 @@
                             <td>{{ $p->user_dinilai }}</td>
                             <td>{{ $p->penilai1 }}</td>
                             <td>{{ $p->penilai2 }}</td>
+                            <td style="text-align: center;">
+                              <a href="{{ action('PenilaiController@showDokdasar',$p->id_user_dinilai) }}">
+                                <span style="color: Tomato;"><i class="fas fa-business-time"></i></span>                                
+                              </a>
+                            </td>
                             <td>
                               <form action="{{ route('plotpenilai.destroy',$p->id) }}" method="POST">
                                 <a class="btn btn-warning" href="{{ route('plotpenilai.edit',$p->id) }}">Edit</a>
