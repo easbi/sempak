@@ -153,10 +153,14 @@ class DokumenkegController extends Controller
                 $dokumenkeg->stmt_berkas = NULL;
                 $dokumenkeg->stmt_url = $request->stmt_url;
             } else {
-                $file = $request->file('stmt_berkas');
-                $dokumenkeg->stmt_berkas = 'STMT-'.\Carbon\Carbon::now()->format('Y-m-d H-i').'_'. Auth::user()->nip .'_'. str_replace(' ', '', substr(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME), 0, 25)). '.' .$file->getClientOriginalExtension();
-                $file->move('public/dok_spmt_stmt_dupak', $dokumenkeg->stmt_berkas);
-                $dokumenkeg->stmt_url = NULL;
+                if ($request->hasFile('stmt_berkas')){
+                    $file = $request->file('stmt_berkas');
+                    $dokumenkeg->stmt_berkas = 'STMT-'.\Carbon\Carbon::now()->format('Y-m-d H-i').'_'. Auth::user()->nip .'_'. str_replace(' ', '', substr(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME), 0, 25)). '.' .$file->getClientOriginalExtension();
+                    $file->move('public/dok_spmt_stmt_dupak', $dokumenkeg->stmt_berkas);
+                    $dokumenkeg->stmt_url = NULL;                    
+                } else {
+                    $dokumenkeg->stmt_berkas = $dokumenkeg->stmt_berkas;
+                }
             }
          $dokumenkeg->save();
         }
