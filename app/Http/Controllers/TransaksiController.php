@@ -264,7 +264,7 @@ class TransaksiController extends Controller
     public function destroy($id_transaksi)
     {
         Transaksi::destroy($id_transaksi);
-        return redirect()->route('transaksi.index')->with('success','Acara deleted successfully');
+        return redirect()->route('home')->with('success','Acara deleted successfully');
     }
 
     public function dupak()
