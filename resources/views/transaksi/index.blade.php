@@ -43,7 +43,7 @@
                 <td>{{ $tr->unsur_utama }}</td>
                 <td>{{ $tr->kegiatan_sub_unsur }}</td>
                 <td>{{ $tr->rincian_kegiatan }}</td>
-                <td>{{ $tr->nama_acara }}</td>
+                <td>{{ $tr->acara }}</td>
                 <td>{{ $tr->tgl_mulai }}</td>
                 <td>{{ $tr->tgl_selesai }}</td>
                 <td>{{ str_replace('.', ',', $tr->angka_kredit_usul) }}</td>
