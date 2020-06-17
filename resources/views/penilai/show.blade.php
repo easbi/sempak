@@ -18,9 +18,11 @@
   <!-- Main content -->
   <section class="content">
     <div class="container">
-
+      
       <div class="card">
-        <div class="card-body">
+        <div class="card-bod">
+          
+            
           <table id="example" class="display">
             <thead>
               <tr>
