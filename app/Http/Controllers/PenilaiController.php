@@ -61,7 +61,7 @@ class PenilaiController extends Controller
     public function show($id_user)
     {
         $transaksis = DB::table('transaksi')->where('transaksi.id_user',$id_user)
-        ->whereBetween('tgl_selesai', ['2019-07-01', '2020-06-31'])  
+        ->whereBetween('tgl_selesai', ['2020-01-01', '2020-06-31'])  //ganti
         ->join('master_unsur_utama', 'transaksi.id_unsur_utama', '=', 'master_unsur_utama.id')
         ->join('master_subunsurs', 'transaksi.id_subunsur', '=', 'master_subunsurs.id_sub_unsur')            
         ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=', 'master_rincian_kegiatan.id_rincian_kegiatan')
