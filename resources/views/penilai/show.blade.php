@@ -69,7 +69,7 @@
                 </td>
                 <td>{{ $tr->unsur_utama }}</td>
                 <td>{{ $tr->rincian_kegiatan }}</td>
-                <td>{{ $tr->nama_acara }}</td>
+                <td>{{ $tr->acara }}</td>
                 <td>{{ $tr->keterangan }}</td>
                 <td>{{ $tr->satuan }}</td>
                 <td><a href="{{  url('public/file_rincian_dupak', $tr->berkas) }}" class="btn btn-warning" target="_blank">Berkas</a></td>
