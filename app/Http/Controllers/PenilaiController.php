@@ -7,6 +7,7 @@ use App\Transaksi;
 use DB;
 use Auth;
 use Illuminate\Support\Collection;
+// use Illuminate\Support\Str;
 
 
 class PenilaiController extends Controller
@@ -73,25 +74,26 @@ class PenilaiController extends Controller
         $nama_dinilai = DB::table('master_pegawai')->where('id', $id_user)->select('nama')->first();
         // dd($transaksis);
 
+        //start belajar <--> array ini tidak digunakan , hanya utk belajar saja
         //cari tahu yg dinilai ada berapa dan isinya
         //request untuk masing2 yg dinilai
         //hasilnya dimasukin ke 1 array
-        // $pen1c = DB::table ('plot_penilai_dupak')->where('id_user_dinilai', $id_user)->get();
-        // // dd($pen1c);
-        // //create array temporary
-        // $transaksis=collect();
-        // foreach ($pen1c as $x) {
-        //     $ppd = DB::table('transaksi')->where('transaksi.id_user', $id_user)
-        //     ->join('master_unsur_utama', 'transaksi.id_unsur_utama', '=', 'master_unsur_utama.id')
-        //     ->join('master_subunsurs', 'transaksi.id_subunsur', '=', 'master_subunsurs.id_sub_unsur')            
-        //     ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=', 'master_rincian_kegiatan.id_rincian_kegiatan')
-        //     ->join('transaksi_dok_spmk_stmk', 'transaksi.nama_event', '=', 'transaksi_dok_spmk_stmk.id')
-        //     ->whereBetween('tgl_selesai', [date($x->p_awal), date($x->p_akhir)])
-        //     ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'transaksi_dok_spmk_stmk.acara') 
-        //     ->get();
-        //     $transaksis->push($ppd);
-        // }
-        // dd($transaksis);
+        $pen1c = DB::table ('plot_penilai_dupak')->where('id_user_dinilai', $id_user)->get();
+        $transaksis2=collect(); 
+        foreach ($pen1c as $x) {
+            $ppd = DB::table('transaksi')->where('transaksi.id_user', $id_user)
+            ->join('master_unsur_utama', 'transaksi.id_unsur_utama', '=', 'master_unsur_utama.id')
+            ->join('master_subunsurs', 'transaksi.id_subunsur', '=', 'master_subunsurs.id_sub_unsur')            
+            ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=', 'master_rincian_kegiatan.id_rincian_kegiatan')
+            ->join('transaksi_dok_spmk_stmk', 'transaksi.nama_event', '=', 'transaksi_dok_spmk_stmk.id')
+            ->whereBetween('tgl_selesai', [date($x->p_awal), date($x->p_akhir)])
+            ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'transaksi_dok_spmk_stmk.acara') 
+            ->get();
+            $transaksis2->push($ppd);
+        }
+        $transaksis2 = json_decode($transaksis2); 
+        // dd($transaksis2);
+        // dd($transaksis2[0][1]->id_user); //end belajar <--> hanya sampai disini belajarnya
         
         //Cek Posisi Penilai
         $ternilai = $id_user;
@@ -227,7 +229,8 @@ class PenilaiController extends Controller
             ->get();
             $pen1->push($ppd);
          }
-         // dd($pen1[0][0]->nama); langkah akses indeks aray
+         // $pen1=json_decode($pen1);
+         // dd($pen1[0][0]->nama); //langkah akses indeks aray
         $pen2c = DB::table ('plot_penilai_dupak')->where('id_user_penilai_2',  Auth::user()->id)->get();
         $pen2 = collect();
         foreach ($pen2c as $x) {
