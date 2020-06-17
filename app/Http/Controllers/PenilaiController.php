@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Transaksi;
 use DB;
 use Auth;
+use Illuminate\Support\Collection;
 
 
 class PenilaiController extends Controller
@@ -27,15 +28,7 @@ class PenilaiController extends Controller
      */
     public function index()
     {
-        $user = Auth::user()->id;
-        $transaksis = DB::table('transaksi')
-            ->join('master_pegawai', 'transaksi.id_user', '=', 'master_unsur_utama.id')
-            ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'master_acara.nama_acara')   
-            ->where('id_penilai1', Auth::user()->id)
-            ->orWhere('id_penilai2', Auth::user()->id)
-            ->orderby('id_transaksi','asc')
-            ->get();
-        return view('penilai.index', compact('transaksis'));
+        
     }
 
     /**
@@ -67,13 +60,13 @@ class PenilaiController extends Controller
      */
     public function show($id_user)
     {
-        $transaksis = DB::table('transaksi')->where('id_user',$id_user)
-        ->whereBetween('tgl_selesai', ['2019-01-01', '2019-12-31'])  
+        $transaksis = DB::table('transaksi')->where('transaksi.id_user',$id_user)
+        ->whereBetween('tgl_selesai', ['2019-07-01', '2020-06-31'])  
         ->join('master_unsur_utama', 'transaksi.id_unsur_utama', '=', 'master_unsur_utama.id')
         ->join('master_subunsurs', 'transaksi.id_subunsur', '=', 'master_subunsurs.id_sub_unsur')            
-        ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=', 'master_rincian_kegiatan.id_rincian_kegiatan')   
-        ->join('master_acara', 'transaksi.nama_event', '=', 'master_acara.id')      
-        ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'master_acara.nama_acara') 
+        ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=', 'master_rincian_kegiatan.id_rincian_kegiatan')
+        ->join('transaksi_dok_spmk_stmk', 'transaksi.nama_event', '=', 'transaksi_dok_spmk_stmk.id')
+        ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'transaksi_dok_spmk_stmk.acara') 
         ->get();
         $nama_dinilai = DB::table('master_pegawai')->where('id', $id_user)->select('nama')->first();
         //dd($transaksis);
@@ -192,32 +185,45 @@ class PenilaiController extends Controller
 
     public function dashboardPenilai()
     {
-        $pen1 = DB::table ('plot_penilai_dupak')->where('id_user_penilai_1',  Auth::user()->id)
-        ->join('transaksi', 'plot_penilai_dupak.id_user_dinilai', '=', 'transaksi.id_user')
-        ->join('master_pegawai', 'plot_penilai_dupak.id_user_dinilai', '=', 'master_pegawai.id')
-        ->whereBetween('transaksi.tgl_selesai', ['2019-01-01', '2019-12-31'])  //change then with flag
-        ->select('transaksi.id_user', 'master_pegawai.nama',
-            DB::raw('count(*) as total_kegiatan'), 
-            DB::raw('sum(status1 = 2) setuju'),
-            DB::raw('sum(status1 = 1) proses'),
-            DB::raw('sum(status1 = 3) tolak'),
-            DB::raw('sum(status1 = 4) pending'))           
-        ->groupBy('transaksi.id_user')
-        ->get();
-        //dd($pen1);
-        $pen2 = DB::table ('plot_penilai_dupak')->where('id_user_penilai_2',  Auth::user()->id)
-        ->join('transaksi', 'plot_penilai_dupak.id_user_dinilai', '=', 'transaksi.id_user')
-        ->join('master_pegawai', 'plot_penilai_dupak.id_user_dinilai', '=', 'master_pegawai.id')
-        ->whereBetween('transaksi.tgl_selesai', ['2019-01-01', '2019-12-31'])  //change then with flag
-        ->select('transaksi.id_user', 'master_pegawai.nama',
-            DB::raw('count(*) as total_kegiatan'), 
-            DB::raw('sum(status2 = 2) setuju'),
-            DB::raw('sum(status2 = 1) proses'),
-            DB::raw('sum(status2 = 3) tolak'),
-            DB::raw('sum(status2 = 4) pending'))           
-        ->groupBy('master_pegawai.nama')
-        ->get();   
-        //dd($pen2);     
+        //cari tahu yg dinilai ada berapa dan isinya
+        //request untuk masing2 yg dinilai
+        //hasilnya dimasukin ke 1 array
+        $pen1c = DB::table ('plot_penilai_dupak')->where('id_user_penilai_1',  Auth::user()->id)->get();
+        //create array temporary
+        $pen1=collect();
+        foreach ($pen1c as $x) {
+            $ppd = DB::table('transaksi')->where('id_user', $x->id_user_dinilai)            
+            ->join('master_pegawai', 'transaksi.id_user', '=', 'master_pegawai.id')
+            ->whereBetween('tgl_selesai', [date($x->p_awal), date($x->p_akhir)])
+            ->select('id_user', 'master_pegawai.nama',
+                DB::raw('count(*) as total_kegiatan'), 
+                DB::raw('sum(status2 = 2) setuju'),
+                DB::raw('sum(status2 = 1) proses'),
+                DB::raw('sum(status2 = 3) tolak'),
+                DB::raw('sum(status2 = 4) pending'))           
+            ->groupBy('master_pegawai.nama')
+            ->get();
+            $pen1->push($ppd);
+         }
+         // dd($pen1[0][0]->nama); langkah akses indeks aray
+        $pen2c = DB::table ('plot_penilai_dupak')->where('id_user_penilai_2',  Auth::user()->id)->get();
+        $pen2 = collect();
+        foreach ($pen2c as $x) {
+            $ppd = DB::table('transaksi')->where('id_user', $x->id_user_dinilai)
+            ->join('master_pegawai', 'transaksi.id_user', '=', 'master_pegawai.id')
+            ->whereBetween('tgl_selesai', [date($x->p_awal), date($x->p_akhir)])
+            ->select('id_user', 'master_pegawai.nama',
+                DB::raw('count(*) as total_kegiatan'), 
+                DB::raw('sum(status2 = 2) setuju'),
+                DB::raw('sum(status2 = 1) proses'),
+                DB::raw('sum(status2 = 3) tolak'),
+                DB::raw('sum(status2 = 4) pending'))           
+            ->groupBy('master_pegawai.nama')
+            ->get();
+            $pen2->push($ppd);
+
+        }
+        //dd($pen2);
         return view('penilai.dashboard', compact('pen1', 'pen2'));
     }
 
