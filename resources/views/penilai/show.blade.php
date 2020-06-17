@@ -26,7 +26,7 @@
               <tr>
                 <th>No</th>
                 <th>Keselarasan antar Penilai</th>
-                <th>Status Pemeriksaan</th>ths>
+                <th>Status Pemeriksaan</th>
                 <th>Unsur Utama</th>        
                 <th>Rincian Kegiatan</th>
                 <th>Nama Kegiatan</th>
@@ -39,7 +39,7 @@
             <tbody>
               <?php $no = 1; ?>
               @foreach($transaksis as $tr)
-              <tr>
+                <tr>
                 <td>{{ $tr->id_transaksi }}</td>
                 <td>
                   @if(($tr->status1 == $tr->status2) AND ($tr->angka_kredit1 == $tr->angka_kredit2))
@@ -83,61 +83,7 @@
           </table>
         </div>
       </div>
-
-      {{-- adadada --}}
-
-      <div class="modal fade" id="edit-modal">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-              <h4 class="modal-title" align="center"><b>Penilaian</b></h4>
-            </div>
-            <div class="modal-body">
-              <form role="form" action="/edit_user">
-                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-                <div class="box-body">
-                  <div class="form-group">
-                    <label>Kuantitas</label> 
-                    <input type="text" class="form-control" name="kuantitas" readonly="true" value="{{ $tr->kuantitas }}">
-                  </div>
-                  <div class="form-group">
-                    <label>Angka kredit yang diusulkan</label> 
-                    <input type="text" class="form-control" name="angka_kredit1" readonly="true" value="{{ $tr->angka_kredit_usul }}">
-                  </div>
-                  <div class="form-group">
-                    <label>Keterangan mengenai rincian</label> 
-                    <textarea class="form-control" name="keterangan" readonly>{{ $tr->keterangan }}</textarea>
-                  </div>
-                  <div class="form-group">
-                    <label>Angka kredit hasil penilaian</label> 
-                    <input type="text" class="form-control" name="angka_kredit1">
-                  </div>
-                  <div class="form-group">
-                    <label>Status</label> 
-                    <select id="status1" name="status1"class="form-control">
-                      <option value="1">Proses</option>
-                      <option value="2">Setuju</option>
-                      <option value="3">Tolak</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Keterangan</label> 
-                    <textarea class="form-control" name="ket_status1"></textarea>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tutup</button>
-                  <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      {{-- dadad --}}
+      <!-- //rencana mau nambahin modal buat evaluasi -->
     </div>
   </section>
   <!-- /.content -->

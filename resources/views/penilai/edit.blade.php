@@ -43,7 +43,7 @@
             </div>
             <div class="form-group">
               <label>Nama Acara / Diklat</label>
-              <input type="text" name="nama_acara" id="nama_acara" class="form-control" value="{{ $transaksi->nama_acara }}" readonly="true">
+              <input type="text" name="nama_acara" id="nama_acara" class="form-control" value="{{ $transaksi->acara }}" readonly="true">
             </div>
             <div class="form-group">
               <label>Tanggal Mulai</label>
