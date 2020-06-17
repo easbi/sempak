@@ -60,8 +60,10 @@ class PenilaiController extends Controller
      */
     public function show($id_user)
     {
+        $p_awal = DB::table('plot_penilai_dupak')->where('id_user_dinilai', $id_user)->select('p_awal')->first();
+        $p_akhir = DB::table('plot_penilai_dupak')->where('id_user_dinilai', $id_user)->select('p_akhir')->first();
         $transaksis = DB::table('transaksi')->where('transaksi.id_user',$id_user)
-        ->whereBetween('tgl_selesai', ['2020-01-01', '2020-06-31'])  //ganti
+        ->whereBetween('tgl_selesai', [ $p_awal->p_awal, $p_akhir->p_akhir])  //ganti
         ->join('master_unsur_utama', 'transaksi.id_unsur_utama', '=', 'master_unsur_utama.id')
         ->join('master_subunsurs', 'transaksi.id_subunsur', '=', 'master_subunsurs.id_sub_unsur')            
         ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=', 'master_rincian_kegiatan.id_rincian_kegiatan')
@@ -69,7 +71,27 @@ class PenilaiController extends Controller
         ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'transaksi_dok_spmk_stmk.acara') 
         ->get();
         $nama_dinilai = DB::table('master_pegawai')->where('id', $id_user)->select('nama')->first();
-        //dd($transaksis);
+        // dd($transaksis);
+
+        //cari tahu yg dinilai ada berapa dan isinya
+        //request untuk masing2 yg dinilai
+        //hasilnya dimasukin ke 1 array
+        // $pen1c = DB::table ('plot_penilai_dupak')->where('id_user_dinilai', $id_user)->get();
+        // // dd($pen1c);
+        // //create array temporary
+        // $transaksis=collect();
+        // foreach ($pen1c as $x) {
+        //     $ppd = DB::table('transaksi')->where('transaksi.id_user', $id_user)
+        //     ->join('master_unsur_utama', 'transaksi.id_unsur_utama', '=', 'master_unsur_utama.id')
+        //     ->join('master_subunsurs', 'transaksi.id_subunsur', '=', 'master_subunsurs.id_sub_unsur')            
+        //     ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=', 'master_rincian_kegiatan.id_rincian_kegiatan')
+        //     ->join('transaksi_dok_spmk_stmk', 'transaksi.nama_event', '=', 'transaksi_dok_spmk_stmk.id')
+        //     ->whereBetween('tgl_selesai', [date($x->p_awal), date($x->p_akhir)])
+        //     ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'transaksi_dok_spmk_stmk.acara') 
+        //     ->get();
+        //     $transaksis->push($ppd);
+        // }
+        // dd($transaksis);
         
         //Cek Posisi Penilai
         $ternilai = $id_user;
@@ -114,10 +136,10 @@ class PenilaiController extends Controller
         ->join('master_unsur_utama', 'transaksi.id_unsur_utama', '=', 'master_unsur_utama.id')
         ->join('master_subunsurs', 'transaksi.id_subunsur', '=', 'master_subunsurs.id_sub_unsur')            
         ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=', 'master_rincian_kegiatan.id_rincian_kegiatan')   
-        ->join('master_acara', 'transaksi.nama_event', '=', 'master_acara.id')      
-        ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'master_acara.nama_acara') 
+        ->join('transaksi_dok_spmk_stmk', 'transaksi.nama_event', '=', 'transaksi_dok_spmk_stmk.id')      
+        ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'transaksi_dok_spmk_stmk.acara') 
         ->get();
-
+        // dd($transaksi);
         //Cek Posisi Penilai
         $ternilai =  DB::table('transaksi')->where('id_transaksi',$id_transaksi)->select('id_user')->first();
         $pp1 = DB::table('plot_penilai_dupak')->where('id_user_dinilai', $ternilai->id_user)->where('id_user_penilai_1', Auth::user()->id)->get();
