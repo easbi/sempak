@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Data Rincian Yang Diinput {{ $nama_dinilai->nama }} </h1>
+          <h1 class="m-0 text-dark">Data Rincian Yang Diinput {{  Str::limit($nama_dinilai->nama, 14) }} </h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <a href="{{ url('/penilai/dashboard')}}" class="btn btn-primary float-sm-right">Kembali</a>
@@ -70,9 +70,9 @@
                   @endif
                 </td>
                 <td>{{ $tr->unsur_utama }}</td>
-                <td>{{ $tr->rincian_kegiatan }}</td>
-                <td>{{ $tr->acara }}</td>
-                <td>{{ $tr->keterangan }}</td>
+                <td>{{ Str::limit($tr->rincian_kegiatan,50) }}</td>
+                <td>{{ Str::limit($tr->acara, 75) }}</td>
+                <td>{{ Str::limit($tr->keterangan,90) }}</td>
                 <td>{{ $tr->satuan }}</td>
                 <td><a href="{{  url('public/file_rincian_dupak', $tr->berkas) }}" class="btn btn-warning" target="_blank">Berkas</a></td>
                 <td>

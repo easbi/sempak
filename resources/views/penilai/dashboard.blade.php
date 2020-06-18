@@ -25,9 +25,12 @@
             </div>
             @else
             <div class="row">
+              @if($pen1->isEmpty())
+              @else
                 <div class="col-sm-12">
                     <h4>Penilai pertama dari</h4>
                 </div>
+              @endif
 
                 @foreach($pen1 as $p)
                   <div class="col-md-4">
@@ -78,9 +81,12 @@
                 @endforeach                 
             </div>
             <div class="row">
+              @if($pen2->isEmpty())
+              @else
                 <div class="col-sm-12">
-                    <h4>Penilai kedua dari</h4>
+                    <h4>Penilai Kedua dari</h4>
                 </div>
+              @endif
 
                 @foreach($pen2 as $p)
                   <div class="col-md-4">

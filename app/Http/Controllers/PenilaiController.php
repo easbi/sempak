@@ -7,7 +7,7 @@ use App\Transaksi;
 use DB;
 use Auth;
 use Illuminate\Support\Collection;
-// use Illuminate\Support\Str;
+use Illuminate\Support\Str;
 
 
 class PenilaiController extends Controller
