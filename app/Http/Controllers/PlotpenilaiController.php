@@ -47,7 +47,9 @@ class PlotpenilaiController extends Controller
          Plotpenilai::create([
                 'id_user_dinilai' => $request->user_dinilai,
                 'id_user_penilai_1' => $request->user_penilai_1,
-                'id_user_penilai_2' => $request->user_penilai_2
+                'id_user_penilai_2' => $request->user_penilai_2,
+                'p_awal' => $request->p_awal,
+                'p_akhir' => $request->p_akhir
             ]);
         return redirect('/plotpenilai');
     }
@@ -99,7 +101,8 @@ class PlotpenilaiController extends Controller
             $plotpenilai->id_user_dinilai = $request->user_dinilai;
             $plotpenilai->id_user_penilai_1 = $request->user_penilai_1;
             $plotpenilai->id_user_penilai_2 = $request->user_penilai_2;
-
+            $plotpenilai->p_awal = $request->p_awal;
+            $plotpenilai->p_akhir = $request->p_akhir;
             $plotpenilai->save();
         }
         return redirect()->route('plotpenilai.index')->with('success', 'Hasil Plot Penilai udpdated successfully');

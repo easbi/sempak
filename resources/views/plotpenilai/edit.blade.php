@@ -37,6 +37,14 @@
               </select>     
             </div>
             <div class="form-group">
+              <label>Periode Awal untuk Penilaian</label>
+              <input type="date" name="p_awal" class="form-control"  value="{{ $plotpenilais->p_awal }}">  
+            </div>
+            <div class="form-group">
+              <label>Periode Akhir untuk Penilaian</label>
+              <input type="date" name="p_akhir" class="form-control"  value="{{ $plotpenilais->p_akhir }}">  
+            </div>
+            <div class="form-group">
               <label>Penilai Pertama</label> 
               <select id="user_penilai_1" name="user_penilai_1" class="form-control">
                 <option value="{{$plotpenilais->id_user_penilai_1}}"> {{$plotpenilais->penilai1}}</option>
