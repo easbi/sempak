@@ -35,6 +35,14 @@
               </select>     
             </div>
             <div class="form-group">
+              <label>Periode Awal untuk Penilaian</label>
+              <input type="date" name="p_awal" class="form-control">  
+            </div>
+            <div class="form-group">
+              <label>Periode Akhir untuk Penilaian</label>
+              <input type="date" name="p_akhir" class="form-control">  
+            </div>
+            <div class="form-group">
               <label>Penilai Pertama</label> 
               <select id="user_penilai_1" name="user_penilai_1" class="form-control">
                 <option value="" selected disabled></option>

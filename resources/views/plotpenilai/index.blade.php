@@ -25,6 +25,8 @@
                         <tr>
                             <th>No Plot</th>
                             <th>Pengusul yang di Nilai</th>
+                            <th>Periode Awal</th>
+                            <th>Periode Akhir</th>
                             <th>Penilai 1</th>                  
                             <th>Penilai 2</th>
                             <th>Berkas Administrasi</th>
@@ -37,6 +39,8 @@
                         <tr>
                             <td>{{ $no++ }}</td>
                             <td>{{ $p->user_dinilai }}</td>
+                            <td>{{ $p->p_awal }}</td>
+                            <td>{{ $p->p_akhir }}</td>
                             <td>{{ $p->penilai1 }}</td>
                             <td>{{ $p->penilai2 }}</td>
                             <td style="text-align: center;">
