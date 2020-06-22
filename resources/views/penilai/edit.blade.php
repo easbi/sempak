@@ -103,10 +103,10 @@
             <div class="form-group">
               <label>Berkas STMK</label><br>
               @if ($transaksi->stmt_berkas != NULL)
-               <a href='{{  url('public/file_rincian_dupak', $transaksi->stmt_berkas) }}' class="btn btn-warning" target="_blank">Berkas</a>
+               <a href='{{  url('public/dok_spmt_stmt_dupak', $transaksi->stmt_berkas) }}' class="btn btn-warning" target="_blank">Berkas</a>
               @endif
               @if ($transaksi->stmt_url != NULL)
-               <a href='{{  url('public/file_rincian_dupak', $transaksi->spmt_url) }}' class="btn btn-warning" target="_blank">Berkas</a>
+               <a href='{{  url('public/dok_spmt_stmt_dupak', $transaksi->spmt_url) }}' class="btn btn-warning" target="_blank">Berkas</a>
               @endif
             </div>
             <div class="form-group">
