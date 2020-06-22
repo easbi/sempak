@@ -7,7 +7,7 @@ use App\Transaksi;
 use DB;
 use Auth;
 use Illuminate\Support\Collection;
-// use Illuminate\Support\Str;
+use Illuminate\Support\Str;
 
 
 class PenilaiController extends Controller
@@ -139,7 +139,7 @@ class PenilaiController extends Controller
         ->join('master_subunsurs', 'transaksi.id_subunsur', '=', 'master_subunsurs.id_sub_unsur')            
         ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=', 'master_rincian_kegiatan.id_rincian_kegiatan')   
         ->join('transaksi_dok_spmk_stmk', 'transaksi.nama_event', '=', 'transaksi_dok_spmk_stmk.id')      
-        ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'transaksi_dok_spmk_stmk.acara') 
+        ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'transaksi_dok_spmk_stmk.acara', 'transaksi_dok_spmk_stmk.spmt_berkas', 'transaksi_dok_spmk_stmk.spmt_url','transaksi_dok_spmk_stmk.stmt_berkas','transaksi_dok_spmk_stmk.stmt_url') 
         ->get();
         // dd($transaksi);
         //Cek Posisi Penilai
