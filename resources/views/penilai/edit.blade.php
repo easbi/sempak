@@ -92,7 +92,25 @@
               <textarea class="form-control" name="keterangan" readonly="true">{{ $x == 1 ? $transaksi->ket_status2 : $transaksi->ket_status1 }}</textarea>
             </div> 
             <div class="form-group">
-              <label>Berkas</label><br>
+              <label>Berkas SPMK</label><br>
+              @if ($transaksi->spmt_berkas != NULL)
+                <a href='{{  url('public/file_rincian_dupak', $transaksi->spmt_berkas) }}' class="btn btn-warning" target="_blank">Berkas</a>
+              @endif
+              @if ($transaksi->spmt_url != NULL)
+                <a href='{{  url('public/file_rincian_dupak', $transaksi->spmt_url) }}' class="btn btn-warning" target="_blank">Berkas</a>
+              @endif
+            </div>
+            <div class="form-group">
+              <label>Berkas STMK</label><br>
+              @if ($transaksi->stmt_berkas != NULL)
+               <a href='{{  url('public/file_rincian_dupak', $transaksi->stmt_berkas) }}' class="btn btn-warning" target="_blank">Berkas</a>
+              @endif
+              @if ($transaksi->stmt_url != NULL)
+               <a href='{{  url('public/file_rincian_dupak', $transaksi->spmt_url) }}' class="btn btn-warning" target="_blank">Berkas</a>
+              @endif
+            </div>
+            <div class="form-group">
+              <label>Berkas Pendukung Lainnya</label><br>
               <a href='{{  url('public/file_rincian_dupak', $transaksi->berkas) }}' class="btn btn-warning" target="_blank">Berkas</a>
             </div>
 

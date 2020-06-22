@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Dokumenkeg;
+use App\Masteracara;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
-use App\Masteracara;
+use File; 
 
 class DokumenkegController extends Controller
 {
@@ -175,6 +176,10 @@ class DokumenkegController extends Controller
      */
     public function destroy($id)
     {
+        $filepath = Dokumenkeg::where('id',$id)->first();
+        //dd($filepath);
+        File::delete('public/dok_spmt_stmt_dupak/'.$filepath->stmt_berkas);
+        File::delete('public/dok_spmt_stmt_dupak/'.$filepath->spmt_berkas);
         Dokumenkeg::destroy($id);
         return redirect()->route('dokumenkeg.index')->with('success','STMT SPMT deleted successfully');
     }
