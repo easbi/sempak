@@ -221,10 +221,10 @@ class PenilaiController extends Controller
             ->whereBetween('tgl_selesai', [date($x->p_awal), date($x->p_akhir)])
             ->select('id_user', 'master_pegawai.nama',
                 DB::raw('count(*) as total_kegiatan'), 
-                DB::raw('sum(status2 = 2) setuju'),
-                DB::raw('sum(status2 = 1) proses'),
-                DB::raw('sum(status2 = 3) tolak'),
-                DB::raw('sum(status2 = 4) pending'))           
+                DB::raw('sum(status1 = 2) setuju'),
+                DB::raw('sum(status1 = 1) proses'),
+                DB::raw('sum(status1 = 3) tolak'),
+                DB::raw('sum(status1 = 4) pending'))           
             ->groupBy('master_pegawai.nama')
             ->get();
             $pen1->push($ppd);
