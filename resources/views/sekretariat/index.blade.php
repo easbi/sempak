@@ -42,15 +42,16 @@
             <tbody>
               <?php 
                 $no = 1;
-                $a = ($plotpenilais);
+                $a = $plotpenilais;
                 $length = count($a); 
+                $b = $pen1c;
               ?>        
               @for ($i = 0; $i < $length; $i++)
               <tr>
                 <td>{{ $no++ }}</td>
                 <td>{{ $a[$i][0]->nama }}</td>
                 <td>{{ $a[$i][0]->total_kegiatan }}</td>
-                <td></td>
+                <td>{{ $b[$i]->user_penilai1 }}</td>
                 <td> 
                   @if ($a[$i][0]->setuju1 == NULL and $a[$i][0]->setuju1 = 0)
                     <span class="float-right badge bg-danger">0 </span>
@@ -67,7 +68,7 @@
                     <span class="float-right badge bg-danger">{{ $a[$i][0]->total_kegiatan - $a[$i][0]->setuju1 - $a[$i][0]->tolak1 - $a[$i][0]->pending1}}</span>
                   @endif
                 </td>
-                <td></td>
+                <td>{{ $b[$i]->user_penilai2 }}</td>
                 <td>
                   @if ($a[$i][0]->setuju2 == NULL and $a[$i][0]->setuju2 = 0)
                     <span class="float-right badge">0 </span>
