@@ -74,10 +74,12 @@ class SekretariatController extends Controller
             $plotpenilais->push(json_decode($ppd));
          }
          $plotpenilais = $plotpenilais->toArray();
+         $pen1c =$pen1c->toArray();
+         // dd($pen1c);
           // $plotpenilais = json_encode($plotpenilais);
          // dd($plotpenilais);
          // dd($plotpenilais[0][0]->id_user);
-        return view('sekretariat.index', compact('plotpenilais'));
+        return view('sekretariat.index', compact('plotpenilais', 'pen1c'));
     }
 
     public function rekap1()
