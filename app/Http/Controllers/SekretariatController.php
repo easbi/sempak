@@ -26,24 +26,57 @@ class SekretariatController extends Controller
      */
     public function index()
     {
-        $plotpenilais = DB::table('plot_penilai_dupak')
-        ->join('transaksi', 'plot_penilai_dupak.id_user_dinilai', '=', 'transaksi.id_user')
+        // $plotpenilais = DB::table('plot_penilai_dupak')
+        // ->join('transaksi', 'plot_penilai_dupak.id_user_dinilai', '=', 'transaksi.id_user')
+        // ->join('master_pegawai AS A', 'A.id', 'plot_penilai_dupak.id_user_dinilai')
+        // ->join('master_pegawai AS B', 'B.id', 'plot_penilai_dupak.id_user_penilai_1')
+        // ->join('master_pegawai AS C', 'C.id', 'plot_penilai_dupak.id_user_penilai_2')
+        // ->whereBetween('transaksi.tgl_selesai', ['2019-01-01', '2019-12-31'])
+        // ->select('transaksi.id_user', 'A.nama as user_dinilai', 'B.nama as user_penilai1', 'C.nama as user_penilai2',
+        //     DB::raw('count(*) as total_kegiatan'), 
+        //     DB::raw('sum(status1 = 2) setuju1'),
+        //     DB::raw('sum(status1 = 1) proses1'),
+        //     DB::raw('sum(status1 = 3) tolak1'),
+        //     DB::raw('sum(status1 = 4) pending1'),
+        //     DB::raw('sum(status2 = 2) setuju2'),
+        //     DB::raw('sum(status2 = 1) proses2'),
+        //     DB::raw('sum(status2 = 3) tolak2'),
+        //     DB::raw('sum(status2 = 4) pending2'))           
+        // ->groupBy('transaksi.id_user')
+        // ->get();   ->join('master_pegawai', 'transaksi.id_user', '=', 'master_pegawai.id')
+
+        
+        $pen1c = DB::table ('plot_penilai_dupak')
         ->join('master_pegawai AS A', 'A.id', 'plot_penilai_dupak.id_user_dinilai')
         ->join('master_pegawai AS B', 'B.id', 'plot_penilai_dupak.id_user_penilai_1')
         ->join('master_pegawai AS C', 'C.id', 'plot_penilai_dupak.id_user_penilai_2')
-        ->whereBetween('transaksi.tgl_selesai', ['2019-01-01', '2019-12-31'])
-        ->select('transaksi.id_user', 'A.nama as user_dinilai', 'B.nama as user_penilai1', 'C.nama as user_penilai2',
-            DB::raw('count(*) as total_kegiatan'), 
-            DB::raw('sum(status1 = 2) setuju1'),
-            DB::raw('sum(status1 = 1) proses1'),
-            DB::raw('sum(status1 = 3) tolak1'),
-            DB::raw('sum(status1 = 4) pending1'),
-            DB::raw('sum(status2 = 2) setuju2'),
-            DB::raw('sum(status2 = 1) proses2'),
-            DB::raw('sum(status2 = 3) tolak2'),
-            DB::raw('sum(status2 = 4) pending2'))           
-        ->groupBy('transaksi.id_user')
+        ->select('plot_penilai_dupak.*', 'A.nama as user_dinilai', 'B.nama as user_penilai1', 'C.nama as user_penilai2')
         ->get();
+        // dd($pen1c);
+
+        $plotpenilais=collect();
+        foreach ($pen1c as $x) {
+            $ppd = DB::table('transaksi')->where('id_user', $x->id_user_dinilai)
+            ->whereBetween('tgl_selesai', [date($x->p_awal), date($x->p_akhir)])          
+            ->join('master_pegawai', 'transaksi.id_user', '=', 'master_pegawai.id') 
+            ->select('transaksi.id_user', 'master_pegawai.nama',
+                DB::raw('count(*) as total_kegiatan'), 
+                DB::raw('sum(status1 = 2) setuju1'),
+                DB::raw('sum(status1 = 1) proses1'),
+                DB::raw('sum(status1 = 3) tolak1'),
+                DB::raw('sum(status1 = 4) pending1'),
+                DB::raw('sum(status2 = 2) setuju2'),
+                DB::raw('sum(status2 = 1) proses2'),
+                DB::raw('sum(status2 = 3) tolak2'),
+                DB::raw('sum(status2 = 4) pending2'))           
+            ->groupBy('master_pegawai.nama')
+            ->get();
+            $plotpenilais->push(json_decode($ppd));
+         }
+         $plotpenilais = $plotpenilais->toArray();
+          // $plotpenilais = json_encode($plotpenilais);
+         // dd($plotpenilais);
+         // dd($plotpenilais[0][0]->id_user);
         return view('sekretariat.index', compact('plotpenilais'));
     }
 

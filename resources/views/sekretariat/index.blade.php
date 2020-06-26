@@ -40,48 +40,53 @@
               </tr>
             </thead>
             <tbody>
-              <?php $no = 1; ?>
-              @foreach($plotpenilais as $p)
+              <?php 
+                $no = 1;
+                $a = ($plotpenilais);
+                $length = count($a); 
+              ?>        
+              @for ($i = 0; $i < $length; $i++)
               <tr>
                 <td>{{ $no++ }}</td>
-                <td>{{ $p->user_dinilai }}</td>
-                <td>{{ $p->total_kegiatan }}</td>
-                <td>{{ $p->user_penilai1 }}</td>
+                <td>{{ $a[$i][0]->id_user }}</td>
+                <td>{{ $a[$i][0]->total_kegiatan }}</td>
+                <td></td>
                 <td> 
-                  @if ($p->setuju1 == NULL and $p->setuju1 = 0)
+                  @if ($a[$i][0]->setuju1 == NULL and $a[$i][0]->setuju1 = 0)
                     <span class="float-right badge bg-danger">0 </span>
                   @else
-                    <span class="float-right badge bg-success">{{ $p->setuju1 }}</span>
+                    <span class="float-right badge bg-success">{{ $a[$i][0]->setuju1 }}</span>
                   @endif
                 </td>
-                <td>{{ $p->tolak1 == NULL ? 0 : $p->tolak1}}</td>
-                <td>{{ $p->pending1 == NULL ? 0 : $p->pending1}}</td>
+                <td>{{ $a[$i][0]->tolak1 == NULL ? 0 : $a[$i][0]->tolak1}}</td>
+                <td>{{ $a[$i][0]->pending1 == NULL ? 0 : $a[$i][0]->pending1}}</td>
                 <td>                   
-                  @if ($p->total_kegiatan - $p->setuju1 - $p->tolak1 == 0)
+                  @if ($a[$i][0]->total_kegiatan - $a[$i][0]->setuju1 - $a[$i][0]->tolak1 == 0)
                     <span class="float-right badge bg-danger">0 </span>
                   @else
-                    <span class="float-right badge bg-danger">{{ $p->total_kegiatan - $p->setuju1 - $p->tolak1 - $p->pending1}}</span>
+                    <span class="float-right badge bg-danger">{{ $a[$i][0]->total_kegiatan - $a[$i][0]->setuju1 - $a[$i][0]->tolak1 - $a[$i][0]->pending1}}</span>
                   @endif
                 </td>
-                <td>{{ $p->user_penilai2 == NULL ? 0 : $p->user_penilai2}}</td>
+                <td></td>
                 <td>
-                  @if ($p->setuju2 == NULL and $p->setuju2 = 0)
+                  @if ($a[$i][0]->setuju2 == NULL and $a[$i][0]->setuju2 = 0)
                     <span class="float-right badge">0 </span>
                   @else
-                    <span class="float-right badge bg-success">{{ $p->setuju2 }}</span>
+                    <span class="float-right badge bg-success">{{ $a[$i][0]->setuju2 }}</span>
                   @endif
                 </td>
-                <td>{{ $p->tolak2 == NULL ? 0 : $p->tolak2}}</td>
-                <td>{{ $p->pending2 == NULL ? 0 : $p->pending2 }}</td>
+                <td>{{ $a[$i][0]->tolak2 == NULL ? 0 : $a[$i][0]->tolak2}}</td>
+                <td>{{ $a[$i][0]->pending2 == NULL ? 0 : $a[$i][0]->pending2 }}</td>
                 <td>                   
-                  @if ($p->total_kegiatan - $p->setuju2 - $p->tolak2 == 0)
+                  @if ($a[$i][0]->total_kegiatan - $a[$i][0]->setuju2 - $a[$i][0]->tolak2 == 0)
                     <span class="float-right badge bg-danger">0 </span>
                   @else
-                    <span class="float-right badge bg-danger">{{ $p->total_kegiatan - $p->setuju2- $p->tolak2 - $p->pending2 }}</span>
+                    <span class="float-right badge bg-danger">{{ $a[$i][0]->total_kegiatan - $a[$i][0]->setuju2- $a[$i][0]->tolak2 - $a[$i][0]->pending2 }}</span>
                   @endif
                 </td>
-              </tr>
-              @endforeach
+              </tr>                  
+              @endfor
+              
             </tbody>
           </table>
         </div>
