@@ -48,7 +48,7 @@
               @for ($i = 0; $i < $length; $i++)
               <tr>
                 <td>{{ $no++ }}</td>
-                <td>{{ $a[$i][0]->id_user }}</td>
+                <td>{{ $a[$i][0]->nama }}</td>
                 <td>{{ $a[$i][0]->total_kegiatan }}</td>
                 <td></td>
                 <td> 
