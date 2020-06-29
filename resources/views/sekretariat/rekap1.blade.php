@@ -34,38 +34,42 @@
               </tr>
             </thead>
             <tbody>
-              <?php $no = 1; ?>
-              @foreach($rekap1 as $p)
+              <?php 
+                $no = 1;
+                $a = $rekap1;
+                $length = count($a); 
+              ?>
+              @for ($i = 0; $i < $length; $i++)
               <tr>
                 <td>{{ $no++ }}</td>
-                <td>{{ $p->user_dinilai }}</td>                
-                <td>{{ $p->total_kegiatan }}</td>
+                <td>{{ $a[$i][0]->nama }}</td>                
+                <td>{{ $a[$i][0]->total_kegiatan }}</td>
                 <td>
-                  @if ($p->total_ak_usul == NULL AND $p->total_ak_usul == 0)
+                  @if ($a[$i][0]->total_ak_usul == NULL AND $a[$i][0]->total_ak_usul == 0)
                     Belum dinilai
                   @else
-                    {{ $p->total_ak_usul }}
+                    {{ $a[$i][0]->total_ak_usul }}
                   @endif
                 </td>
                 <td>
-                  @if ($p->total_ak_1 == NULL AND $p->total_ak_1 == 0)
+                  @if ($a[$i][0]->total_ak_1 == NULL AND $a[$i][0]->total_ak_1 == 0)
                     <i>Belum dinilai</i>
                   @else
-                    {{ $p->total_ak_1 }}
+                    {{ $a[$i][0]->total_ak_1 }}
                   @endif
                 </td>
                 <td>
-                  @if ($p->total_ak_2 == NULL AND $p->total_ak_2 == 0)
+                  @if ($a[$i][0]->total_ak_2 == NULL AND $a[$i][0]->total_ak_2 == 0)
                     <i>Belum dinilai</i>
                   @else
-                    {{ $p->total_ak_2 }}
+                    {{ $a[$i][0]->total_ak_2 }}
                   @endif
                 </td>
                 <td>
-                  <a href="{{ action('SekretariatController@rekap2',$p->id_user) }}" class="nav-link"><span class="badge bg-danger">Lihat</span></a>
+                  <a href="{{ action('SekretariatController@rekap2',$a[$i][0]->id_user) }}" class="nav-link"><span class="badge bg-danger">Lihat</span></a>
                 </td>
               </tr>
-              @endforeach
+              @endfor
             </tbody>
           </table>
         </div>
