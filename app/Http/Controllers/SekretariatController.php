@@ -84,19 +84,43 @@ class SekretariatController extends Controller
 
     public function rekap1()
     {
-        $rekap1 = DB::table('plot_penilai_dupak')
-        ->join('transaksi', 'plot_penilai_dupak.id_user_dinilai', '=', 'transaksi.id_user')        
+        // $rekap1 = DB::table('plot_penilai_dupak')
+        // ->join('transaksi', 'plot_penilai_dupak.id_user_dinilai', '=', 'transaksi.id_user')        
+        // ->join('master_pegawai AS A', 'A.id', 'plot_penilai_dupak.id_user_dinilai')
+        // ->whereBetween('transaksi.tgl_selesai', ['2019-01-01', '2019-12-31'])
+        // ->select('transaksi.id_user', 'A.nama as user_dinilai',
+        //     DB::raw('count(*) as total_kegiatan'), 
+        //     DB::raw('sum(angka_kredit_usul) total_ak_usul'),
+        //     DB::raw('SUM((CASE WHEN status1 = 2 THEN angka_kredit1 END)) AS total_ak_1'),
+        //     DB::raw('SUM((CASE WHEN status2 = 2 THEN angka_kredit2 END)) AS total_ak_2'))      
+        // ->groupBy('transaksi.id_user')
+        // ->get();
+        $pen1c = DB::table ('plot_penilai_dupak')
         ->join('master_pegawai AS A', 'A.id', 'plot_penilai_dupak.id_user_dinilai')
-        ->whereBetween('transaksi.tgl_selesai', ['2019-01-01', '2019-12-31'])
-        ->select('transaksi.id_user', 'A.nama as user_dinilai',
-            DB::raw('count(*) as total_kegiatan'), 
-            DB::raw('sum(angka_kredit_usul) total_ak_usul'),
-            DB::raw('SUM((CASE WHEN status1 = 2 THEN angka_kredit1 END)) AS total_ak_1'),
-            DB::raw('SUM((CASE WHEN status2 = 2 THEN angka_kredit2 END)) AS total_ak_2'))      
-        ->groupBy('transaksi.id_user')
+        ->join('master_pegawai AS B', 'B.id', 'plot_penilai_dupak.id_user_penilai_1')
+        ->join('master_pegawai AS C', 'C.id', 'plot_penilai_dupak.id_user_penilai_2')
+        ->select('plot_penilai_dupak.*', 'A.nama as user_dinilai', 'B.nama as user_penilai1', 'C.nama as user_penilai2')
         ->get();
+        // dd($pen1c);
 
-        return view('sekretariat.rekap1', compact('rekap1'));
+        $rekap1=collect();
+        foreach ($pen1c as $x) {
+            $ppd = DB::table('transaksi')->where('id_user', $x->id_user_dinilai)
+            ->whereBetween('tgl_selesai', [date($x->p_awal), date($x->p_akhir)])          
+            ->join('master_pegawai', 'transaksi.id_user', '=', 'master_pegawai.id') 
+            ->select('transaksi.id_user', 'master_pegawai.nama',
+                DB::raw('count(*) as total_kegiatan'), 
+                DB::raw('sum(angka_kredit_usul) total_ak_usul'),
+                DB::raw('SUM((CASE WHEN status1 = 2 THEN angka_kredit1 END)) AS total_ak_1'),
+                DB::raw('SUM((CASE WHEN status2 = 2 THEN angka_kredit2 END)) AS total_ak_2'))          
+            ->groupBy('master_pegawai.nama')
+            ->get();
+            $rekap1->push(json_decode($ppd));
+         }
+         $rekap1 = $rekap1->toArray();
+         $pen1c =$pen1c->toArray();
+         // dd($rekap1);
+        return view('sekretariat.rekap1', compact('rekap1', 'pen1c'));
     }
 
     public function rekap2($id_user)
