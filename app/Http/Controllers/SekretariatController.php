@@ -25,27 +25,7 @@ class SekretariatController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        // $plotpenilais = DB::table('plot_penilai_dupak')
-        // ->join('transaksi', 'plot_penilai_dupak.id_user_dinilai', '=', 'transaksi.id_user')
-        // ->join('master_pegawai AS A', 'A.id', 'plot_penilai_dupak.id_user_dinilai')
-        // ->join('master_pegawai AS B', 'B.id', 'plot_penilai_dupak.id_user_penilai_1')
-        // ->join('master_pegawai AS C', 'C.id', 'plot_penilai_dupak.id_user_penilai_2')
-        // ->whereBetween('transaksi.tgl_selesai', ['2019-01-01', '2019-12-31'])
-        // ->select('transaksi.id_user', 'A.nama as user_dinilai', 'B.nama as user_penilai1', 'C.nama as user_penilai2',
-        //     DB::raw('count(*) as total_kegiatan'), 
-        //     DB::raw('sum(status1 = 2) setuju1'),
-        //     DB::raw('sum(status1 = 1) proses1'),
-        //     DB::raw('sum(status1 = 3) tolak1'),
-        //     DB::raw('sum(status1 = 4) pending1'),
-        //     DB::raw('sum(status2 = 2) setuju2'),
-        //     DB::raw('sum(status2 = 1) proses2'),
-        //     DB::raw('sum(status2 = 3) tolak2'),
-        //     DB::raw('sum(status2 = 4) pending2'))           
-        // ->groupBy('transaksi.id_user')
-        // ->get();   ->join('master_pegawai', 'transaksi.id_user', '=', 'master_pegawai.id')
-
-        
+    {        
         $pen1c = DB::table ('plot_penilai_dupak')
         ->join('master_pegawai AS A', 'A.id', 'plot_penilai_dupak.id_user_dinilai')
         ->join('master_pegawai AS B', 'B.id', 'plot_penilai_dupak.id_user_penilai_1')
@@ -84,24 +64,12 @@ class SekretariatController extends Controller
 
     public function rekap1()
     {
-        // $rekap1 = DB::table('plot_penilai_dupak')
-        // ->join('transaksi', 'plot_penilai_dupak.id_user_dinilai', '=', 'transaksi.id_user')        
-        // ->join('master_pegawai AS A', 'A.id', 'plot_penilai_dupak.id_user_dinilai')
-        // ->whereBetween('transaksi.tgl_selesai', ['2019-01-01', '2019-12-31'])
-        // ->select('transaksi.id_user', 'A.nama as user_dinilai',
-        //     DB::raw('count(*) as total_kegiatan'), 
-        //     DB::raw('sum(angka_kredit_usul) total_ak_usul'),
-        //     DB::raw('SUM((CASE WHEN status1 = 2 THEN angka_kredit1 END)) AS total_ak_1'),
-        //     DB::raw('SUM((CASE WHEN status2 = 2 THEN angka_kredit2 END)) AS total_ak_2'))      
-        // ->groupBy('transaksi.id_user')
-        // ->get();
         $pen1c = DB::table ('plot_penilai_dupak')
         ->join('master_pegawai AS A', 'A.id', 'plot_penilai_dupak.id_user_dinilai')
         ->join('master_pegawai AS B', 'B.id', 'plot_penilai_dupak.id_user_penilai_1')
         ->join('master_pegawai AS C', 'C.id', 'plot_penilai_dupak.id_user_penilai_2')
         ->select('plot_penilai_dupak.*', 'A.nama as user_dinilai', 'B.nama as user_penilai1', 'C.nama as user_penilai2')
         ->get();
-        // dd($pen1c);
 
         $rekap1=collect();
         foreach ($pen1c as $x) {
@@ -118,9 +86,8 @@ class SekretariatController extends Controller
             $rekap1->push(json_decode($ppd));
          }
          $rekap1 = $rekap1->toArray();
-         $pen1c =$pen1c->toArray();
-         // dd($rekap1);
-        return view('sekretariat.rekap1', compact('rekap1', 'pen1c'));
+         
+        return view('sekretariat.rekap1', compact('rekap1'));
     }
 
     public function rekap2($id_user)
@@ -129,12 +96,17 @@ class SekretariatController extends Controller
         $nama = DB::table('master_pegawai')->where('id', $id_user)->select('nama')->first();
         $jabatan = DB::table('master_pegawai')->where('id', $id_user)->select('jabatan')->first();
         $unsurutamas = DB::table('master_unsur_utama')->select('id','unsur_utama')->get();
+        $between1 = DB::table('plot_penilai_dupak')->where('id_user_dinilai', $id_user)->select('p_awal')->first();
+        $between1 = $between1->p_awal;
+        $between2 = DB::table('plot_penilai_dupak')->where('id_user_dinilai', $id_user)->select('p_akhir')->first();
+        $between2 = $between2->p_akhir;
+
         foreach($unsurutamas as $uu) {
             $subunsurs = DB::table('master_subunsurs')->select('id_sub_unsur','kegiatan_sub_unsur')->where('id_unsur',$uu->id)->get();
             $temp_su = array();
             foreach($subunsurs as $su) {
                 $kegiatans = DB::table('master_rincian_kegiatan')
-                ->leftJoin('transaksi','master_rincian_kegiatan.id_rincian_kegiatan','=',DB::raw('transaksi.id_rincian_kegiatan AND transaksi.id_user='.$id_user.' AND transaksi.tgl_selesai BETWEEN cast("2019-01-01" as date) AND cast("2019-12-31" as date)'))
+                ->leftJoin('transaksi','master_rincian_kegiatan.id_rincian_kegiatan','=',DB::raw('transaksi.id_rincian_kegiatan AND transaksi.id_user='.$id_user.' AND transaksi.tgl_selesai BETWEEN cast("'.$between1.'" as date) AND cast("'.$between2.'" as date)'))
                 ->join('master_rincian_angka_kredit','master_rincian_kegiatan.id_rincian_kegiatan','=',DB::raw('master_rincian_angka_kredit.id_rincian_kegiatan AND master_rincian_angka_kredit.id_tingkatan_wi='.$jabatan->jabatan))
                 ->select('master_rincian_angka_kredit.kk','rincian_kegiatan',DB::raw('COUNT(transaksi.id_transaksi) as jumlah_kegiatan'),
                     DB::raw('SUM(transaksi.angka_kredit_usul) as angka_kredit'),
@@ -147,11 +119,12 @@ class SekretariatController extends Controller
                 ->get();
                 $temp_keg = array('id_su' => $su->id_sub_unsur, 'su' => $su->kegiatan_sub_unsur, 'kegiatans' => json_decode(json_encode($kegiatans), true));
                 array_push($temp_su, $temp_keg);
-        }
+            }
+
             $temp_uu = array('id_uu' => $uu->id, 'unsur' => $uu->unsur_utama, 'sub_unsurs' => $temp_su);
             array_push($result, $temp_uu);
         }
-        //dd($result);
+        // dd($result);
         return view('sekretariat.rekap2', compact('result', 'nama'));
     }
 
@@ -163,6 +136,8 @@ class SekretariatController extends Controller
             ->join('master_jabatan', 'master_pegawai.jabatan', '=', 'master_jabatan.id')
             ->select(
                 'plot_penilai_dupak.id_user_dinilai',
+                'plot_penilai_dupak.p_awal',
+                'plot_penilai_dupak.p_akhir',
                 'master_pegawai.nama',
                 'master_pegawai.nip',
                 'master_jabatan.nama_jabatan AS jabatan'
@@ -174,8 +149,8 @@ class SekretariatController extends Controller
             ->leftJoin('transaksi', function($join) use($ud) {
                     $join->on('master_unsur_utama.id', '=', 'transaksi.id_unsur_utama')                    
                         ->where('transaksi.id_user', '=', $ud->id_user_dinilai);
-                    $join->on('tgl_selesai','>=',DB::raw("'2019-01-01'"));
-                    $join->on('tgl_selesai','<=',DB::raw("'2019-12-31'"));
+                    $join->on('tgl_selesai','>=',DB::raw(".$ud->p_awal."));
+                    $join->on('tgl_selesai','<=',DB::raw(".$ud->p_akhir."));
                 })
             ->select('transaksi.id_unsur_utama',
                     'master_unsur_utama.unsur_utama',
@@ -214,7 +189,7 @@ class SekretariatController extends Controller
                 'kegiatans' => json_decode(json_encode($unsurutama), true));
             array_push($temp_su, $temp_keg);
         }
-        //dd($temp_su);
+        dd($temp_su);
         return view('sekretariat.bapak', compact('temp_su'));
     }
 
@@ -347,6 +322,25 @@ class SekretariatController extends Controller
 
     public function rekap3()
     {
+        $x = DB::table ('plot_penilai_dupak')->get();
+        // create array temporary rekap
+        $rekap=collect();
+        foreach ($x as $x) {
+            $ppd = DB::table('transaksi')->where('id_user', $x->id_user_dinilai)
+            ->where('status1', '=', 4)
+            ->orWhere('status2', '=', 4)
+            ->whereBetween('tgl_selesai', [date($x->p_awal), date($x->p_akhir)])            
+            ->join('master_pegawai', 'transaksi.id_user', '=', 'master_pegawai.id')
+            ->join('master_pegawai AS A', 'A.id', 'id_user') 
+            ->join('master_pegawai AS B', 'B.id', 'id_penilai1')
+            ->join('master_pegawai AS C', 'C.id', 'id_penilai2')     
+            ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=','master_rincian_kegiatan.id_rincian_kegiatan')
+            ->select('transaksi.id_transaksi','transaksi.id_user', 'master_pegawai.nama', 'transaksi.status1', 'transaksi.status2', 'master_rincian_kegiatan.rincian_kegiatan', 'transaksi.keterangan', 'transaksi.ket_status1', 'transaksi.ket_status2')          
+            ->groupBy('master_pegawai.nama')
+            ->get();
+            $rekap->push($ppd);
+         }
+        dd($rekap);
         $rekap3 = DB::table('plot_penilai_dupak')
         ->join('transaksi', 'plot_penilai_dupak.id_user_dinilai', '=', 'transaksi.id_user')        
         ->join('master_pegawai AS A', 'A.id', 'plot_penilai_dupak.id_user_dinilai') 
@@ -358,7 +352,7 @@ class SekretariatController extends Controller
         ->orWhere('transaksi.status2', '=', '4')
         ->select('transaksi.id_transaksi','transaksi.id_user', 'A.nama as user_dinilai', 'transaksi.status1', 'transaksi.status2', 'master_rincian_kegiatan.rincian_kegiatan', 'transaksi.keterangan', 'B.nama as penilai1', 'transaksi.ket_status1', 'C.nama as penilai2', 'transaksi.ket_status2')
         ->get();
-        //dd($rekap3);
+        
         return view('sekretariat.rekap3', compact('rekap3'));
     }
 
