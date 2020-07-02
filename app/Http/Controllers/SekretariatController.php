@@ -350,24 +350,24 @@ class SekretariatController extends Controller
             ->get();
             // dd( date($x->p_awal));
 
-            dd($rekap3);
+            
             $rekap->push($rekap3);
          }
+         $rekap = $rekap->unique();
          dd($rekap);
-         // $rekap = $rekap->unique();
         
-        $rekap3 = DB::table('plot_penilai_dupak')
-        ->join('transaksi', 'plot_penilai_dupak.id_user_dinilai', '=', 'transaksi.id_user')        
-        ->join('master_pegawai AS A', 'A.id', 'plot_penilai_dupak.id_user_dinilai') 
-        ->join('master_pegawai AS B', 'B.id', 'plot_penilai_dupak.id_user_penilai_1')
-        ->join('master_pegawai AS C', 'C.id', 'plot_penilai_dupak.id_user_penilai_2')       
-        ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=','master_rincian_kegiatan.id_rincian_kegiatan')
-        ->whereBetween('transaksi.tgl_selesai',  [date($x->p_awal), date($x->p_akhir)])
-        ->where('transaksi.status1', '=', 4)
-        ->orWhere('transaksi.status2', '=', 4)
-        ->select('transaksi.id_transaksi','transaksi.id_user', 'A.nama as user_dinilai', 'transaksi.status1', 'transaksi.status2', 'master_rincian_kegiatan.rincian_kegiatan', 'transaksi.keterangan', 'B.nama as penilai1', 'transaksi.ket_status1', 'C.nama as penilai2', 'transaksi.ket_status2')
-        ->get();
-        dd($rekap3);
+        // $rekap3 = DB::table('plot_penilai_dupak')
+        // ->join('transaksi', 'plot_penilai_dupak.id_user_dinilai', '=', 'transaksi.id_user')        
+        // ->join('master_pegawai AS A', 'A.id', 'plot_penilai_dupak.id_user_dinilai') 
+        // ->join('master_pegawai AS B', 'B.id', 'plot_penilai_dupak.id_user_penilai_1')
+        // ->join('master_pegawai AS C', 'C.id', 'plot_penilai_dupak.id_user_penilai_2')       
+        // ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=','master_rincian_kegiatan.id_rincian_kegiatan')
+        // ->whereBetween('transaksi.tgl_selesai',  [date($x->p_awal), date($x->p_akhir)])
+        // ->where('transaksi.status1', '=', 4)
+        // ->orWhere('transaksi.status2', '=', 4)
+        // ->select('transaksi.id_transaksi','transaksi.id_user', 'A.nama as user_dinilai', 'transaksi.status1', 'transaksi.status2', 'master_rincian_kegiatan.rincian_kegiatan', 'transaksi.keterangan', 'B.nama as penilai1', 'transaksi.ket_status1', 'C.nama as penilai2', 'transaksi.ket_status2')
+        // ->get();
+        // dd($rekap3);
         return view('sekretariat.rekap3', compact('rekap3'));
     }
 
