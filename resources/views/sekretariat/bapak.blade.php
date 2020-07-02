@@ -179,12 +179,19 @@
       "scrollX": true,
       dom: 'Bfrtip',
       buttons: [{
-        className: "btn-primary",
-        text: 'Ekspor Excel',
-        action: function ( e, dt, button, config ) {
-          window.location = 'eksporbapak';
-        }   
-    }]
+                    extend: 'excel',
+                    title: 'BAPAK',
+                    init: function (api, node, config) {
+                        $(node).removeClass('btn btn-secondary buttons-excel buttons-html5')
+                    },
+                    customizeData: function (data) {
+                        for (var i = 0; i < data.body.length; i++) {
+                            for (var j = 0; j < data.body[i].length; j++) {
+                                data.body[i][11] = '\u200C' + data.body[i][11];
+                            }
+                        }
+                    }
+                }],
     });
   } );
 </script>
