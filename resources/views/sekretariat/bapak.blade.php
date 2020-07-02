@@ -175,6 +175,7 @@
 <script type="text/javascript">
   $(document).ready(function() {
     $('#example').DataTable({
+      "ordering": false,
       "scrollX": true,
       dom: 'Bfrtip',
       buttons: [{
