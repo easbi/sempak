@@ -145,13 +145,11 @@ class SekretariatController extends Controller
             ->get();
         $temp_su = array();
         foreach ($nama2 as $ud) {
+            // dd($ud);
             $unsurutama = DB::table('master_unsur_utama')
-            ->leftJoin('transaksi', function($join) use($ud) {
-                    $join->on('master_unsur_utama.id', '=', 'transaksi.id_unsur_utama')                    
-                        ->where('transaksi.id_user', '=', $ud->id_user_dinilai);
-                    $join->on('tgl_selesai','>=',DB::raw(".$ud->p_awal."));
-                    $join->on('tgl_selesai','<=',DB::raw(".$ud->p_akhir."));
-                })
+            ->join('transaksi', 'transaksi.id_unsur_utama', 'master_unsur_utama.id')
+            ->where('transaksi.id_user', '=', $ud->id_user_dinilai)
+            ->whereBetween('transaksi.tgl_selesai', [date($ud->p_awal), date($ud->p_akhir)])            
             ->select('transaksi.id_unsur_utama',
                     'master_unsur_utama.unsur_utama',
                     'master_unsur_utama.kode',
@@ -161,7 +159,7 @@ class SekretariatController extends Controller
                     DB::raw('SUM((CASE WHEN transaksi.status2 = 2 THEN transaksi.angka_kredit2 END)) AS ak2'))
             ->groupBy('master_unsur_utama.id')
             ->get();
-
+            // dd($unsurutama);
             $t_akusul = 0;
             $t_ak1 = 0;
             $t_ak2 = 0;
@@ -189,7 +187,7 @@ class SekretariatController extends Controller
                 'kegiatans' => json_decode(json_encode($unsurutama), true));
             array_push($temp_su, $temp_keg);
         }
-        dd($temp_su);
+        // dd($temp_su);
         return view('sekretariat.bapak', compact('temp_su'));
     }
 
@@ -322,37 +320,54 @@ class SekretariatController extends Controller
 
     public function rekap3()
     {
-        $x = DB::table ('plot_penilai_dupak')->get();
+        $plot = DB::table ('plot_penilai_dupak')->get();
         // create array temporary rekap
+        // dd($plot);
         $rekap=collect();
-        foreach ($x as $x) {
-            $ppd = DB::table('transaksi')->where('id_user', $x->id_user_dinilai)
-            ->where('status1', '=', 4)
-            ->orWhere('status2', '=', 4)
-            ->whereBetween('tgl_selesai', [date($x->p_awal), date($x->p_akhir)])            
-            ->join('master_pegawai', 'transaksi.id_user', '=', 'master_pegawai.id')
-            ->join('master_pegawai AS A', 'A.id', 'id_user') 
-            ->join('master_pegawai AS B', 'B.id', 'id_penilai1')
-            ->join('master_pegawai AS C', 'C.id', 'id_penilai2')     
+        foreach ($plot as $x) {
+
+
+            // $ppd = DB::table('transaksi')->where('transaksi.id_user', $x->id_user_dinilai)
+            // ->join('master_pegawai AS A', 'A.id', 'transaksi.id_user')
+            // ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=','master_rincian_kegiatan.id_rincian_kegiatan')
+            // ->where('transaksi.status1', '=', 4)
+            // ->orWhere('transaksi.status2', '=', 4)
+            // ->whereBetween('transaksi.tgl_selesai', [date($x->p_awal), date($x->p_akhir)])
+            // ->select('transaksi.id_transaksi','transaksi.id_user', 'A.nama as ternilai', 'transaksi.status1', 'transaksi.status2', 'master_rincian_kegiatan.rincian_kegiatan', 'transaksi.keterangan', 'transaksi.ket_status1', 'transaksi.ket_status2')
+            // ->get();
+            // $rekap->push($ppd);
+
+            $rekap3 = DB::table('plot_penilai_dupak')
+            ->join('transaksi', 'plot_penilai_dupak.id_user_dinilai', '=', 'transaksi.id_user')        
+            ->where('transaksi.status1', '=', 4)
+            ->orWhere('transaksi.status2', '=', 4)
+            ->join('master_pegawai', 'master_pegawai.id', 'plot_penilai_dupak.id_user_dinilai')      
             ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=','master_rincian_kegiatan.id_rincian_kegiatan')
-            ->select('transaksi.id_transaksi','transaksi.id_user', 'master_pegawai.nama', 'transaksi.status1', 'transaksi.status2', 'master_rincian_kegiatan.rincian_kegiatan', 'transaksi.keterangan', 'transaksi.ket_status1', 'transaksi.ket_status2')          
-            ->groupBy('master_pegawai.nama')
+            ->whereBetween('transaksi.tgl_selesai',  [date($x->p_awal), date($x->p_akhir)])
+            // ->where('transaksi.status1', '=', 4)
+            // ->orWhere('transaksi.status2', '=', 4)
+            // ->select('transaksi.id_transaksi','transaksi.id_user', 'master_pegawai.nama', 'transaksi.status1', 'transaksi.status2', 'master_rincian_kegiatan.rincian_kegiatan', 'transaksi.keterangan', 'transaksi.ket_status1', 'transaksi.ket_status2')
             ->get();
-            $rekap->push($ppd);
+            // dd( date($x->p_awal));
+
+            dd($rekap3);
+            $rekap->push($rekap3);
          }
-        dd($rekap);
+         dd($rekap);
+         // $rekap = $rekap->unique();
+        
         $rekap3 = DB::table('plot_penilai_dupak')
         ->join('transaksi', 'plot_penilai_dupak.id_user_dinilai', '=', 'transaksi.id_user')        
         ->join('master_pegawai AS A', 'A.id', 'plot_penilai_dupak.id_user_dinilai') 
         ->join('master_pegawai AS B', 'B.id', 'plot_penilai_dupak.id_user_penilai_1')
         ->join('master_pegawai AS C', 'C.id', 'plot_penilai_dupak.id_user_penilai_2')       
         ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=','master_rincian_kegiatan.id_rincian_kegiatan')
-        ->whereBetween('transaksi.tgl_selesai', ['2019-01-01', '2019-12-31'])
-        ->where('transaksi.status1', '=', '4')
-        ->orWhere('transaksi.status2', '=', '4')
+        ->whereBetween('transaksi.tgl_selesai',  [date($x->p_awal), date($x->p_akhir)])
+        ->where('transaksi.status1', '=', 4)
+        ->orWhere('transaksi.status2', '=', 4)
         ->select('transaksi.id_transaksi','transaksi.id_user', 'A.nama as user_dinilai', 'transaksi.status1', 'transaksi.status2', 'master_rincian_kegiatan.rincian_kegiatan', 'transaksi.keterangan', 'B.nama as penilai1', 'transaksi.ket_status1', 'C.nama as penilai2', 'transaksi.ket_status2')
         ->get();
-        
+        dd($rekap3);
         return view('sekretariat.rekap3', compact('rekap3'));
     }
 
