@@ -39,10 +39,11 @@ class HomeController extends Controller
         } else {
             $arr_periode = array(
                 Transaksi::Periode(($y-1),($m+6)),
-                Transaksi::Periode($y,$m),
-                Transaksi::Periode($y,($m+6)),
+                Transaksi::Periode($y,($m-7)),
+                Transaksi::Periode($y,($m)),
             );
         }
+        // dd($arr_periode);
 
         foreach($arr_periode as $periode){
             $proses_total = DB::table ('transaksi')->where('id_user', Auth::user()->id)->whereBetween('tgl_selesai', [$periode['awal'], [$periode['akhir']]])->count();
