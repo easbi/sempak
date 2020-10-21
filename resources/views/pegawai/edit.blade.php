@@ -28,7 +28,7 @@
                 {{ method_field('PUT') }}
 
                 <div class="form-group">
-                    <label>Namas</label>
+                    <label>Nama</label>
                     <input type="text" name="nama" class="form-control" placeholder="Nama pegawai .." value="{{ $pegawai->nama }}">
 
                     @if($errors->has('nama'))
