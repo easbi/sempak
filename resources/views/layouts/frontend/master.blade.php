@@ -54,7 +54,7 @@
           <span class="badge badge-warning navbar-badge">!</span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">Ada Pemberitahuan</span>
+          <span class="dropdown-item dropdown-header">Ada Pemberitahuan!</span>
           <div class="dropdown-divider"></div>
           @if(Auth::user()->no_seri_karpeg == 'xxx')
             <a href="#" class="dropdown-item">
