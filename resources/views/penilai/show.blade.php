@@ -20,7 +20,7 @@
     <div class="container">
       
       <div class="card">
-        <div class="card-bod">
+        <div class="card-body">
           
             
           <table id="example" class="display">

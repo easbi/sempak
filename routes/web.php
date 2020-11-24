@@ -62,6 +62,7 @@ Route::resource('plotpenilai', 'PlotpenilaiController');
 Route::get('sekretariat/bapak', 'SekretariatController@bapak');
 Route::get('sekretariat/eksporbapak','SekretariatController@eksporbapak');
 Route::get('sekretariat/rekap3', 'SekretariatController@rekap3');
+Route::get('sekretariat/lpdekw/{id_user}', 'SekretariatController@lpdekw');
 Route::get('sekretariat/rekap2/{id_user}', 'SekretariatController@rekap2');
 Route::get('sekretariat/rekap1', 'SekretariatController@rekap1');
 Route::resource('sekretariat', 'SekretariatController');

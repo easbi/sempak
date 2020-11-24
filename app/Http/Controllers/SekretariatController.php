@@ -90,6 +90,20 @@ class SekretariatController extends Controller
         return view('sekretariat.rekap1', compact('rekap1'));
     }
 
+    public function lpdekw($id_user)
+    {
+        $result = array();
+        $nama_nip_ttl = DB::table('master_pegawai')->where('id', $id_user)->first();
+        dd($nama);
+        $jabatan = DB::table('master_pegawai')->where('id', $id_user)->select('jabatan')->first();
+        $unsurutamas = DB::table('master_unsur_utama')->select('id','unsur_utama')->get();
+        dd($nama);
+        $between1 = DB::table('plot_penilai_dupak')->where('id_user_dinilai', $id_user)->select('p_awal')->first();
+        $between1 = $between1->p_awal;
+        $between2 = DB::table('plot_penilai_dupak')->where('id_user_dinilai', $id_user)->select('p_akhir')->first();
+        $between2 = $between2->p_akhir;
+    }
+
     public function rekap2($id_user)
     {
         $result = array();
