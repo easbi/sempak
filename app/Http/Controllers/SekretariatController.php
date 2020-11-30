@@ -93,15 +93,40 @@ class SekretariatController extends Controller
     public function lpdekw($id_user)
     {
         $result = array();
-        $nama_nip_ttl = DB::table('master_pegawai')->where('id', $id_user)->first();
-        dd($nama);
-        $jabatan = DB::table('master_pegawai')->where('id', $id_user)->select('jabatan')->first();
+        $identitas =  DB::table('master_pegawai')->where('master_pegawai.id', $id_user)
+            ->join('master_pendidikan', 'master_pegawai.pendidikan', 'master_pendidikan.id')
+            ->join('master_jabatan','master_pegawai.jabatan', 'master_jabatan.id')
+            ->join('master_pangkat_golongan','master_pegawai.pangkat_golongan', 'master_pangkat_golongan.id')
+            ->select('master_pegawai.nama', 'master_pegawai.jabatan', 'master_pegawai.nip', 'master_pegawai.tempat_lahir', 'master_pegawai.tanggal_lahir', 'master_pendidikan.nama_pendidikan', 'master_jabatan.nama_jabatan', 'master_pangkat_golongan.pangkat', 'master_pangkat_golongan.golongan')
+            ->first();
+        
         $unsurutamas = DB::table('master_unsur_utama')->select('id','unsur_utama')->get();
-        dd($nama);
         $between1 = DB::table('plot_penilai_dupak')->where('id_user_dinilai', $id_user)->select('p_awal')->first();
         $between1 = $between1->p_awal;
         $between2 = DB::table('plot_penilai_dupak')->where('id_user_dinilai', $id_user)->select('p_akhir')->first();
         $between2 = $between2->p_akhir;
+
+        $result = array();
+        foreach($unsurutamas as $uu) {
+            $kegiatans = DB::table('transaksi')
+                ->where('transaksi.id_unsur_utama', $uu->id)
+                ->where('transaksi.id_user', $id_user)
+                ->whereBetween('transaksi.tgl_selesai', [$between1, $between2])
+                ->join('master_rincian_kegiatan', 'transaksi.id_rincian_kegiatan', '=', 'master_rincian_kegiatan.id_rincian_kegiatan')
+                ->join('master_rincian_angka_kredit','transaksi.id_rincian_kegiatan','=',DB::raw('master_rincian_angka_kredit.id_rincian_kegiatan AND master_rincian_angka_kredit.id_tingkatan_wi='.$identitas->jabatan))
+                ->select('master_rincian_kegiatan.rincian_kegiatan',
+                    'transaksi.kk',
+                    DB::raw('COUNT(transaksi.id_transaksi) as jumlah_kegiatan'),
+                    DB::raw('SUM(transaksi.angka_kredit_usul) as angka_kredit'),
+                    DB::raw('SUM((CASE WHEN transaksi.status1 = 2 THEN transaksi.angka_kredit1 END)) AS ak1'))
+                ->groupBy('master_rincian_kegiatan.id_rincian_kegiatan')
+                ->get();
+                 
+                $temp_keg = array('id_uu' => $uu->id, 'unsurutama' => $uu->unsur_utama, 'kegiatans' => json_decode(json_encode($kegiatans), true));
+                array_push($result, $temp_keg);
+        }
+        // dd($identitas);
+       return view('sekretariat.lpdekw', compact('result', 'identitas'));   
     }
 
     public function rekap2($id_user)
@@ -384,8 +409,6 @@ class SekretariatController extends Controller
         // dd($rekap3);
         return view('sekretariat.rekap3', compact('rekap3'));
     }
-
-
 
     /**
      * Show the form for creating a new resource.

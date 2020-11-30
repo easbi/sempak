@@ -30,7 +30,8 @@
                 <th>Total Angka Kredit Yang Diusulkan</th>
                 <th>Total Angka Kredit oleh Penilai 1</th>
                 <th>Total Angka Kredit oleh Penilai 2</th> 
-                <th>Lihat Detail</th>                      
+                <th>Lihat Detail</th>  
+                <th>Lihat LPDEKW</th>                    
               </tr>
             </thead>
             <tbody>
@@ -67,6 +68,9 @@
                 </td>
                 <td>
                   <a href="{{ action('SekretariatController@rekap2',$a[$i][0]->id_user) }}" class="nav-link"><span class="badge bg-danger">Lihat</span></a>
+                </td>
+                <td>
+                  <a href="{{ action('SekretariatController@lpdekw',$a[$i][0]->id_user) }}" class="nav-link"><span class="badge bg-danger">LPDEKW</span></a>
                 </td>
               </tr>
               @endfor
