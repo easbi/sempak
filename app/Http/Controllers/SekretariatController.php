@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Transaksi;
 use DB;
 use Auth;
+use Exception;
 
 class SekretariatController extends Controller
 {
@@ -127,6 +128,24 @@ class SekretariatController extends Controller
         }
         // dd($identitas);
        return view('sekretariat.lpdekw', compact('result', 'identitas'));   
+    }
+
+    public function generateDocx()
+    {
+        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+        $section = $phpWord->addSection();
+        $title = "LEMBAR PEMBINAAN DAN EVALUASI KINERJA WIDYAISWARA TIM PENILAI PUSAT PERIODE";
+        $section->addFontStyle('r2Style', array('font'=>'Times New Roman','bold'=>true, 'italic'=>false, 'size'=>14));
+        $section->addParagraphStyle('p2Style', array('align'=>'both', 'spaceAfter'=>100));
+        $section->addText($title, 'r2Style', 'p2Style');
+
+
+        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+        try {
+            $objWriter->save(storage_path('helloWorld.docx'));
+        } catch (Exception $e) {
+        }
+        return response()->download(storage_path('helloWorld.docx'));
     }
 
     public function rekap2($id_user)

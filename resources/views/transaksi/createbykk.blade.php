@@ -59,7 +59,7 @@
             </div>
             <div class="form-group">
               <label>Tanggal Selesai</label>
-              <input type="date" name="akhir_acara" class="form-control" min="{{date_format($periode['awal'],'Y-m-d')}}" max="{{date_format($periode['akhir'],'Y-m-d')}}">            
+              <input type="date" name="akhir_acara" class="form-control" min="{{date_format($periode['awal'],'Y-m-d')}}">            
             </div>          
             <div class="form-group">
               <label>Mata Diklat / Keterangan Lainnyaa </label>

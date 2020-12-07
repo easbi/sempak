@@ -123,6 +123,7 @@
                             </table>
                             <br>
                             <br>
+                            <a href="{{ action('SekretariatController@generateDocx') }}" class="nav-link"><span class="badge bg-danger">Unduh</span></a>
                         </div>                        
 
                     </div>
