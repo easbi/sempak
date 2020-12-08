@@ -56,11 +56,9 @@
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <span class="dropdown-item dropdown-header">Ada Pemberitahuan!</span>
           <div class="dropdown-divider"></div>
-          @if(Auth::user()->no_seri_karpeg == 'xxx')
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-envelope mr-2"></i>Anda Belum Mengupdate Profil 
-            </a>
-          @endif
+          <a href="#" class="dropdown-item">
+            <i class="fas fa-users mr-2"></i> Entri Periode Pengusulan DUPAK"
+          </a>
         </div>
       </li>
       <!-- Profile Dropdown Menu -->

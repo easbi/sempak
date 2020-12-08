@@ -21,6 +21,9 @@
 		}
 	</style>
     <div class="container-fluid">
+      <h2>Petunjuk Pengisian DOOLOH dapat di akses di <a href="https://1drv.ms/u/s!ApioQiHuoxzig6tcWGSxoafH_p1Gzw?e=CPWsSX">Sini</a></h2> 
+
+      <br>
     	<img src="{{asset('admin_lte/dist/img/dooloh2.png')}}" class="responsive">
     	<img src="{{asset('admin_lte/dist/img/dooloh1.png')}}" class="responsive">
     </div>
