@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Plotpenilai;
 use Illuminate\Http\Request;
 use DB;
+use Auth;
 
 class PlotpenilaiController extends Controller
 {
@@ -25,6 +26,17 @@ class PlotpenilaiController extends Controller
         return view('plotpenilai.index', compact('plotpenilais'));
     }
 
+    public function getPeriodePengusul()
+    {
+        $periodePengusul = DB::table('plot_penilai_dupak')
+        ->where('id_user_dinilai' , Auth::user()->id)
+        ->leftjoin('master_pegawai AS A', 'A.id', 'plot_penilai_dupak.id_user_dinilai')
+        ->select('plot_penilai_dupak.*', 'A.nama as user_dinilai')
+        ->get();
+
+        return view('plotpenilai.indexDariPengusul', compact('periodePengusul'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -36,6 +48,24 @@ class PlotpenilaiController extends Controller
         return view('plotpenilai.create', compact('namas'));
     }
 
+    public function createDariPengusul()
+    {
+        $periodePengusul = DB::table('plot_penilai_dupak')
+        ->where('id_user_dinilai' , Auth::user()->id)
+        ->leftjoin('master_pegawai AS A', 'A.id', 'plot_penilai_dupak.id_user_dinilai')
+        ->select('plot_penilai_dupak.*', 'A.nama as user_dinilai')
+        ->get();
+
+        $temp = count($periodePengusul);
+        // dd($temp);
+        if ($temp != 0) {
+            return redirect('/home');
+        } else {
+            return view('plotpenilai.createDariPengusul');            
+        }        
+        
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -44,14 +74,27 @@ class PlotpenilaiController extends Controller
      */
     public function store(Request $request)
     {
-         Plotpenilai::create([
+        $id_penilai_1 = $request->user_penilai_1;
+        $id_penilai_2 = $request->user_penilai_2;
+
+        if ($request->user_penilai_1 == NULL) {
+            $id_penilai_1 = 1;
+        }
+        if ($request->user_penilai_2 == NULL) {
+            $id_penilai_2 = 1;
+        }
+        Plotpenilai::create([
                 'id_user_dinilai' => $request->user_dinilai,
-                'id_user_penilai_1' => $request->user_penilai_1,
-                'id_user_penilai_2' => $request->user_penilai_2,
+                'id_user_penilai_1' => $id_penilai_1,
+                'id_user_penilai_2' => $id_penilai_2,
                 'p_awal' => $request->p_awal,
                 'p_akhir' => $request->p_akhir
             ]);
-        return redirect('/plotpenilai');
+        if (Auth::user()->role == 1 OR  Auth::user()->role == 4 OR Auth::user()->role == 5) {
+            return redirect('/plotpenilai');
+        } else {
+            return redirect('/home');
+        }
     }
 
     /**

@@ -121,7 +121,14 @@
               <i class="fas fa-envelope-open-text nav-icon"></i>
               <p>Entri Rincian Dupak</p>
             </a>
-          </li>       
+          </li>  
+          <li class="nav-item">
+            <a href="{{ url('/plotpenilai/createDariPengusul') }}" class="nav-link">
+              <p> </p>
+              <i class="fas fa-calendar-alt"></i>
+              <p> Entri Periode Pengajuan</p>
+            </a>
+          </li>     
           <li class="nav-item">
             <a href="{{ url('/dokutkusul') }}" class="nav-link">
               <p> </p>

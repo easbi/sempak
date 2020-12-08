@@ -56,6 +56,8 @@ Route::resource('penilai', 'PenilaiController');
 
 
 //Route untuk Pengeplot DUPAK di TU
+Route::get('plotpenilai/createDariPengusul', 'PlotpenilaiController@createDariPengusul')->name('plotpenilai.createDariPengusul');
+Route::get('plotpenilai/getPeriodePengusul', 'PlotpenilaiController@getPeriodePengusul')->name('plotpenilai.getPeriodePengusul');
 Route::resource('plotpenilai', 'PlotpenilaiController');
 
 //Route untuk Sekretariat DUPAK
