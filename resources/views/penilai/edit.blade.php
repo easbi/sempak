@@ -111,7 +111,12 @@
             </div>
             <div class="form-group">
               <label>Berkas Pendukung Lainnya</label><br>
-              <a href='{{  url('public/file_rincian_dupak', $transaksi->berkas) }}' class="btn btn-warning" target="_blank">Berkas</a>
+              @if ($transaksi->berkas != NULL)
+               <a href='{{  url('public/file_rincian_dupak', $transaksi->berkas) }}' class="btn btn-warning" target="_blank">Berkas</a>
+              @endif
+              @if ($transaksi->stmt_url != NULL)
+               <a href='{{  url($transaksi->url_berkas) }}' class="btn btn-warning" target="_blank">Berkas URL</a>
+              @endif
             </div>
 
             <br>
