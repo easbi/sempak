@@ -230,7 +230,7 @@ class PenilaiController extends Controller
             ->get();
             $pen1->push($ppd);
          }
-         dd($pen1);
+         // dd($pen1);
          // $pen1=json_decode($pen1);
          // dd($pen1[0][0]->nama); //langkah akses indeks aray
         $pen2c = DB::table ('plot_penilai_dupak')->where('id_user_penilai_2',  Auth::user()->id)->get();
