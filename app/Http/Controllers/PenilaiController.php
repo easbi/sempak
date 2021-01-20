@@ -213,6 +213,7 @@ class PenilaiController extends Controller
         //request untuk masing2 yg dinilai
         //hasilnya dimasukin ke 1 array
         $pen1c = DB::table ('plot_penilai_dupak')->where('id_user_penilai_1',  Auth::user()->id)->get();
+
         //create array temporary
         $pen1=collect();
         foreach ($pen1c as $x) {
@@ -229,6 +230,7 @@ class PenilaiController extends Controller
             ->get();
             $pen1->push($ppd);
          }
+         dd($pen1);
          // $pen1=json_decode($pen1);
          // dd($pen1[0][0]->nama); //langkah akses indeks aray
         $pen2c = DB::table ('plot_penilai_dupak')->where('id_user_penilai_2',  Auth::user()->id)->get();
@@ -248,7 +250,7 @@ class PenilaiController extends Controller
             $pen2->push($ppd);
 
         }
-        //dd($pen2);
+        // dd($pen1);
         return view('penilai.dashboard', compact('pen1', 'pen2'));
     }
 
