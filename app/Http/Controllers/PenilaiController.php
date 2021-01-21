@@ -248,7 +248,6 @@ class PenilaiController extends Controller
             ->groupBy('master_pegawai.nama')
             ->get();
             $pen2->push($ppd);
-
         }
         // dd($pen1);
         return view('penilai.dashboard', compact('pen1', 'pen2'));
