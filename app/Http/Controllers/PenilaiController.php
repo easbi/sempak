@@ -72,7 +72,7 @@ class PenilaiController extends Controller
         ->select('transaksi.*','master_unsur_utama.unsur_utama', 'master_subunsurs.kegiatan_sub_unsur', 'master_rincian_kegiatan.rincian_kegiatan', 'master_rincian_kegiatan.satuan', 'transaksi_dok_spmk_stmk.acara') 
         ->get();
         $nama_dinilai = DB::table('master_pegawai')->where('id', $id_user)->select('nama')->first();
-        // dd($transakssais);
+        // dd($transaksis);
 
         //start belajar <--> array ini tidak digunakan , hanya utk belajar saja
         //cari tahu yg dinilai ada berapa dan isinya
